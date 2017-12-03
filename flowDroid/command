@@ -1,0 +1,1 @@
+java -Xmx4g -cp sootclasses-trunk-jar-with-dependencies.jar:soot-infoflow.jar:soot-infoflow-android.jar:slf4j-api-1.7.25.jar:slf4j-simple-1.7.25.jar:axml-2.0.jar soot.jimple.infoflow.android.TestApps.Test "/home/amr/androidAmr/ArrayCopy1.apk" "/usr/local/sdk/platforms" --saveresults output
