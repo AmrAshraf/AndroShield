@@ -1,1 +1,0 @@
-java -Xmx4g -cp weka.jar:sootclasses-trunk-jar-with-dependencies.jar:soot-infoflow-android.jar:soot-infoflow.jar:SuSi.jar de.ecspride.sourcesinkfinder.SourceSinkFinder android-17.jar permissionMethodWithLabel.pscout out.pscout >results 2>errors

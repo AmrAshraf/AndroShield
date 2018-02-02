@@ -1,0 +1,3 @@
+mkdir decomp
+java -jar fernflower.jar -ren=1 .\test.jar decomp >logFernflower.txt
+//"ren" attributed used for rename obfuscated classes

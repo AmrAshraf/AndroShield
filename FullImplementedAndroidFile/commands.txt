@@ -2,3 +2,4 @@ java -Xmx3g -jar oat2dex.jar boot boot.oat
 java -Xmx3g  -jar baksmali-2.2.2.jar deodex -a 23 boot.oat //error
 sh d2j-dex2jar.sh -f /home/amr/androidAmr/reverseFrameworkFiles/framework/framework.dex //error
 sh d2j-dex2jar.sh -f /home/amr/androidAmr/reverseFrameworkFiles/framework/framework-classes2.dex /home/amr/androidAmr/reverseFrameworkFiles/framework/framework.dex /home/amr/androidAmr/reverseFrameworkFiles/framework/framework-classes3.dex
+
