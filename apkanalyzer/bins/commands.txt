@@ -1,0 +1,11 @@
+//requires  git installed or sh.exe
+sh .\apkanalyzer dex list D:\gp\wasla.apk
+sh .\apkanalyzer manifest print D:\gp\wasla.apk >manifest.txt
+sh .\apkanalyzer manifest application-id D:\gp\wasla.apk
+sh .\apkanalyzer manifest version-name D:\gp\wasla.apk
+sh .\apkanalyzer manifest version-code D:\gp\wasla.apk
+sh .\apkanalyzer manifest min-sdk D:\gp\wasla.apk
+sh .\apkanalyzer manifest target-sdk D:\gp\wasla.apk
+sh .\apkanalyzer manifest permissions D:\gp\wasla.apk
+sh .\apkanalyzer manifest debuggable D:\gp\wasla.apk
+sh .\apkanalyzer files list D:\gp\wasla.apk
