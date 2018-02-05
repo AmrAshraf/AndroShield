@@ -5,14 +5,18 @@ XmlParser::XmlParser(string relativePath)
 {
 	xmlContent =getFileLines(relativePath);
 	doc.parse<0>(&xmlContent[0]);  // 0 means set parse flags to their default values
+	int x;
+	x = 6;
 }
 
 string XmlParser::getFileLines(string relativePath)
 {
 	//Read file content to stringstream
 	ifstream file(relativePath);
+
 	stringstream buffer;
 	buffer << file.rdbuf(); //rdbuf() returns a pointer to the filebuf
+	
 	file.close();
 
 	return buffer.str();
@@ -207,6 +211,23 @@ void XmlParser::getExportedComponents()
 		}
 	}
 	exportedComponents << exportedComponentsstring;
+}
+void XmlParser::getActivities()
+{
+	xml_node<>* applicationNode = doc.first_node("manifest", 0, false)->first_node("application", 0, false);
+	//string compPermissionString;
+	string componentName;
+	string activities ;
+	
+	//Activities:
+	for (xml_node<> *child = applicationNode->first_node("activity", 0, false);child ; child = child->next_sibling("activity", 0, false))
+	{
+		componentName = (*(*child).first_attribute("android:name", 0, false)).value();
+		activities += componentName + '\n';
+	}
+	permissionsFile = ofstream("activities.txt");
+	permissionsFile << activities;
+	permissionsFile.close();
 }
 bool XmlParser::ExternalStorage()
 {

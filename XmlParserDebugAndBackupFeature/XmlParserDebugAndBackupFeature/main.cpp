@@ -1,14 +1,15 @@
-#include "XmlParser.h";
+#include "XmlParser.h"
 #include<iostream>
+
+#include<vector>
 using namespace std;
+
 void main() {
 
-	string relpath = "D:\\ReverseEngineering\\Tests\\jadx-result3\\AndroidManifest.xml";
+string relpath = "D:\\androshield\\XmlParserDebugAndBackupFeature\\test.xml";
 	XmlParser *x = new XmlParser(relpath);
 	x->getApplicationPermissions();
 	x->getComponentsPermissions();
-	x->getComponentsPermissions();
 	x->getExportedComponents();
-	int xx;
-	xx = 5;
+	x->getActivities();	
 }

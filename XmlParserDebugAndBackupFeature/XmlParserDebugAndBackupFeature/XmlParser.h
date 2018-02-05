@@ -17,6 +17,7 @@ class XmlParser
 	string getFileLines(string relativePath);
 	string isExported(xml_node<>* node);
 	string getComponentPermissionString(xml_node<>* child);
+	
 public:
 	XmlParser(string relativePath);
 
@@ -27,7 +28,7 @@ public:
 	void getApplicationPermissions(); 
 	void getComponentsPermissions();
 	void getExportedComponents();
-
+	void getActivities();
 	~XmlParser();
 };
 
