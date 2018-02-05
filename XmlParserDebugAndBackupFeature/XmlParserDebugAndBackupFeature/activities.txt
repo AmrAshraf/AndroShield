@@ -1,7 +1,0 @@
-com.discord.app.AppActivity
-com.discord.app.AppActivity$Main
-com.facebook.FacebookActivity
-com.facebook.CustomTabMainActivity
-com.google.android.gms.appinvite.PreviewActivity
-com.google.android.gms.common.api.GoogleApiActivity
-com.yalantis.ucrop.UCropActivity
