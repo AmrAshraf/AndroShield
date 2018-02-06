@@ -303,3 +303,9 @@ __pycache__/
 
 # OpenCover UI analysis results
 OpenCover/
+! apkanalyzer/
+! flowDroid/
+! FullImplementedAndroidFile/
+! JarToJava/
+! susi/
+! TestApks/
