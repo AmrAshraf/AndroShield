@@ -1,0 +1,14 @@
+Services:
+com.discord.utilities.fcm.NotificationClient$FCMInstanceIdService
+com.discord.utilities.fcm.NotificationClient$FCMMessagingService
+com.google.firebase.messaging.FirebaseMessagingService
+com.google.firebase.iid.FirebaseInstanceIdService
+Activities:
+com.discord.app.AppActivity$Main
+com.google.android.gms.appinvite.PreviewActivity
+Receivers:
+com.discord.utilities.io.NetworkUtils$NetworkDownloadReceiver
+com.discord.utilities.receiver.CampaignReceiver
+com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver
+com.google.firebase.iid.FirebaseInstanceIdReceiver
+Providers:
