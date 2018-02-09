@@ -6,9 +6,6 @@ int main(int argc, const char * argv[])
 
 	string relpath = "D:\\androshield\\XmlParserDebugAndBackupFeature\\test.xml";
 	XmlParser *x = new XmlParser(relpath);
-	x->getApplicationPermissions();
-	x->getComponentsPermissions();
-	x->getExportedComponents();
 	x->getActivities();
 	return 0;
 }

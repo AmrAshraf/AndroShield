@@ -1,12 +1,10 @@
 #include "XmlParser.h"
 #include <fstream>;
-#include <map>;
+
 XmlParser::XmlParser(string relativePath)
 {
-	xmlContent =getFileLines(relativePath);
+	xmlContent = getFileLines(relativePath);
 	doc.parse<0>(&xmlContent[0]);  // 0 means set parse flags to their default values
-	int x;
-	x = 6;
 }
 
 string XmlParser::getFileLines(string relativePath)
@@ -16,7 +14,7 @@ string XmlParser::getFileLines(string relativePath)
 
 	stringstream buffer;
 	buffer << file.rdbuf(); //rdbuf() returns a pointer to the filebuf
-	
+
 	file.close();
 
 	return buffer.str();
@@ -47,48 +45,49 @@ bool XmlParser::DebugModeEnabled()
 	}
 	return false;
 }
-void XmlParser::getApplicationPermissions()
+void XmlParser::getAppPermissionsExplicitProtectionLevels()
 {
-	string permissionsString="Application:\n";
-
 	string permissionName;
 	string permissionProtectionLevel;
-
-	permissionsFile= ofstream("permissions.txt");
-
-	map<string,string> permissionsWithProtectionLevels;
 	xml_node<>* manifestNode = doc.first_node("manifest", 0, false);
 
-	//Loop to find permissions with explicit protectiion levels
+	//Loop to find permissions with explicit protection levels
 	for (xml_node<> *child = manifestNode->first_node("permission", 0, false); child; child = child->next_sibling("permission", 0, false))
 	{
-		permissionProtectionLevel= (*(*child).first_attribute("android:protectionLevel", 0, false)).value();
+		permissionProtectionLevel = (*(*child).first_attribute("android:protectionLevel", 0, false)).value();
 		permissionName = (*(*child).first_attribute("android:name", 0, false)).value();
 
-		if(!permissionProtectionLevel.empty())
+		if (!permissionProtectionLevel.empty())
+		{
 			permissionsWithProtectionLevels[permissionName] = permissionProtectionLevel;
-
-		permissionsString += permissionName+'\t'+ permissionProtectionLevel + '\n';
+			appPermissionsWithProtectionLevels.push_back(make_pair(permissionName, permissionProtectionLevel));
+		}
 	}
-	//Loop to find permissions without protection levels
+}
+void XmlParser::getAppPermissionsWithoutProtectionLevels()
+{
+	string permissionName;
+	xml_node<>* manifestNode = doc.first_node("manifest", 0, false);
+
 	for (xml_node<> *child = manifestNode->first_node("uses-permission", 0, false); child; child = child->next_sibling("uses-permission", 0, false))
 	{
 		permissionName = (*(*child).first_attribute("android:name", 0, false)).value();
 
-		if(permissionsWithProtectionLevels[permissionName].empty())
-			permissionsString += permissionName +'\n';
+		if (permissionsWithProtectionLevels[permissionName].empty())
+			appPermissionsWithoutProtectionLevels.push_back(permissionName);
 	}
-	//Loop to find permissions declared specifically for SDK 23 or higher
+}
+void XmlParser::getAppPermissionsForSDK23OrHigher()
+{
+	string permissionName;
+	xml_node<>* manifestNode = doc.first_node("manifest", 0, false);
 	for (xml_node<> *child = manifestNode->first_node("uses-permission-sdk-23", 0, false); child; child = child->next_sibling("uses-permission-sdk-23", 0, false))
 	{
 		permissionName = (*(*child).first_attribute("android:name", 0, false)).value();
 
 		if (permissionsWithProtectionLevels[permissionName].empty())
-			permissionsString += permissionName + '\n';
+			appPermissionsForSDK23orHigher.push_back(permissionName);
 	}
-
-	//write string to file
-	permissionsFile << permissionsString;
 }
 string XmlParser::getComponentPermissionString(xml_node<>* child)
 {
@@ -96,52 +95,81 @@ string XmlParser::getComponentPermissionString(xml_node<>* child)
 	if ((*child).first_attribute("android:permission", 0, false))
 	{
 		string permissionName = (*(*child).first_attribute("android:permission", 0, false)).value();
-		return (componentName + '\t' + permissionName + '\n');
+		return (permissionName);
 	}
 	else return "";
 }
-void XmlParser::getComponentsPermissions()
+void XmlParser::getActivitiesPermissions()
 {
-	xml_node<>* applicationNode = doc.first_node("manifest", 0, false)->first_node("application",0,false);
+	xml_node<>* applicationNode = doc.first_node("manifest", 0, false)->first_node("application", 0, false);
 	string compPermissionString;
 	string componentName;
-	string permissionsString = "Activities:\n";
-	//Activities:
-	for(xml_node<> *child = applicationNode->first_node("activity", 0, false); child; child = child->next_sibling("activity", 0, false))
+	for (xml_node<> *child = applicationNode->first_node("activity", 0, false); child; child = child->next_sibling("activity", 0, false))
 	{
+		componentName = (*(*child).first_attribute("android:name", 0, false)).value();
 		compPermissionString = getComponentPermissionString(child);
 		if (compPermissionString != "")
-			permissionsString += compPermissionString;
-		componentName= (*(*child).first_attribute("android:name", 0, false)).value();
+		{
+			activitiesPermissions.push_back(make_pair(componentName, compPermissionString));
+		}
+		else {
+			activitiesPermissions.push_back(make_pair(componentName, ""));
+		}
 	}
-	permissionsString += "Services:\n";
-	//Services:
+}
+void XmlParser::getServicesPermissions()
+{
+	xml_node<>* applicationNode = doc.first_node("manifest", 0, false)->first_node("application", 0, false);
+	string compPermissionString;
+	string componentName;
 	for (xml_node<> *child = applicationNode->first_node("service", 0, false); child; child = child->next_sibling("service", 0, false))
 	{
+		componentName = (*(*child).first_attribute("android:name", 0, false)).value();
 		compPermissionString = getComponentPermissionString(child);
 		if (compPermissionString != "")
-			permissionsString += compPermissionString;
-		componentName = (*(*child).first_attribute("android:name", 0, false)).value();
+		{
+			servicesPermissions.push_back(make_pair(componentName, compPermissionString));
+		}
+		else {
+			servicesPermissions.push_back(make_pair(componentName, ""));
+		}
 	}
-	permissionsString += "Providers:\n";
-	//Content Providers:
+}
+void XmlParser::getProvidersPermissions()
+{
+	xml_node<>* applicationNode = doc.first_node("manifest", 0, false)->first_node("application", 0, false);
+	string compPermissionString;
+	string componentName;
 	for (xml_node<> *child = applicationNode->first_node("provider", 0, false); child; child = child->next_sibling("provider", 0, false))
 	{
+		componentName = (*(*child).first_attribute("android:name", 0, false)).value();
 		compPermissionString = getComponentPermissionString(child);
 		if (compPermissionString != "")
-			permissionsString += compPermissionString;
-		componentName = (*(*child).first_attribute("android:name", 0, false)).value();
+		{
+			contentProvidersPermissions.push_back(make_pair(componentName, compPermissionString));
+		}
+		else {
+			contentProvidersPermissions.push_back(make_pair(componentName, ""));
+		}
 	}
-	permissionsString += "Receivers:\n";
-	//Broadcast Receivers:
-	for(xml_node<> *child = applicationNode->first_node("receiver", 0, false); child; child = child->next_sibling("receiver", 0, false))
+}
+void XmlParser::getReceiversPermissions()
+{
+	xml_node<>* applicationNode = doc.first_node("manifest", 0, false)->first_node("application", 0, false);
+	string compPermissionString;
+	string componentName;
+	for (xml_node<> *child = applicationNode->first_node("receiver", 0, false); child; child = child->next_sibling("receiver", 0, false))
 	{
+		componentName = (*(*child).first_attribute("android:name", 0, false)).value();
 		compPermissionString = getComponentPermissionString(child);
 		if (compPermissionString != "")
-			permissionsString += compPermissionString;
-		componentName = (*(*child).first_attribute("android:name", 0, false)).value();
+		{
+			broadcastReceiversPermissions.push_back(make_pair(componentName, compPermissionString));
+		}
+		else {
+			broadcastReceiversPermissions.push_back(make_pair(componentName, ""));
+		}
 	}
-	permissionsFile << permissionsString;
 }
 string XmlParser::isExported(xml_node<>* child)
 {
@@ -151,46 +179,108 @@ string XmlParser::isExported(xml_node<>* child)
 	if (child->first_attribute("android:exported", 0, false))
 		exportedAttrValue = child->first_attribute("android:exported", 0, false)->value();
 
-	if (exportedAttrValue!="false" && (child->first_node("intent-filter", 0, false) || exportedAttrValue == "true"))
+	if (exportedAttrValue != "false" && (child->first_node("intent-filter", 0, false) || exportedAttrValue == "true"))
 		componentName = child->first_attribute("android:name", 0, false)->value();
 	return componentName;
 }
-void XmlParser::getExportedComponents()
+void XmlParser::getActivities()
 {
-	exportedComponents = ofstream("ExportedComponents.txt");
-	string exportedComponentsstring = "Services:\n";
+	xml_node<>* applicationNode = doc.first_node("manifest", 0, false)->first_node("application", 0, false);
 	string componentName;
-	bool exportAttributeDefaultValueIsTrue = false;
-	xml_node<>* sdkNode = doc.first_node("manifest", 0, false)->first_node("uses-sdk", 0, false);
-	xml_node<>* applicationNode = doc.first_node("manifest", 0, false)->first_node("application",0,false);
-	string exportedAttrValue = "";
 
-	char* tarSDK = sdkNode->first_attribute("android:targetSdkVersion", 0, false)->value();
-
-	if (tarSDK && atoi(tarSDK) <= 16)
-		exportAttributeDefaultValueIsTrue = true;
-
-	//exported Services:
+	for (xml_node<> *child = applicationNode->first_node("activity", 0, false); child; child = child->next_sibling("activity", 0, false))
+	{
+		componentName = (*(*child).first_attribute("android:name", 0, false)).value();
+		activities.push_back(componentName);
+	}
+}
+void XmlParser::getServices()
+{
+	xml_node<>* applicationNode = doc.first_node("manifest", 0, false)->first_node("application", 0, false);
+	string componentName;
 	for (xml_node<> *child = applicationNode->first_node("service", 0, false); child; child = child->next_sibling("service", 0, false))
 	{
-		componentName = isExported(child);
-		if (componentName=="")
-			continue;
-		else
-			exportedComponentsstring += componentName + '\n';
+		componentName = (*(*child).first_attribute("android:name", 0, false)).value();
+		services.push_back(componentName);
 	}
-	//exported Activities:
-	exportedComponentsstring += "Activities:\n";
+}
+void XmlParser::getContentProviders()
+{
+	xml_node<>* applicationNode = doc.first_node("manifest", 0, false)->first_node("application", 0, false);
+	string componentName;
+	for (xml_node<> *child = applicationNode->first_node("provider", 0, false); child; child = child->next_sibling("provider", 0, false))
+	{
+		componentName = (*(*child).first_attribute("android:name", 0, false)).value();
+		contentProviders.push_back(componentName);
+	}
+}
+void XmlParser::getBroadcastReceivers()
+{
+	xml_node<>* applicationNode = doc.first_node("manifest", 0, false)->first_node("application", 0, false);
+	string componentName;
+	for (xml_node<> *child = applicationNode->first_node("receiver", 0, false); child; child = child->next_sibling("receiver", 0, false))
+	{
+		componentName = (*(*child).first_attribute("android:name", 0, false)).value();
+		broadcastReceivers.push_back(componentName);
+	}
+}
+void XmlParser::getExportedActivities()
+{
+	string componentName;
+	xml_node<>* sdkNode = doc.first_node("manifest", 0, false)->first_node("uses-sdk", 0, false);
+	xml_node<>* applicationNode = doc.first_node("manifest", 0, false)->first_node("application", 0, false);
 	for (xml_node<> *child = applicationNode->first_node("activity", 0, false); child; child = child->next_sibling("activity", 0, false))
 	{
 		componentName = isExported(child);
 		if (componentName == "")
 			continue;
 		else
-			exportedComponentsstring += componentName + '\n';
+			exportedActivities.push_back(componentName);
 	}
-	//exported receivers:
-	exportedComponentsstring += "Receivers:\n";
+}
+void XmlParser::getExportedServices()
+{
+	string componentName;
+	xml_node<>* sdkNode = doc.first_node("manifest", 0, false)->first_node("uses-sdk", 0, false);
+	xml_node<>* applicationNode = doc.first_node("manifest", 0, false)->first_node("application", 0, false);
+	for (xml_node<> *child = applicationNode->first_node("service", 0, false); child; child = child->next_sibling("service", 0, false))
+	{
+		componentName = isExported(child);
+		if (componentName == "")
+			continue;
+		else
+			exportedServices.push_back(componentName);
+	}
+}
+void XmlParser::getExportedContentProviders()
+{
+	string componentName;
+	bool exportAttributeDefaultValueIsTrue = false;
+	xml_node<>* sdkNode = doc.first_node("manifest", 0, false)->first_node("uses-sdk", 0, false);
+	xml_node<>* applicationNode = doc.first_node("manifest", 0, false)->first_node("application", 0, false);
+
+	char* tarSDK = sdkNode->first_attribute("android:targetSdkVersion", 0, false)->value();
+
+	if (tarSDK && atoi(tarSDK) <= 16)
+		exportAttributeDefaultValueIsTrue = true;
+
+	for (xml_node<> *child = applicationNode->first_node("provider", 0, false); child; child = child->next_sibling("provider", 0, false))
+	{
+		if ((child->first_attribute("android:exported", 0, false) && child->first_attribute("android:exported", 0, false)->value() == "true") ||
+			(!child->first_attribute("android:exported", 0, false) && exportAttributeDefaultValueIsTrue))
+		{
+			componentName = child->first_attribute("android:name", 0, false)->value();
+			exportedContentProviders.push_back(componentName);
+		}
+	}
+}
+void XmlParser::getExportedBroadcastReceivers()
+{
+	string exportedComponentsstring = "Services:\n";
+	string componentName;
+	bool exportAttributeDefaultValueIsTrue = false;
+	xml_node<>* sdkNode = doc.first_node("manifest", 0, false)->first_node("uses-sdk", 0, false);
+	xml_node<>* applicationNode = doc.first_node("manifest", 0, false)->first_node("application", 0, false);
 	for (xml_node<> *child = applicationNode->first_node("receiver", 0, false); child; child = child->next_sibling("receiver", 0, false))
 	{
 		componentName = isExported(child);
@@ -199,35 +289,6 @@ void XmlParser::getExportedComponents()
 		else
 			exportedComponentsstring += componentName + '\n';
 	}
-	//exported providers:
-	exportedComponentsstring += "Providers:\n";
-	for (xml_node<> *child = applicationNode->first_node("provider", 0, false); child; child = child->next_sibling("provider", 0, false))
-	{
-		if ((child->first_attribute("android:exported", 0, false) && child->first_attribute("android:exported", 0, false)->value() == "true") ||
-			 (!child->first_attribute("android:exported", 0, false) && exportAttributeDefaultValueIsTrue))
-		{
-			componentName = child->first_attribute("android:name", 0, false)->value();
-			exportedComponentsstring += componentName + '\n';
-		}
-	}
-	exportedComponents << exportedComponentsstring;
-}
-void XmlParser::getActivities()
-{
-	xml_node<>* applicationNode = doc.first_node("manifest", 0, false)->first_node("application", 0, false);
-	//string compPermissionString;
-	string componentName;
-	string activities ;
-	
-	//Activities:
-	for (xml_node<> *child = applicationNode->first_node("activity", 0, false);child ; child = child->next_sibling("activity", 0, false))
-	{
-		componentName = (*(*child).first_attribute("android:name", 0, false)).value();
-		activities += componentName + '\n';
-	}
-	permissionsFile = ofstream("activities.txt");
-	permissionsFile << activities;
-	permissionsFile.close();
 }
 bool XmlParser::ExternalStorage()
 {
