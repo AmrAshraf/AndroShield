@@ -2,10 +2,8 @@
 #include<vector>
 #include"ApkInfo.h"
 using namespace std;
-int main(int argc, const char * argv[])
+void testExtractInfoFromAPK()
 {
-	//vector<string> v;
-	//ApkInfo::split(v, "a b ", " ");
 	string path = "D:\\androshield\\androShield\\test";
 	string path2 = "D:\\androshield\\androShield\\test2";
 	std::string lines = "package: name='com.example.wasla' versionCode='1' versionName='1.0' platformBuildVersionName=''\r\n"
@@ -122,8 +120,12 @@ int main(int argc, const char * argv[])
 		"supports-any-density: 'true'\r\n"
 		"locales: '--_--' 'af' 'am' 'ar' 'az' 'be' 'bg' 'bn' 'bs' 'ca' 'cs' 'da' 'de' 'el' 'en-AU' 'en-GB' 'en-IN' 'es' 'es-US' 'et' 'eu' 'fa' 'fi' 'fr' 'fr-CA' 'gl' 'gu' 'hi' 'hr' 'hu' 'hy' 'in' 'is' 'it' 'iw' 'ja' 'ka' 'kk' 'km' 'kn' 'ko' 'ky' 'lo' 'lt' 'lv' 'mk' 'ml' 'mn' 'mr' 'ms' 'my' 'nb' 'ne' 'nl' 'pa' 'pl' 'pt' 'pt-BR' 'pt-PT' 'ro' 'ru' 'si' 'sk' 'sl' 'sq' 'sr' 'sr-Latn' 'sv' 'sw' 'ta' 'te' 'th' 'tl' 'tr' 'uk' 'ur' 'uz' 'vi' 'zh-CN' 'zh-HK' 'zh-TW' 'zu'\r\n"
 		"densities: '160' '240' '320' '480' '640' '65534'\r\n";
-	ApkInfo apkInfo (path,true);
+	ApkInfo apkInfo(path, true);
 	ApkInfo apkInfo2(lines, false);
 	ApkInfo apkInfo3(path2, true);
+}
+int main(int argc, const char * argv[])
+{
+	testExtractInfoFromAPK();
 	return 0;
 }
