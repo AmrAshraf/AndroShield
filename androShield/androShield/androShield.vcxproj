@@ -113,6 +113,10 @@
   <ItemGroup>
     <ClCompile Include="ApkInfo.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="XmlParser.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="XmlParser.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ApkInfo.h" />

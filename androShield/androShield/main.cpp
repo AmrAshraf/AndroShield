@@ -1,6 +1,8 @@
 #include<iostream>
 #include<vector>
 #include"ApkInfo.h"
+#include "XmlParser.h"
+
 using namespace std;
 void testExtractInfoFromAPK()
 {
@@ -126,6 +128,12 @@ void testExtractInfoFromAPK()
 }
 int main(int argc, const char * argv[])
 {
+	//Amr test
 	testExtractInfoFromAPK();
+	//Nouran test
+	string relpath = ".\\..\\test.xml";
+	XmlParser *x = new XmlParser(relpath);
+	x->getActivities();
+
 	return 0;
 }
