@@ -1,5 +1,8 @@
 #pragma once
 using namespace System;
+using namespace System::Collections::Generic;
+#include"Vulnerability.h"
+using namespace Types;
 namespace APKInfoExtraction {
 	public	value struct SupportedArchitectures
 	{
@@ -23,6 +26,6 @@ namespace APKInfoExtraction {
 		void getInfoFromManifest(String^ apkPath, Boolean& backupFlag, Boolean& externalStorageFlag,
 			cli::array<String^>^% exportedActivities, cli::array<String^>^% exportedServices,
 			cli::array<String^>^% exportedContentProviders, cli::array<String^>^% exportedBroadCastReceivers);
-		
+		property List<Vulnerability>^ vulnerabilities;
 	};
 }

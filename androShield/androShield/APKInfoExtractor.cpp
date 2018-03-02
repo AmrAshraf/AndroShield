@@ -10,6 +10,7 @@ namespace APKInfoExtraction {
 
 	APKInfoExtractor::APKInfoExtractor()
 	{
+		vulnerabilities = gcnew List<Vulnerability>();
 	}
 	void APKInfoExtractor::getInfoFromManifest(String^ apkPath, Boolean & backupFlag, Boolean & externalStorageFlag, cli::array<String^>^% exportedActivities, cli::array<String^>^% exportedServices, cli::array<String^>^% exportedContentProviders, cli::array<String^>^% exportedBroadCastReceivers)
 	{
@@ -27,6 +28,26 @@ namespace APKInfoExtraction {
 		xmlParser->grebExportedBroadcastReceivers();
 		backupFlag = xmlParser->getBackupFlag();
 		externalStorageFlag = xmlParser->getExternalStorageFlag();
+		if (backupFlag)
+		{
+			//create new vulnerability
+			Vulnerability vul;
+			vul.extraInfo = "Backup flag is enabled" ;
+			vul.type = "static";
+			vul.category = "Backup";
+			vul.severity = 0.4;
+			vulnerabilities->Add(vul);
+		}
+		if (externalStorageFlag)
+		{
+			//create new vulnerability
+			Vulnerability vul;
+			vul.extraInfo = "External Storage flag is enabled";
+			vul.type = "static";
+			vul.category = "External Storage";
+			vul.severity = 0.4;
+			vulnerabilities->Add(vul);
+		}
 		vector<string> tempExportedActivities = xmlParser->getExportedActivities();
 		vector<string> tempExportedBroadcasts = xmlParser->getExportedBroadcastReceivers();
 		vector<string> tempExportedContentProviders = xmlParser->getExportedContentProviders();
@@ -40,21 +61,49 @@ namespace APKInfoExtraction {
 		{
 			String^ t = gcnew String(&tempExportedActivities[i][0]);
 			exportedActivities[i] = t;
+			//create new vulnerability
+			Vulnerability vul;
+			vul.extraInfo = "Exported Activity : "+t;
+			vul.type = "static";
+			vul.category = "Exported Intent";
+			vul.severity = 0.25;
+			vulnerabilities->Add(vul);
 		}
 		for (int i = 0; i < tempExportedBroadcasts.size(); ++i)
 		{
 			String^ t = gcnew String(&tempExportedBroadcasts[i][0]);
 			exportedBroadCastReceivers[i] = t;
+			//create new vulnerability
+			Vulnerability vul;
+			vul.extraInfo = "Exported Broad Cast Receiver : " + t;
+			vul.type = "static";
+			vul.category = "Exported Intent";
+			vul.severity = 0.25;
+			vulnerabilities->Add(vul);
 		}
 		for (int i = 0; i < tempExportedContentProviders.size(); ++i)
 		{
 			String^ t = gcnew String(&tempExportedContentProviders[i][0]);
 			exportedContentProviders[i] = t;
+			//create new vulnerability
+			Vulnerability vul;
+			vul.extraInfo = "Exported Content Provider : " + t;
+			vul.type = "static";
+			vul.category = "Exported Intent";
+			vul.severity = 0.25;
+			vulnerabilities->Add(vul);
 		}
 		for (int i = 0; i < tempExportedServices.size(); ++i)
 		{
 			String^ t = gcnew String(&tempExportedServices[i][0]);
 			exportedServices[i] = t;
+			//create new vulnerability
+			Vulnerability vul;
+			vul.extraInfo = "Exported Service : " + t;
+			vul.type = "static";
+			vul.category = "Exported Intent";
+			vul.severity = 0.25;
+			vulnerabilities->Add(vul);
 		}
 	}
 	String^ APKInfoExtractor::getInfoFromApk(String^ apkPath, Boolean % debuggableFlag, Boolean % testFlag, cli::array<String^>^% launchableActivities,
@@ -69,6 +118,16 @@ namespace APKInfoExtraction {
 
 		ApkInfo* apkInfo = new ApkInfo(".\\apkInfoLines.txt", true);
 		debuggableFlag = apkInfo->getAppDebuggableFlag();
+		if (debuggableFlag)
+		{
+			//create new vulnerability
+			Vulnerability vul;
+			vul.extraInfo = "Debug mode flag is enabled";
+			vul.type = "static";
+			vul.category = "Debug mode";
+			vul.severity = 0.8;
+			vulnerabilities->Add(vul);
+		}
 		testFlag = apkInfo->getTestOnlyFlag();
 		vector<string> tempLaunchableActivities = apkInfo->getLaunchableActivities();
 		vector<string> tempPermissions = apkInfo->getPermissions();

@@ -3,6 +3,7 @@
 #include"ApkInfo.h"
 #include "XmlParser.h"
 #include"APKInfoExtractor.h"
+#include"TaintAnalyser.h"
 using namespace std;
 void testExtractInfoFromAPK()
 {
@@ -161,13 +162,12 @@ int main(int argc, const char * argv[])
 	String^ targetSDKVersion;
 	APKInfoExtraction::SupportedArchitectures supportedArchitectures;
 
-		
 	temp->getInfoFromApk(apkPath, debuggableFlag, testFlag, launchableActivities, Permissions, versionName,versionCode, packageName, minSDKVersion, targetSDKVersion, supportedArchitectures);
 	temp->getInfoFromManifest(apkPath, b1, b2, a1, a2, a3, a4);
-
-
+	
 	cout << testFlag << endl << b1 << endl ;
 	system("pause");*/
-
+	//	TaintAnalysis::TaintAnalyser^ analyser = gcnew TaintAnalysis::TaintAnalyser("D:\\gp\\apks\\ArrayCopy1.apk");
+	
 	return 0;
 }

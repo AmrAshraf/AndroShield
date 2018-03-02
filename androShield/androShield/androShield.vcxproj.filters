@@ -1,14 +1,43 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="ApkInfo.cpp" />
-    <ClCompile Include="XmlParser.cpp" />
-    <ClCompile Include="APKInfoExtractor.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ApkInfo.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="APKInfoExtractor.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="TaintAnalyser.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="XmlParser.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="XmlParser.h" />
-    <ClInclude Include="ApkInfo.h" />
-    <ClInclude Include="APKInfoExtractor.h" />
+    <ClInclude Include="ApkInfo.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="APKInfoExtractor.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="TaintAnalyser.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Vulnerability.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="XmlParser.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="sources">
+      <UniqueIdentifier>{f0525d15-3e07-4518-ae49-67ee1ac5e0da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers">
+      <UniqueIdentifier>{be47946e-0a4d-4779-943f-ffa1dfb8e32d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
