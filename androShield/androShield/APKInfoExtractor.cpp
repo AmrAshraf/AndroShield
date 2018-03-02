@@ -11,10 +11,14 @@ namespace APKInfoExtraction {
 	APKInfoExtractor::APKInfoExtractor()
 	{
 	}
-	void APKInfoExtractor::getInfoFromManifest(String^ manifestPath, Boolean & backupFlag, Boolean & externalStorageFlag, cli::array<String^>^% exportedActivities, cli::array<String^>^% exportedServices, cli::array<String^>^% exportedContentProviders, cli::array<String^>^% exportedBroadCastReceivers)
+	void APKInfoExtractor::getInfoFromManifest(String^ apkPath, Boolean & backupFlag, Boolean & externalStorageFlag, cli::array<String^>^% exportedActivities, cli::array<String^>^% exportedServices, cli::array<String^>^% exportedContentProviders, cli::array<String^>^% exportedBroadCastReceivers)
 	{
+		string command = "sh ..\\apkanalyzer\\script\\apkanalyzer manifest print ";
 		msclr::interop::marshal_context context;
-		XmlParser* xmlParser = new XmlParser(context.marshal_as<const char*>(manifestPath));
+		command += context.marshal_as<const char*>(apkPath);
+		command += " > manifest.xml";
+		system(command.c_str());
+		XmlParser* xmlParser = new XmlParser(".\\manifest.xml");
 		xmlParser->grebBackupModeEnabledFlag();
 		xmlParser->grebExternalStorageFlag();
 		xmlParser->grebExportedActivities();
@@ -57,10 +61,13 @@ namespace APKInfoExtraction {
 		cli::array<String^>^% permissions, String^% versionName, String^% versionCode, String^% packageName, String^% minSDKVersion,
 		String^% targetSDKVersion, SupportedArchitectures % supportedArchitectures)
 	{
+		string command = "..\\apkanalyzer\\build-tools\\27.0.3\\aapt.exe dump badging ";
 		msclr::interop::marshal_context context;
-		system("dir>hello.txt");
-		//ApkInfo* apkInfo = new ApkInfo(context.marshal_as<const char*>(apkPath), true);
-		ApkInfo* apkInfo = new ApkInfo("D:\\androshield\\androShield\\test", true);
+		command += context.marshal_as<const char*>(apkPath);
+		command += " > apkInfoLines.txt";
+		system(command.c_str());
+
+		ApkInfo* apkInfo = new ApkInfo(".\\apkInfoLines.txt", true);
 		debuggableFlag = apkInfo->getAppDebuggableFlag();
 		testFlag = apkInfo->getTestOnlyFlag();
 		vector<string> tempLaunchableActivities = apkInfo->getLaunchableActivities();

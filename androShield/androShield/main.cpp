@@ -136,10 +136,10 @@ int main(int argc, const char * argv[])
 	XmlParser *x = new XmlParser(relpath);
 	x->getActivities();
 	*/
-	
-	/*APKInfoExtraction::APKInfoExtractor ^temp=gcnew APKInfoExtraction::APKInfoExtractor();
+	/*
+	APKInfoExtraction::APKInfoExtractor ^temp=gcnew APKInfoExtraction::APKInfoExtractor();
 
-	String^ apkPath;
+	String^ apkPath="D:\\gp\\apks\\wasla.apk";
 	Boolean  debuggableFlag;
 	Boolean  testFlag;
 
@@ -161,11 +161,13 @@ int main(int argc, const char * argv[])
 	String^ targetSDKVersion;
 	APKInfoExtraction::SupportedArchitectures supportedArchitectures;
 
-	String^ tt=	temp->getInfoFromApk(apkPath, debuggableFlag, testFlag, launchableActivities, Permissions, versionName,versionCode, packageName, minSDKVersion, targetSDKVersion, supportedArchitectures);
-	temp->getInfoFromManifest(tt, b1, b2, a1, a2, a3, a4);*/
-	
-	int x;
-	x = 6;
+		
+	temp->getInfoFromApk(apkPath, debuggableFlag, testFlag, launchableActivities, Permissions, versionName,versionCode, packageName, minSDKVersion, targetSDKVersion, supportedArchitectures);
+	temp->getInfoFromManifest(apkPath, b1, b2, a1, a2, a3, a4);
+
+
+	cout << testFlag << endl << b1 << endl ;
+	system("pause");*/
 
 	return 0;
 }

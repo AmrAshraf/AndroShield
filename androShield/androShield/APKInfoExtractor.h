@@ -20,7 +20,7 @@ namespace APKInfoExtraction {
 		String^ getInfoFromApk(String^ apkPath, Boolean % debuggableFlag, Boolean % testFlag, cli::array<String^>^% launchableActivities,
 			cli::array<String^>^% permissions, String^% versionName, String^% versionCode, String^% packageName, String^% minSDKVersion,
 			String^% targetSDKVersion, SupportedArchitectures% supportedArchitectures);
-		void getInfoFromManifest(String^ manifestPath, Boolean& backupFlag, Boolean& externalStorageFlag,
+		void getInfoFromManifest(String^ apkPath, Boolean& backupFlag, Boolean& externalStorageFlag,
 			cli::array<String^>^% exportedActivities, cli::array<String^>^% exportedServices,
 			cli::array<String^>^% exportedContentProviders, cli::array<String^>^% exportedBroadCastReceivers);
 		
