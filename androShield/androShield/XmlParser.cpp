@@ -1,16 +1,20 @@
 #include "XmlParser.h"
 #include <fstream>;
 
-XmlParser::XmlParser(string relativePath)
+
+XmlParser::XmlParser(string manifestPath)
 {
-	xmlContent = getFileLines(relativePath);
+	xmlContent = getFileLines(manifestPath);
 	doc.parse<0>(&xmlContent[0]);  // 0 means set parse flags to their default values
 }
 
-string XmlParser::getFileLines(string relativePath)
+
+
+
+string XmlParser::getFileLines(string manifestPath)
 {
 	//Read file content to stringstream
-	ifstream file(relativePath);
+	ifstream file(manifestPath);
 
 	stringstream buffer;
 	buffer << file.rdbuf(); //rdbuf() returns a pointer to the filebuf
@@ -19,7 +23,7 @@ string XmlParser::getFileLines(string relativePath)
 
 	return buffer.str();
 }
-bool XmlParser::BackupModeEnabled()
+void XmlParser::grebBackupModeEnabledFlag()
 {
 	xml_node<> *applicationElement = doc.first_node()->first_node("application", 0, false);
 	if (applicationElement->first_attribute("android:allowBackup") != NULL)
@@ -27,12 +31,12 @@ bool XmlParser::BackupModeEnabled()
 		xml_attribute<> *allowBackupAttr = applicationElement->first_attribute("android:allowBackup", 0, false);
 		string attrValue = allowBackupAttr->value();
 		if (allowBackupAttr == NULL || attrValue == "false")
-			return false;
-		else return true;
+			backupFlag= false;
+		backupFlag = true;
 	}
-	return false;
+	backupFlag = false;
 }
-bool XmlParser::DebugModeEnabled()
+void XmlParser::grebDebugModeEnabledFlag()
 {
 	xml_node<>* node = doc.first_node()->first_node("application", 0, false);
 	if (node->first_attribute("android:debuggable") != NULL)
@@ -40,12 +44,12 @@ bool XmlParser::DebugModeEnabled()
 		xml_attribute<> *debuggableAttr = node->first_attribute("android:debuggable", 0, false);
 		string attrVal = debuggableAttr->value();
 		if (debuggableAttr == NULL || attrVal == "false")
-			return false;
-		else return true;
+			debugFlag = false;
+		debugFlag = true;
 	}
-	return false;
+	debugFlag = false;
 }
-void XmlParser::getAppPermissionsExplicitProtectionLevels()
+void XmlParser::grebAppPermissionsExplicitProtectionLevels()
 {
 	string permissionName;
 	string permissionProtectionLevel;
@@ -64,7 +68,7 @@ void XmlParser::getAppPermissionsExplicitProtectionLevels()
 		}
 	}
 }
-void XmlParser::getAppPermissionsWithoutProtectionLevels()
+void XmlParser::grebAppPermissionsWithoutProtectionLevels()
 {
 	string permissionName;
 	xml_node<>* manifestNode = doc.first_node("manifest", 0, false);
@@ -77,7 +81,7 @@ void XmlParser::getAppPermissionsWithoutProtectionLevels()
 			appPermissionsWithoutProtectionLevels.push_back(permissionName);
 	}
 }
-void XmlParser::getAppPermissionsForSDK23OrHigher()
+void XmlParser::grebAppPermissionsForSDK23OrHigher()
 {
 	string permissionName;
 	xml_node<>* manifestNode = doc.first_node("manifest", 0, false);
@@ -99,7 +103,7 @@ string XmlParser::getComponentPermissionString(xml_node<>* child)
 	}
 	else return "";
 }
-void XmlParser::getActivitiesPermissions()
+void XmlParser::grebActivitiesPermissions()
 {
 	xml_node<>* applicationNode = doc.first_node("manifest", 0, false)->first_node("application", 0, false);
 	string compPermissionString;
@@ -117,7 +121,7 @@ void XmlParser::getActivitiesPermissions()
 		}
 	}
 }
-void XmlParser::getServicesPermissions()
+void XmlParser::grebServicesPermissions()
 {
 	xml_node<>* applicationNode = doc.first_node("manifest", 0, false)->first_node("application", 0, false);
 	string compPermissionString;
@@ -135,7 +139,7 @@ void XmlParser::getServicesPermissions()
 		}
 	}
 }
-void XmlParser::getProvidersPermissions()
+void XmlParser::grebProvidersPermissions()
 {
 	xml_node<>* applicationNode = doc.first_node("manifest", 0, false)->first_node("application", 0, false);
 	string compPermissionString;
@@ -153,7 +157,7 @@ void XmlParser::getProvidersPermissions()
 		}
 	}
 }
-void XmlParser::getReceiversPermissions()
+void XmlParser::grebReceiversPermissions()
 {
 	xml_node<>* applicationNode = doc.first_node("manifest", 0, false)->first_node("application", 0, false);
 	string compPermissionString;
@@ -183,7 +187,7 @@ string XmlParser::isExported(xml_node<>* child)
 		componentName = child->first_attribute("android:name", 0, false)->value();
 	return componentName;
 }
-void XmlParser::getActivities()
+void XmlParser::grebActivities()
 {
 	xml_node<>* applicationNode = doc.first_node("manifest", 0, false)->first_node("application", 0, false);
 	string componentName;
@@ -194,7 +198,7 @@ void XmlParser::getActivities()
 		activities.push_back(componentName);
 	}
 }
-void XmlParser::getServices()
+void XmlParser::grebServices()
 {
 	xml_node<>* applicationNode = doc.first_node("manifest", 0, false)->first_node("application", 0, false);
 	string componentName;
@@ -204,7 +208,7 @@ void XmlParser::getServices()
 		services.push_back(componentName);
 	}
 }
-void XmlParser::getContentProviders()
+void XmlParser::grebContentProviders()
 {
 	xml_node<>* applicationNode = doc.first_node("manifest", 0, false)->first_node("application", 0, false);
 	string componentName;
@@ -214,7 +218,7 @@ void XmlParser::getContentProviders()
 		contentProviders.push_back(componentName);
 	}
 }
-void XmlParser::getBroadcastReceivers()
+void XmlParser::grebBroadcastReceivers()
 {
 	xml_node<>* applicationNode = doc.first_node("manifest", 0, false)->first_node("application", 0, false);
 	string componentName;
@@ -224,7 +228,7 @@ void XmlParser::getBroadcastReceivers()
 		broadcastReceivers.push_back(componentName);
 	}
 }
-void XmlParser::getExportedActivities()
+void XmlParser::grebExportedActivities()
 {
 	string componentName;
 	xml_node<>* sdkNode = doc.first_node("manifest", 0, false)->first_node("uses-sdk", 0, false);
@@ -238,7 +242,7 @@ void XmlParser::getExportedActivities()
 			exportedActivities.push_back(componentName);
 	}
 }
-void XmlParser::getExportedServices()
+void XmlParser::grebExportedServices()
 {
 	string componentName;
 	xml_node<>* sdkNode = doc.first_node("manifest", 0, false)->first_node("uses-sdk", 0, false);
@@ -252,7 +256,7 @@ void XmlParser::getExportedServices()
 			exportedServices.push_back(componentName);
 	}
 }
-void XmlParser::getExportedContentProviders()
+void XmlParser::grebExportedContentProviders()
 {
 	string componentName;
 	bool exportAttributeDefaultValueIsTrue = false;
@@ -274,7 +278,7 @@ void XmlParser::getExportedContentProviders()
 		}
 	}
 }
-void XmlParser::getExportedBroadcastReceivers()
+void XmlParser::grebExportedBroadcastReceivers()
 {
 	string exportedComponentsstring = "Services:\n";
 	string componentName;
@@ -290,7 +294,31 @@ void XmlParser::getExportedBroadcastReceivers()
 			exportedComponentsstring += componentName + '\n';
 	}
 }
-bool XmlParser::ExternalStorage()
+bool XmlParser::getBackupFlag()
+{
+	return backupFlag;
+}
+bool XmlParser::getExternalStorageFlag()
+{
+	return externalStorageFlag;
+}
+vector<string> XmlParser::getExportedActivities()
+{
+	return exportedActivities;
+}
+vector<string> XmlParser::getExportedServices()
+{
+	return exportedServices;
+}
+vector<string> XmlParser::getExportedContentProviders()
+{
+	return exportedContentProviders;
+}
+vector<string> XmlParser::getExportedBroadcastReceivers()
+{
+	return exportedBroadcastReceivers;
+}
+void XmlParser::grebExternalStorageFlag()
 {
 	xml_node<>* manifestNode = doc.first_node("manifest", 0, false);
 	string permissionName = "";
@@ -298,9 +326,9 @@ bool XmlParser::ExternalStorage()
 	{
 		permissionName = (*(*child).first_attribute("android:name", 0, false)).value();
 		if (permissionName == "android.permission.WRITE_EXTERNAL_STORAGE")
-			return true;
+			externalStorageFlag= true;
 	}
-	return false;
+	externalStorageFlag = false;
 }
 XmlParser::~XmlParser()
 {

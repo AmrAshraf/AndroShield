@@ -20,7 +20,17 @@ public:
 	void parse(const string & content);
 	void readFile(const string & filePathOrContent,  string & content);
 	static void split(vector<string>& v, string s, string delimiter);
-
+	string getPackageName();
+	string getVersionCode();
+	string getVersionName();
+	string getMinSDKVersion();
+	string getTargetSDKVersion();
+	
+	vector<string> getPermissions();
+	vector<string> getLaunchableActivities();
+	SupportedArchi getSupportedArchi();
+	bool getTestOnlyFlag();
+	bool getAppDebuggableFlag();
 private:
 	string packageName;
 	string versionCode;

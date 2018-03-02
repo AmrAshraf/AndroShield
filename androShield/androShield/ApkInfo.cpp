@@ -123,3 +123,53 @@ void ApkInfo::split(vector<string> &v, string s, string delimiter)
 	if (temp.size() != 0)
 		v.push_back(temp);
 }
+
+string ApkInfo::getPackageName()
+{
+	return packageName;
+}
+
+vector<string> ApkInfo::getPermissions()
+{
+	return permissions;
+}
+
+vector<string> ApkInfo::getLaunchableActivities()
+{
+	return launchableActivities;
+}
+
+ApkInfo::SupportedArchi ApkInfo::getSupportedArchi()
+{
+	return supportedArchi;
+}
+
+bool ApkInfo::getTestOnlyFlag()
+{
+	return testOnly;
+}
+
+bool ApkInfo::getAppDebuggableFlag()
+{
+	return appDebuggable;
+}
+
+string ApkInfo::getVersionCode()
+{
+	return versionCode;
+}
+
+string ApkInfo::getVersionName()
+{
+	return versionName;
+}
+
+string ApkInfo::getMinSDKVersion()
+{
+	return minSDKVersion;
+}
+
+string ApkInfo::getTargetSDKVersion()
+{
+	return targetSDKVersion;
+}

@@ -41,33 +41,43 @@ class XmlParser
 	string getFileLines(string relativePath);
 	string isExported(xml_node<>* node);
 	string getComponentPermissionString(xml_node<>* child);
+	bool debugFlag;
+	bool backupFlag;
+	bool externalStorageFlag;
 
 public:
-	XmlParser(string relativePath);
 
-	bool DebugModeEnabled();
-	bool BackupModeEnabled();
-	bool ExternalStorage();
+	XmlParser(string manifestPath);
 
-	void getAppPermissionsExplicitProtectionLevels();
-	void getAppPermissionsWithoutProtectionLevels();
-	void getAppPermissionsForSDK23OrHigher();
+	void grebDebugModeEnabledFlag();
+	void grebBackupModeEnabledFlag();
+	void grebExternalStorageFlag();
 
-	void getActivitiesPermissions();
-	void getServicesPermissions();
-	void getProvidersPermissions();
-	void getReceiversPermissions();
+	void grebAppPermissionsExplicitProtectionLevels();
+	void grebAppPermissionsWithoutProtectionLevels();
+	void grebAppPermissionsForSDK23OrHigher();
 
-	void getActivities();
-	void getServices();
-	void getContentProviders();
-	void getBroadcastReceivers();
+	void grebActivitiesPermissions();
+	void grebServicesPermissions();
+	void grebProvidersPermissions();
+	void grebReceiversPermissions();
 
-	void getExportedActivities();
-	void getExportedServices();
-	void getExportedContentProviders();
-	void getExportedBroadcastReceivers();
+	void grebActivities();
+	void grebServices();
+	void grebContentProviders();
+	void grebBroadcastReceivers();
 
+	void grebExportedActivities();
+	void grebExportedServices();
+	void grebExportedContentProviders();
+	void grebExportedBroadcastReceivers();
+
+	bool getBackupFlag();
+	bool getExternalStorageFlag();
+	vector<string> getExportedActivities();
+	vector<string> getExportedServices();
+	vector<string> getExportedContentProviders();
+	vector<string> getExportedBroadcastReceivers();
 	~XmlParser();
 };
 

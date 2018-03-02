@@ -2,7 +2,7 @@
 #include<vector>
 #include"ApkInfo.h"
 #include "XmlParser.h"
-
+#include"APKInfoExtractor.h"
 using namespace std;
 void testExtractInfoFromAPK()
 {
@@ -128,12 +128,44 @@ void testExtractInfoFromAPK()
 }
 int main(int argc, const char * argv[])
 {
+	/*
 	//Amr test
 	testExtractInfoFromAPK();
 	//Nouran test
 	string relpath = ".\\..\\test.xml";
 	XmlParser *x = new XmlParser(relpath);
 	x->getActivities();
+	*/
+	
+	/*APKInfoExtraction::APKInfoExtractor ^temp=gcnew APKInfoExtraction::APKInfoExtractor();
+
+	String^ apkPath;
+	Boolean  debuggableFlag;
+	Boolean  testFlag;
+
+	Boolean  b1;
+	Boolean  b2;
+
+	cli::array<String^>^ launchableActivities;
+	cli::array<String^>^ Permissions;
+
+
+	cli::array<String^>^ a1;
+	cli::array<String^>^ a2;
+	cli::array<String^>^ a3;
+	cli::array<String^>^ a4;
+	String^ versionName;
+	String^ versionCode;
+	String^ packageName;
+	String^ minSDKVersion;
+	String^ targetSDKVersion;
+	APKInfoExtraction::SupportedArchitectures supportedArchitectures;
+
+	String^ tt=	temp->getInfoFromApk(apkPath, debuggableFlag, testFlag, launchableActivities, Permissions, versionName,versionCode, packageName, minSDKVersion, targetSDKVersion, supportedArchitectures);
+	temp->getInfoFromManifest(tt, b1, b2, a1, a2, a3, a4);*/
+	
+	int x;
+	x = 6;
 
 	return 0;
 }
