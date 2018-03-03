@@ -12,7 +12,7 @@ namespace APKInfoExtraction {
 	{
 		vulnerabilities = gcnew List<Vulnerability>();
 	}
-	void APKInfoExtractor::getInfoFromManifest(String^ apkPath, Boolean & backupFlag, Boolean & externalStorageFlag, cli::array<String^>^% exportedActivities, cli::array<String^>^% exportedServices, cli::array<String^>^% exportedContentProviders, cli::array<String^>^% exportedBroadCastReceivers)
+	void APKInfoExtractor::getInfoFromManifest(String^ apkPath, Boolean% backupFlag, Boolean% externalStorageFlag)
 	{
 		string command = "sh ..\\apkanalyzer\\script\\apkanalyzer manifest print ";
 		msclr::interop::marshal_context context;
@@ -53,10 +53,10 @@ namespace APKInfoExtraction {
 		vector<string> tempExportedContentProviders = xmlParser->getExportedContentProviders();
 		vector<string> tempExportedServices = xmlParser->getExportedServices();
 
-		exportedActivities = gcnew cli::array<String^>(tempExportedActivities.size());
-		exportedBroadCastReceivers = gcnew cli::array<String^>(tempExportedBroadcasts.size());
-		exportedContentProviders = gcnew cli::array<String^>(tempExportedContentProviders.size());
-		exportedServices = gcnew cli::array<String^>(tempExportedServices.size());
+		cli::array<String^>^exportedActivities = gcnew cli::array<String^>(tempExportedActivities.size());
+		cli::array<String^>^	exportedBroadCastReceivers = gcnew cli::array<String^>(tempExportedBroadcasts.size());
+		cli::array<String^>^exportedContentProviders = gcnew cli::array<String^>(tempExportedContentProviders.size());
+		cli::array<String^>^	exportedServices = gcnew cli::array<String^>(tempExportedServices.size());
 		for (int i = 0; i < tempExportedActivities.size(); ++i)
 		{
 			String^ t = gcnew String(&tempExportedActivities[i][0]);
@@ -65,7 +65,7 @@ namespace APKInfoExtraction {
 			Vulnerability vul;
 			vul.extraInfo = "Exported Activity : "+t;
 			vul.type = "static";
-			vul.category = "Exported Intent";
+			vul.category = "Exported Component";
 			vul.severity = 0.25;
 			vulnerabilities->Add(vul);
 		}
@@ -77,7 +77,7 @@ namespace APKInfoExtraction {
 			Vulnerability vul;
 			vul.extraInfo = "Exported Broad Cast Receiver : " + t;
 			vul.type = "static";
-			vul.category = "Exported Intent";
+			vul.category = "Exported Component";
 			vul.severity = 0.25;
 			vulnerabilities->Add(vul);
 		}
@@ -89,7 +89,7 @@ namespace APKInfoExtraction {
 			Vulnerability vul;
 			vul.extraInfo = "Exported Content Provider : " + t;
 			vul.type = "static";
-			vul.category = "Exported Intent";
+			vul.category = "Exported Component";
 			vul.severity = 0.25;
 			vulnerabilities->Add(vul);
 		}
@@ -101,7 +101,7 @@ namespace APKInfoExtraction {
 			Vulnerability vul;
 			vul.extraInfo = "Exported Service : " + t;
 			vul.type = "static";
-			vul.category = "Exported Intent";
+			vul.category = "Exported Component";
 			vul.severity = 0.25;
 			vulnerabilities->Add(vul);
 		}
