@@ -14,12 +14,13 @@ namespace AndroShield
         userAccountTable userAccount;
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-          
-           userAccount = new userAccountTable();
+            userAccount = new userAccountTable();
             androDatabase = new databaseLayer();
         }
-
+        protected void btn_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("signUpPage.aspx");
+        }
         protected void Button1_Click(object sender, EventArgs e)
         {
             string email = emailTxt.Text.ToString();
@@ -30,6 +31,8 @@ namespace AndroShield
             {
                 Session["username"] = email;
                 Session["userAccount"] = userAccount;
+                masterPage myMaster = (masterPage)Page.Master;
+                //myMaster.signupButtonText="My Profile";
                 Response.Redirect("userHomePage.aspx");
             }
             else

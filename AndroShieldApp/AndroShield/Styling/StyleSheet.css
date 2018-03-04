@@ -10,15 +10,10 @@ body {
     padding-top: 60px;
     background: #1b2021;
 }
-button {
-    text-decoration: none;
-    background: none;
-    border: none;
-}
 button:hover {
     cursor: pointer;
 }
-button:focus {
+button:focus , input[type="button"] , input[type="image"] {
     outline: 0;
 }
 a {
@@ -42,6 +37,16 @@ label {
     display: inline-block;
     min-width: 150px;
 }
+#userEmail {
+    text-decoration: none;
+    color: #F7F1DE;
+    margin-left: -10px;
+}
+#userEmail:hover {
+    text-decoration: underline;
+    font-weight: bolder;
+    cursor: pointer;
+}
 #xSymbol, #exclamation {
     width: 15px;
     height: 15px;
@@ -54,6 +59,13 @@ label {
 #logoWord {
     width: 290px;
     height: 55px;
+}
+.top {
+    position: relative;
+    color: #F7F1DE;
+    float: right;
+    margin: 20px 5px 5px 10px;
+    left: 1px;
 }
 .topMenu {
     position: fixed
@@ -87,13 +99,11 @@ label {
     border: none;
     border-radius: 5px;
     box-shadow: 0 1px #999;
-    white-space: normal;
 }
 .headerButton {
     position: absolute;
     top: 5px;
     right: 5px;
-    white-space: normal;
 }
 .headerPhoto {
     float: left;
@@ -128,19 +138,22 @@ label {
     position: relative;
 }
 .topRight {
+    background-color: #1b2021;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 10px;
+    display: inline-block;
+    font-size: larger;
     position: relative;
     float: right;
-    padding: 12px 10px;
-    font-size:larger;
     margin: 5px 5px 5px 10px;
-    text-decoration: none;
     top: 0px;
     left: 1px;
-    width: 74px;
 }
 .topRight:hover {
     background: #424242;
     border: none;
+    cursor: pointer;
     border-radius: 5px;
     opacity: 1;
 }

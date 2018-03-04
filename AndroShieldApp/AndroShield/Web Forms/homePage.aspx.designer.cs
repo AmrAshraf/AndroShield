@@ -13,6 +13,15 @@ namespace AndroShield {
     public partial class homepage {
         
         /// <summary>
+        /// signupNav control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputButton signupNav;
+        
+        /// <summary>
         /// loginForm control.
         /// </summary>
         /// <remarks>
@@ -67,15 +76,6 @@ namespace AndroShield {
         protected global::System.Web.UI.WebControls.TextBox passwordTxt;
         
         /// <summary>
-        /// tryAgain control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button tryAgain;
-        
-        /// <summary>
         /// CheckBox1 control.
         /// </summary>
         /// <remarks>
@@ -101,5 +101,17 @@ namespace AndroShield {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button signupButton;
+        
+        /// <summary>
+        /// Master property.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated property.
+        /// </remarks>
+        public new AndroShield.masterPage Master {
+            get {
+                return ((AndroShield.masterPage)(base.Master));
+            }
+        }
     }
 }

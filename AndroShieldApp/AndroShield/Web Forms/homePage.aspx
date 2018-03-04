@@ -1,6 +1,16 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/masterPage.Master" AutoEventWireup="true" CodeBehind="homePage.aspx.cs" Inherits="AndroShield.homepage" %>
+<%@ MasterType VirtualPath="~/masterPage.Master" %> 
 <asp:Content ID="headContent" ContentPlaceHolderID="head" runat="server">
+        <script src="/JavaScript/jquery.js"></script>
+    <script src="/JavaScript/JavaScript.js"></script>
+
 </asp:Content>
+
+<asp:Content ID="content1" ContentPlaceHolderID="navContentPlaceHolder" runat="server">
+            <input name="sign" type="button" id="signupNav" runat="server" onserverclick="btn_Click" class="topRight topMenu lightText" value="Sign Up" CausesValidation="false" />
+
+</asp:Content>
+
 <asp:Content ID="content" ContentPlaceHolderID="pageContent" runat="server">
 
     <form id="loginForm" runat="server" method="post">

@@ -91,6 +91,7 @@
     <Content Include="Web Forms\incorrectCredentialsPage.aspx" />
     <Content Include="Web Forms\signUpPage.aspx" />
     <Content Include="Web Forms\userHomePage.aspx" />
+    <Content Include="Web Forms\userProfilePage.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +145,13 @@
     <Compile Include="Web Forms\userHomePage.aspx.designer.cs">
       <DependentUpon>userHomePage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Web Forms\userProfilePage.aspx.cs">
+      <DependentUpon>userProfilePage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Web Forms\userProfilePage.aspx.designer.cs">
+      <DependentUpon>userProfilePage.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>
@@ -178,6 +186,10 @@
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

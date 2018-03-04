@@ -10,15 +10,18 @@
 
     <link rel="stylesheet" href="/Styling/StyleSheet.css" />
 
-    <script src="JavaScript/jquery.js"></script>
-    <script src="JavaScript/JavaScript.js"></script>
+    <script src="/JavaScript/jquery.js"></script>
+    <script src="/JavaScript/JavaScript.js"></script>
 </head>
 <body>
     <nav class="navigationBar darkBackground">
-        <a href="/Web Forms/homePage.aspx"><img ID="logo" src="/Images/AndroShield logo.png" class="topLeft topMenu"/></a>
-        <a href="/Web Forms/homePage.aspx"><img ID="logoWord" src="/Images/AndroShield word.jpg" class="topLeft topMenu"/></a>
-        <a href="http://google.com" class="topRight topMenu lightText">About</a>
-        <a href="/Web Forms/signUpPage.aspx" class="topRight topMenu lightText">Sign Up</a>
+        <input type="image" runat="server" id="logo" src="/Images/AndroShield logo.png" class="topLeft topMenu" CausesValidation="false"/>
+        <input type="image" runat="server" id="logoWord" src="/Images/AndroShield word.jpg" class="topLeft topMenu" CausesValidation="false"/>
+        <input name="about" type="button" id="aboutNav" runat="server" class="topRight topMenu lightText" value="About" CausesValidation="false"/>
+        <asp:ContentPlaceHolder ID="navContentPlaceHolder" runat="server">
+
+        </asp:ContentPlaceHolder>
+
     </nav>
     <asp:ContentPlaceHolder ID="pageContent" runat="server">
 

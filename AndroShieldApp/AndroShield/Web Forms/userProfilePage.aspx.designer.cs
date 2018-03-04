@@ -10,25 +10,25 @@
 namespace AndroShield.Web_Forms {
     
     
-    public partial class userHomePage {
+    public partial class userProfilePage {
         
         /// <summary>
-        /// signupNav control.
+        /// signupNavUser control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputButton signupNav;
+        protected global::System.Web.UI.HtmlControls.HtmlInputButton signupNavUser;
         
         /// <summary>
-        /// logoutButton control.
+        /// logoutButtonUser control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputButton logoutButton;
+        protected global::System.Web.UI.HtmlControls.HtmlInputButton logoutButtonUser;
         
         /// <summary>
         /// userEmail control.
@@ -38,23 +38,5 @@ namespace AndroShield.Web_Forms {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink userEmail;
-        
-        /// <summary>
-        /// uploadApkButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button uploadApkButton;
-        
-        /// <summary>
-        /// viewReportsButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button viewReportsButton;
     }
 }

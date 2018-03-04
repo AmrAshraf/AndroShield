@@ -7,21 +7,24 @@ using System.Web.UI.WebControls;
 
 namespace AndroShield.Web_Forms
 {
-    public partial class userHomePage : System.Web.UI.Page
+    public partial class userProfilePage : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             userEmail.Text = Session["username"].ToString();
+            logoutButtonUser.ServerClick += new System.EventHandler(this.Logout);
+
         }
-        protected void profile_Click(object sender, EventArgs e)
+        protected void Profile(object sender, EventArgs e)
         {
             Response.Redirect("userProfilePage.aspx");
         }
-        protected void logout_Click(object sender, EventArgs e)
+        protected void Logout(object sender, EventArgs e)
         {
             Session["username"] = "";
             Session["userAccount"] = "";
             Response.Redirect("homePage.aspx");
         }
+
     }
 }
