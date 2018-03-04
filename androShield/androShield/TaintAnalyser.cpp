@@ -1,21 +1,24 @@
+#include <windows.h>
 #include "TaintAnalyser.h"
+
+
 #include <string> 
 namespace TaintAnalysis {
 	void TaintAnalyser::changeApkPathInConfigurationFile(String ^ apkPath)
 	{
 		XmlDocument^ xmlDoc = gcnew XmlDocument();	
-		xmlDoc->Load("..\\taintAnalysis\\configuration.xml");
+		xmlDoc->Load("C:\\taintAnalysis\\configuration.xml");
 		XmlNodeList^ list=xmlDoc->GetElementsByTagName("targetAPK");
 		list[0]->InnerXml = apkPath;
-		xmlDoc->Save("..\\taintAnalysis\\configuration.xml");
+		xmlDoc->Save("C:\\taintAnalysis\\configuration.xml");
 		
 	}
 	void TaintAnalyser::extractTaintData()
 	{
 		XmlDocument^ xmlDoc = gcnew XmlDocument();
-		xmlDoc->Load("taintOutputFile.xml");
+		xmlDoc->Load("C:\\GPTempDir\\taintOutputFile.xml");
 		XmlNodeList^ results = xmlDoc->GetElementsByTagName("Result");
-		for (size_t i = 0; i < results->Count; ++i)
+		for (int i = 0; i < results->Count; ++i)
 		{
 			XmlNode^ result = results[i];
 			XmlNodeList^ sink_sources = result->ChildNodes;
@@ -27,7 +30,7 @@ namespace TaintAnalysis {
 			
 				XmlNodeList^ sources = sink_sources[1]->ChildNodes;
 			
-			for (size_t j = 0;j < sources->Count; ++j)//sources
+			for (int j = 0;j < sources->Count; ++j)//sources
 			{
 					XmlNode^ source = sources[j];
 					extraInfo += "Source : " + source->Attributes["Statement"]->Value + Environment::NewLine
@@ -49,8 +52,21 @@ namespace TaintAnalysis {
 
 		vulnerabilities = gcnew List<Vulnerability>();
 		changeApkPathInConfigurationFile(apkPath);
-		std::string command = "java -Xmx3g -jar ..\\taintAnalysis\\soot-infoflow-cmd.jar -c ..\\taintAnalysis\\configuration.xml ";
-		system(command.c_str());
+		std::string command = "/C java -Xmx3g -jar C:\\taintAnalysis\\soot-infoflow-cmd.jar -c C:\\taintAnalysis\\configuration.xml ";
+		//system(command.c_str());
+		//HINSTANCE retVal = ShellExecute(NULL, "open", "cmd", command.c_str(), "C:\\", SW_HIDE);
+		SHELLEXECUTEINFO ShExecInfo = { 0 };
+		ShExecInfo.cbSize = sizeof(SHELLEXECUTEINFO);
+		ShExecInfo.fMask = SEE_MASK_NOCLOSEPROCESS;
+		ShExecInfo.hwnd = NULL;
+		ShExecInfo.lpVerb = NULL;
+		ShExecInfo.lpFile = "cmd";
+		ShExecInfo.lpParameters = command.c_str();
+		ShExecInfo.lpDirectory = "C:\\";
+		ShExecInfo.nShow = SW_HIDE;
+		ShExecInfo.hInstApp = NULL;
+		ShellExecuteEx(&ShExecInfo);
+		WaitForSingleObject(ShExecInfo.hProcess, INFINITE);
 		extractTaintData();
 	}
 }

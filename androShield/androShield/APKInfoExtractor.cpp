@@ -1,6 +1,5 @@
-
-#include <msclr\marshal.h>  
-
+#include <msclr/marshal.h>
+#include <windows.h>
 #include "APKInfoExtractor.h"
 #include"ApkInfo.h"
 #include"XmlParser.h"
@@ -14,12 +13,27 @@ namespace APKInfoExtraction {
 	}
 	void APKInfoExtractor::getInfoFromManifest(String^ apkPath, Boolean% backupFlag, Boolean% externalStorageFlag)
 	{
-		string command = "sh ..\\apkanalyzer\\script\\apkanalyzer manifest print ";
+		string command = "/C sh C:\\apkanalyzer\\script\\apkanalyzer manifest print ";
 		msclr::interop::marshal_context context;
 		command += context.marshal_as<const char*>(apkPath);
-		command += " > manifest.xml";
-		system(command.c_str());
-		XmlParser* xmlParser = new XmlParser(".\\manifest.xml");
+		command += " > C:\\GPTempDir\\manifest.xml";
+		//system(command.c_str());
+		SHELLEXECUTEINFO ShExecInfo = { 0 };
+		ShExecInfo.cbSize = sizeof(SHELLEXECUTEINFO);
+		ShExecInfo.fMask = SEE_MASK_NOCLOSEPROCESS;
+		ShExecInfo.hwnd = NULL;
+		ShExecInfo.lpVerb = NULL;
+		ShExecInfo.lpFile = "cmd";
+		ShExecInfo.lpParameters = command.c_str();
+		ShExecInfo.lpDirectory = "C:\\";
+		ShExecInfo.nShow = SW_HIDE;
+		ShExecInfo.hInstApp = NULL;
+		ShellExecuteEx(&ShExecInfo);
+		WaitForSingleObject(ShExecInfo.hProcess, INFINITE);
+
+
+	//	HINSTANCE retVal = ShellExecute(NULL, "open", "cmd", command.c_str(), "C:\\", SW_HIDE);
+		XmlParser* xmlParser = new XmlParser("C:\\GPTempDir\\manifest.xml");
 		xmlParser->grebBackupModeEnabledFlag();
 		xmlParser->grebExternalStorageFlag();
 		xmlParser->grebExportedActivities();
@@ -52,7 +66,7 @@ namespace APKInfoExtraction {
 		vector<string> tempExportedBroadcasts = xmlParser->getExportedBroadcastReceivers();
 		vector<string> tempExportedContentProviders = xmlParser->getExportedContentProviders();
 		vector<string> tempExportedServices = xmlParser->getExportedServices();
-
+		delete xmlParser;
 		cli::array<String^>^exportedActivities = gcnew cli::array<String^>(tempExportedActivities.size());
 		cli::array<String^>^	exportedBroadCastReceivers = gcnew cli::array<String^>(tempExportedBroadcasts.size());
 		cli::array<String^>^exportedContentProviders = gcnew cli::array<String^>(tempExportedContentProviders.size());
@@ -106,17 +120,33 @@ namespace APKInfoExtraction {
 			vulnerabilities->Add(vul);
 		}
 	}
-	String^ APKInfoExtractor::getInfoFromApk(String^ apkPath, Boolean % debuggableFlag, Boolean % testFlag, cli::array<String^>^% launchableActivities,
+	void APKInfoExtractor::getInfoFromApk(String^ apkPath, Boolean % debuggableFlag, Boolean % testFlag, cli::array<String^>^% launchableActivities,
 		cli::array<String^>^% permissions, String^% versionName, String^% versionCode, String^% packageName, String^% minSDKVersion,
 		String^% targetSDKVersion, SupportedArchitectures % supportedArchitectures)
 	{
-		string command = "..\\apkanalyzer\\build-tools\\27.0.3\\aapt.exe dump badging ";
+		
+		
+		string command = "/C C:\\apkanalyzer\\build-tools\\27.0.3\\aapt.exe dump badging ";
 		msclr::interop::marshal_context context;
 		command += context.marshal_as<const char*>(apkPath);
-		command += " > apkInfoLines.txt";
-		system(command.c_str());
+		command += " > C:\\GPTempDir\\apkInfoLines.txt";
+		//system(command.c_str());
+		SHELLEXECUTEINFO ShExecInfo = { 0 };
+		ShExecInfo.cbSize = sizeof(SHELLEXECUTEINFO);
+		ShExecInfo.fMask = SEE_MASK_NOCLOSEPROCESS;
+		ShExecInfo.hwnd = NULL;
+		ShExecInfo.lpVerb = NULL;
+		ShExecInfo.lpFile = "cmd";
+		ShExecInfo.lpParameters = command.c_str();
+		ShExecInfo.lpDirectory = "C:\\";
+		ShExecInfo.nShow = SW_HIDE;
+		ShExecInfo.hInstApp = NULL;
+		ShellExecuteEx(&ShExecInfo);
+		WaitForSingleObject(ShExecInfo.hProcess, INFINITE);
 
-		ApkInfo* apkInfo = new ApkInfo(".\\apkInfoLines.txt", true);
+
+		//HINSTANCE retVal = ShellExecute(NULL, "open","cmd", command.c_str(), "C:\\", SW_HIDE);
+		ApkInfo* apkInfo = new ApkInfo("C:\\GPTempDir\\apkInfoLines.txt", true);
 		debuggableFlag = apkInfo->getAppDebuggableFlag();
 		if (debuggableFlag)
 		{
@@ -159,8 +189,7 @@ namespace APKInfoExtraction {
 		supportedArchitectures.x86 = temp.x86;
 		supportedArchitectures.x86_64 = temp.x86_64;
 		delete apkInfo;
-
-		return ("dsa");
 		
+	
 	}
 }

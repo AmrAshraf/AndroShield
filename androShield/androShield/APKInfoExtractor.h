@@ -1,5 +1,6 @@
 #pragma once
-using namespace System;
+
+
 using namespace System::Collections::Generic;
 #include"Vulnerability.h"
 using namespace Types;
@@ -20,7 +21,7 @@ namespace APKInfoExtraction {
 	{
 	public:
 		APKInfoExtractor();
-		String^ getInfoFromApk(String^ apkPath, Boolean % debuggableFlag, Boolean % testFlag, cli::array<String^>^% launchableActivities,
+		void getInfoFromApk(String^ apkPath, Boolean % debuggableFlag, Boolean % testFlag, cli::array<String^>^% launchableActivities,
 			cli::array<String^>^% permissions, String^% versionName, String^% versionCode, String^% packageName, String^% minSDKVersion,
 			String^% targetSDKVersion, SupportedArchitectures% supportedArchitectures);
 		void getInfoFromManifest(String^ apkPath, Boolean% backupFlag, Boolean% externalStorageFlag);

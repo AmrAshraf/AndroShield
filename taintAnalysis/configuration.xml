@@ -41,7 +41,7 @@
   <sources defaultMode="UseAllButExcluded">
   </sources>
   <inputFiles>
-    <outputFile>taintOutputFile.xml</outputFile>
+    <outputFile>C:\GPTempDir\taintOutputFile.xml</outputFile>
     <androidPlatform>..\taintAnalysis\platforms</androidPlatform>
     <sourceSinkFile>..\taintAnalysis\out_rifl-4.2.rifl</sourceSinkFile>
     <targetAPK>D:\gp\apks\ArrayCopy1.apk</targetAPK>
