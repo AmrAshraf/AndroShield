@@ -11,9 +11,8 @@ namespace AndroShield.Web_Forms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            ClientScript.GetPostBackEventReference(this, string.Empty);
             userEmail.Text = Session["username"].ToString();
-            logoutButtonUser.ServerClick += new System.EventHandler(this.Logout);
-
         }
         protected void Profile(object sender, EventArgs e)
         {

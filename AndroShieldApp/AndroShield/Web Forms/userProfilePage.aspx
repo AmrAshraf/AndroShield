@@ -2,8 +2,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="navContentPlaceHolder" runat="server">
-    <input name="signup" type="button" id="signupNavUser" runat="server" class="topRight topMenu lightText" value="My Profile" CausesValidation="false"/>
-    <input name="logoutBtn" type="button" id="logoutButtonUser" runat="server" onserverclick="Logout"  class="topRight topMenu lightText" value="Log Out" CausesValidation="false" />
+    <input name="signupNavUser" type="button" id="signupNavUser" runat="server" class="topRight topMenu lightText" value="My Profile" CausesValidation="false"/>
+    <input name="logoutButtonUser" type="button" id="logoutButtonUser" runat="server" onserverclick="Logout" class="topRight topMenu lightText" value="Log Out" causesvalidation="false" />
     <asp:HyperLink ID="userEmail" class="lightText top" runat="server" NavigateUrl="~/Web Forms/userProfilePage.aspx">HyperLink</asp:HyperLink><p class="lightText top">Welcome, </p>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="pageContent" runat="server">
