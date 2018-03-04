@@ -14,11 +14,7 @@ namespace AndroShield.Web_Forms
             ClientScript.GetPostBackEventReference(this, string.Empty);
             userEmail.Text = Session["username"].ToString();
         }
-        protected void Profile(object sender, EventArgs e)
-        {
-            Response.Redirect("userProfilePage.aspx");
-        }
-        protected void Logout(object sender, EventArgs e)
+        protected void logout_Click(object sender, EventArgs e)
         {
             Session["username"] = "";
             Session["userAccount"] = "";

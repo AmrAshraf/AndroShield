@@ -7,13 +7,11 @@
 </asp:Content>
 
 <asp:Content ID="content1" ContentPlaceHolderID="navContentPlaceHolder" runat="server">
-            <input name="sign" type="button" id="signupNav" runat="server" onserverclick="btn_Click" class="topRight topMenu lightText" value="Sign Up" CausesValidation="false" />
-
+    <asp:Button ID="navSignUp" runat="server" Text="Sign Up" class="topRight topMenu lightText" CausesValidation="false" OnClick="navSignUp_Click"/>
 </asp:Content>
 
 <asp:Content ID="content" ContentPlaceHolderID="pageContent" runat="server">
 
-    <form id="loginForm" runat="server" method="post">
         <div class="wrapper lightBackground">
             <div class="loginContainer">
                 <asp:RequiredFieldValidator ID="emailRequiredValidator" runat="server" ErrorMessage="*" ControlToValidate="emailTxt" SetFocusOnError="true" ForeColor="Red" Display="Dynamic"></asp:RequiredFieldValidator><label for="uname" class="boldText lightText negativeMargin">Email</label><asp:RegularExpressionValidator ID="emailValidator" ControlToValidate="emailTxt" runat="server" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ErrorMessage="*Invalid" ForeColor="Red" SetFocusOnError="true" Display="Dynamic"></asp:RegularExpressionValidator><br />
@@ -30,7 +28,6 @@
                 <asp:Button ID="signupButton" CausesValidation="false" runat="server" Text="Sign Up"  class="homeButtons lightText boldText" OnClick="signupButton_Click" />
             </div>
         </div>
-    </form>
 </asp:Content>
 
 

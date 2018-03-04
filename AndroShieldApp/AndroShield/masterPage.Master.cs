@@ -13,5 +13,52 @@ namespace AndroShield
         {
 
         }
+
+        protected void aboutNav_ServerClick(object sender, EventArgs e)
+        {
+            Response.Redirect("aboutPage.aspx");
+        }
+
+        //protected void logoWord_ServerClick(object sender, EventArgs e)
+        //{
+        //    if (Session["username"] == null || Session["username"].ToString() == "")
+        //    {
+        //        Response.Redirect("homePage.aspx");
+        //    }
+        //    else
+        //    {
+        //        Response.Redirect("userHomePage.aspx");
+        //    }
+
+        //}
+
+        protected void navAbout_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("aboutPage.aspx");
+        }
+
+        protected void logo_Click(object sender, EventArgs e)
+        {
+            if (Session["username"] == null || Session["username"].ToString() == "")
+            {
+                Response.Redirect("homePage.aspx");
+            }
+            else
+            {
+                Response.Redirect("userHomePage.aspx");
+            }
+        }
+
+        protected void logoWord_Click(object sender, EventArgs e)
+        {
+            if (Session["username"] == null || Session["username"].ToString() == "")
+            {
+                Response.Redirect("homePage.aspx");
+            }
+            else
+            {
+                Response.Redirect("userHomePage.aspx");
+            }
+        }
     }
 }

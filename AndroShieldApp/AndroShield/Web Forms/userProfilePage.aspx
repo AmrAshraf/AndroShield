@@ -3,7 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="navContentPlaceHolder" runat="server">
     <input name="signupNavUser" type="button" id="signupNavUser" runat="server" class="topRight topMenu lightText" value="My Profile" CausesValidation="false"/>
-    <input name="logoutButtonUser" type="button" id="logoutButtonUser" runat="server" onserverclick="Logout" class="topRight topMenu lightText" value="Log Out" causesvalidation="false" />
+    <input name="logout" type="button" id="logoutButton2" runat="server" class="topRight topMenu lightText" value="Log Out" CausesValidation="false" onserverclick="logout_Click"/>
     <asp:HyperLink ID="userEmail" class="lightText top" runat="server" NavigateUrl="~/Web Forms/userProfilePage.aspx">HyperLink</asp:HyperLink><p class="lightText top">Welcome, </p>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="pageContent" runat="server">

@@ -19,7 +19,7 @@ namespace AndroShield.Web_Forms {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputButton signupNav;
+        protected global::System.Web.UI.WebControls.Button signupNav;
         
         /// <summary>
         /// logoutButton control.
@@ -28,7 +28,7 @@ namespace AndroShield.Web_Forms {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputButton logoutButton;
+        protected global::System.Web.UI.WebControls.Button logoutButton;
         
         /// <summary>
         /// userEmail control.

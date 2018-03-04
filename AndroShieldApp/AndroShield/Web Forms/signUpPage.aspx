@@ -2,7 +2,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="pageContent" runat="server">
-    <form runat="server">
 
     <div class="wrapper lightBackground">
         <div class="signUpContainer darkBackground">
@@ -29,5 +28,4 @@
             <asp:Button ID="signUpButton" runat="server" Text="Sign Up" class="homeButtons boldText" OnClick="signUpButton_Click"/>
         </div>
     </div>
-   </form>
 </asp:Content>

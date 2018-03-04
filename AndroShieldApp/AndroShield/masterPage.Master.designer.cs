@@ -28,7 +28,7 @@ namespace AndroShield {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputImage logo;
+        protected global::System.Web.UI.WebControls.Button logo;
         
         /// <summary>
         /// logoWord control.
@@ -37,16 +37,16 @@ namespace AndroShield {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputImage logoWord;
+        protected global::System.Web.UI.WebControls.Button logoWord;
         
         /// <summary>
-        /// aboutNav control.
+        /// navAbout control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputButton aboutNav;
+        protected global::System.Web.UI.WebControls.Button navAbout;
         
         /// <summary>
         /// navContentPlaceHolder control.

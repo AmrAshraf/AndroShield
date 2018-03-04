@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="masterPage.master.cs" Inherits="AndroShield.masterPage" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="masterPage.Master.cs" Inherits="AndroShield.masterPage" %>
 
 <!DOCTYPE html>
 
@@ -14,12 +14,14 @@
     <script src="/JavaScript/JavaScript.js"></script>
 </head>
 <body>
-    <nav class="navigationBar darkBackground">
-        <input type="image" runat="server" id="logo" src="/Images/AndroShield logo.png" class="topLeft topMenu" CausesValidation="false"/>
-        <input type="image" runat="server" id="logoWord" src="/Images/AndroShield word.jpg" class="topLeft topMenu" CausesValidation="false"/>
-        <input name="about" type="button" id="aboutNav" runat="server" class="topRight topMenu lightText" value="About" CausesValidation="false"/>
-        <asp:ContentPlaceHolder ID="navContentPlaceHolder" runat="server">
+    <form runat="server">
+    <nav class="navigationBar darkBackground" runat="server">
+        <asp:Button ID="logo" runat="server" class="topLeft topMenu" CausesValidation="false" OnClick="logo_Click"/>
+        <asp:Button ID="logoWord" runat="server"  class="topLeft topMenu" CausesValidation="false" OnClick="logoWord_Click"/>
 
+        <asp:Button ID="navAbout" runat="server" Text="About" class="topRight topMenu lightText" CausesValidation="false" OnClick="navAbout_Click"/>
+        
+        <asp:ContentPlaceHolder ID="navContentPlaceHolder" runat="server">
         </asp:ContentPlaceHolder>
 
     </nav>
@@ -41,5 +43,6 @@
             <img class="footerImage" src="/Images/ASU Logo.png" alt="Ain Shams University Logo" />
         </div>
     </footer>
+        </form>
 </body>
 </html>

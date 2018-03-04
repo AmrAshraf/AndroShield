@@ -25,12 +25,20 @@ namespace AndroShield.Web_Forms
             userAccount = userAccountTable.userLogin(email, password);
             if (userAccount != null)
             {
+                Session["username"] = email;
+                Session["userAccount"] = userAccount;
                 Response.Redirect("userHomePage.aspx");
             }
             else
             {
                 Response.Redirect("incorrectCredentialsPage.aspx");
             }
+
+        }
+
+        protected void signupNav_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("signUpPage.aspx");
 
         }
     }

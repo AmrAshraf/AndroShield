@@ -67,8 +67,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Images\AndroShield logo.png" />
-    <Content Include="Images\AndroShield word.jpg" />
+    <Content Include="Images\AndroShieldlogo.png" />
+    <Content Include="Images\AndroShieldword.jpg" />
     <Content Include="Images\ASU Logo.png" />
     <Content Include="Images\exclamationMark.png" />
     <Content Include="Images\SWE Logo.png" />
@@ -86,10 +86,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Styling\StyleSheet.css" />
+    <Content Include="Web Forms\aboutPage.aspx" />
     <Content Include="Web Forms\apkUploadPage.aspx" />
     <Content Include="Web Forms\homePage.aspx" />
     <Content Include="Web Forms\incorrectCredentialsPage.aspx" />
     <Content Include="Web Forms\signUpPage.aspx" />
+    <Content Include="Web Forms\user%27sReportsPage.aspx" />
     <Content Include="Web Forms\userHomePage.aspx" />
     <Content Include="Web Forms\userProfilePage.aspx" />
     <Content Include="Web.config" />
@@ -102,6 +104,13 @@
     <Compile Include="DatabaseClasses\reportTable.cs" />
     <Compile Include="DatabaseClasses\userAccountTable.cs" />
     <Compile Include="DatabaseClasses\vulnerabilityTable.cs" />
+    <Compile Include="Web Forms\aboutPage.aspx.cs">
+      <DependentUpon>aboutPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Web Forms\aboutPage.aspx.designer.cs">
+      <DependentUpon>aboutPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Web Forms\apkUploadPage.aspx.cs">
       <DependentUpon>apkUploadPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -137,6 +146,13 @@
     </Compile>
     <Compile Include="Web Forms\signUpPage.aspx.designer.cs">
       <DependentUpon>signUpPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Web Forms\user%27sReportsPage.aspx.cs">
+      <DependentUpon>user%27sReportsPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Web Forms\user%27sReportsPage.aspx.designer.cs">
+      <DependentUpon>user%27sReportsPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Web Forms\userHomePage.aspx.cs">
       <DependentUpon>userHomePage.aspx</DependentUpon>

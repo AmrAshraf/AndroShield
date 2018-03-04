@@ -52,13 +52,25 @@ label {
     height: 15px;
 }
 #logo {
+    border: none;
     width: 50px;
     height: 55px;
-    margin:0px 5px;
+    margin: 0px 5px;
+    background: url('../Images/AndroShieldlogo.png') no-repeat;
+    background-repeat: no-repeat;
+    background-size: 50px 55px;
+}
+#logo:hover, #logoWord:hover {
+    cursor: pointer;
 }
 #logoWord {
+    border: none;
     width: 290px;
     height: 55px;
+    background-size: contain;
+    background: url('../Images/AndroShieldword.jpg') no-repeat;
+    background-repeat: no-repeat;
+    background-size: 290px 55px;
 }
 .top {
     position: relative;

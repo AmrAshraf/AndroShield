@@ -31,8 +31,6 @@ namespace AndroShield
             {
                 Session["username"] = email;
                 Session["userAccount"] = userAccount;
-                masterPage myMaster = (masterPage)Page.Master;
-                //myMaster.signupButtonText="My Profile";
                 Response.Redirect("userHomePage.aspx");
             }
             else
@@ -42,6 +40,11 @@ namespace AndroShield
         }
 
         protected void signupButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("signUpPage.aspx");
+        }
+
+        protected void navSignUp_Click(object sender, EventArgs e)
         {
             Response.Redirect("signUpPage.aspx");
         }

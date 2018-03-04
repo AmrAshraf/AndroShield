@@ -22,13 +22,13 @@ namespace AndroShield.Web_Forms {
         protected global::System.Web.UI.HtmlControls.HtmlInputButton signupNavUser;
         
         /// <summary>
-        /// logoutButtonUser control.
+        /// logoutButton2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputButton logoutButtonUser;
+        protected global::System.Web.UI.HtmlControls.HtmlInputButton logoutButton2;
         
         /// <summary>
         /// userEmail control.

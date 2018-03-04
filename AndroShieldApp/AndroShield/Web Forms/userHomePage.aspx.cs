@@ -13,15 +13,19 @@ namespace AndroShield.Web_Forms
         {
             userEmail.Text = Session["username"].ToString();
         }
-        protected void profile_Click(object sender, EventArgs e)
+        protected void signupNav_Click(object sender, EventArgs e)
         {
             Response.Redirect("userProfilePage.aspx");
         }
-        protected void logout_Click(object sender, EventArgs e)
+        protected void logoutButton_Click(object sender, EventArgs e)
         {
             Session["username"] = "";
             Session["userAccount"] = "";
             Response.Redirect("homePage.aspx");
+        }
+        protected void uploadApkButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("apkUploadPage.aspx");
         }
     }
 }

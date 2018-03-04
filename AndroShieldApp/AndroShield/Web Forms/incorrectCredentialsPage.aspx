@@ -1,8 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/masterPage.Master" AutoEventWireup="true" CodeBehind="incorrectCredentialsPage.aspx.cs" Inherits="AndroShield.Web_Forms.incorrectCredentialsPage" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
+<asp:Content ID="content3" ContentPlaceHolderID="navContentPlaceHolder" runat="server">
+        <asp:Button ID="signupNav" runat="server" Text="My Profile" class="topRight topMenu lightText" CausesValidation="false" OnClick="signupNav_Click"/>
+</asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="pageContent" runat="server">
-    <form id="incorrectLoginCredentialsForm" runat="server" method="get">
         <div class="wrapper lightBackground">
             <div class="incorrectCredentialsContainer darkBackground">
                 <p class="incorrectLoginCredentials lightText boldText">
@@ -21,5 +23,4 @@
                 <asp:Button ID="loginBtn" runat="server" Text="Login" class="homeButtons lightText boldText" OnClick="loginBtn_Click"  />
             </div>
         </div>
-    </form>
 </asp:Content>
