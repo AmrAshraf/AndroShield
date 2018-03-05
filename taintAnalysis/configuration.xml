@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <dataFlowConfiguration>
+    <writeOutputFiles>false</writeOutputFiles>
+    <pathReconstructionBatchSize>5</pathReconstructionBatchSize>
+    <pathReconstructionTimeout>0</pathReconstructionTimeout>
+    <dataFlowTimeout>0</dataFlowTimeout>
+    <maxPathsPerAbstraction>15</maxPathsPerAbstraction>
+    <maxPathLength>75</maxPathLength>
+    <maxCallStackSize>30</maxCallStackSize>
+    <pathAgnosticResults>false</pathAgnosticResults>
+    <pathReconstructionMode>Fast</pathReconstructionMode>
+    <enableArraySizeTainting>true</enableArraySizeTainting>
+    <logSourcesAndSinks>false</logSourcesAndSinks>
+    <flowSensitiveAliasing>true</flowSensitiveAliasing>
+    <enableReflection>false</enableReflection>
+    <enableArrays>true</enableArrays>
+    <enableExceptions>true</enableExceptions>
+    <enableStaticFields>true</enableStaticFields>
+    <implicitFlowMode>NoImplicitFlows</implicitFlowMode>
+    <maxCalleesPerCallSite>10</maxCalleesPerCallSite>
+    <maxJoinPointAbstractions>10</maxJoinPointAbstractions>
+  </dataFlowConfiguration>
+  <iccConfiguration>
+    <purifyResults>true</purifyResults>
+    <modelFile>modelFile1</modelFile>
+    <enableICCTracking>false</enableICCTracking>
+  </iccConfiguration>
+  <androidConfiguration>
+    <callbackAnalysisTimeout>0</callbackAnalysisTimeout>
+    <callbackSourceMode>SourceListOnly</callbackSourceMode>
+    <mergeDexFiles>true</mergeDexFiles>
+    <layoutMatchingMode>MatchSensitiveOnly</layoutMatchingMode>
+    <maxCallbackDepth>0</maxCallbackDepth>
+    <maxCallbacksPerComponent>100</maxCallbacksPerComponent>
+    <filterThreadCallbacks>true</filterThreadCallbacks>
+    <enableCallbacks>true</enableCallbacks>
+  </androidConfiguration>
+  <sinks defaultMode="UseAllButExcluded">
+  </sinks>
+  <sources defaultMode="UseAllButExcluded">
+  </sources>
+  <inputFiles>
+    <outputFile>C:\GPTempDir\taintOutputFile.xml</outputFile>
+    <androidPlatform>..\taintAnalysis\platforms</androidPlatform>
+    <sourceSinkFile>..\taintAnalysis\out_rifl-4.2.rifl</sourceSinkFile>
+    <targetAPK>D:\gp\apks\ArrayCopy1.apk</targetAPK>
+  </inputFiles>
+</configuration>
