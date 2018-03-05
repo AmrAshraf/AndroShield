@@ -3,6 +3,7 @@
 
 using namespace System::Collections::Generic;
 #include"Vulnerability.h"
+
 using namespace Types;
 namespace APKInfoExtraction {
 	public	value struct SupportedArchitectures
@@ -19,12 +20,31 @@ namespace APKInfoExtraction {
 	};
 	public ref class APKInfoExtractor
 	{
+	private:
+		void grabInfoFromApk();
+		void grabInfoFromManifest();
+		void changeApkName(String^ apkPath);
 	public:
-		APKInfoExtractor();
-		void getInfoFromApk(String^ apkPath, Boolean % debuggableFlag, Boolean % testFlag, cli::array<String^>^% launchableActivities,
-			cli::array<String^>^% permissions, String^% versionName, String^% versionCode, String^% packageName, String^% minSDKVersion,
-			String^% targetSDKVersion, SupportedArchitectures% supportedArchitectures);
-		void getInfoFromManifest(String^ apkPath, Boolean% backupFlag, Boolean% externalStorageFlag);
+		APKInfoExtractor(String^ apkPath);
+		void startExtraction();
+	static	String^ getCurrentTime();
+
+		String^ realApkPath;
+		Boolean  debuggableFlag;
+		Boolean  testFlag;
+		cli::array<String^>^ launchableActivities;
+		cli::array<String^>^ permissions;
+		String^ versionName;
+		String^ versionCode;
+		String^ packageName;
+		String^ minSDKVersion;
+		String^ targetSDKVersion;
+		SupportedArchitectures supportedArchitectures;
+
+		String^ apkTime;
+
+		Boolean backupFlag;
+		Boolean externalStorageFlag;
 		property List<Vulnerability>^ vulnerabilities;
 	};
 }

@@ -3,20 +3,43 @@
 #include "APKInfoExtractor.h"
 #include"ApkInfo.h"
 #include"XmlParser.h"
-
+#include<chrono>
+using namespace System::IO;
 namespace APKInfoExtraction {
 
 
-	APKInfoExtractor::APKInfoExtractor()
+	APKInfoExtractor::APKInfoExtractor(String^ apkPath)
 	{
+		
 		vulnerabilities = gcnew List<Vulnerability>();
+		changeApkName(apkPath);
+
 	}
-	void APKInfoExtractor::getInfoFromManifest(String^ apkPath, Boolean% backupFlag, Boolean% externalStorageFlag)
+
+	void APKInfoExtractor::startExtraction()
 	{
+		grabInfoFromApk();
+		grabInfoFromManifest();
+	}
+	
+	String^ APKInfoExtractor::getCurrentTime()
+	{
+		std::chrono::time_point<std::chrono::system_clock> currentTime = std::chrono::system_clock::now();
+		time_t tt;
+		tt = std::chrono::system_clock::to_time_t(currentTime);
+		return tt.ToString();
+	}
+	void APKInfoExtractor::grabInfoFromManifest()
+	{
+	
 		string command = "/C sh C:\\apkanalyzer\\script\\apkanalyzer manifest print ";
 		msclr::interop::marshal_context context;
-		command += context.marshal_as<const char*>(apkPath);
-		command += " > C:\\GPTempDir\\manifest.xml";
+		command += context.marshal_as<const char*>(realApkPath);
+	
+		String^ manifestFilePath = ("C:\\GPTempDir\\manifest" + apkTime + ".xml");
+		string manifestFilePathCPPStyle = context.marshal_as<const char*>(manifestFilePath);
+		command +=" > " ;
+		command += manifestFilePathCPPStyle;
 		//system(command.c_str());
 		SHELLEXECUTEINFO ShExecInfo = { 0 };
 		ShExecInfo.cbSize = sizeof(SHELLEXECUTEINFO);
@@ -33,7 +56,7 @@ namespace APKInfoExtraction {
 
 
 	//	HINSTANCE retVal = ShellExecute(NULL, "open", "cmd", command.c_str(), "C:\\", SW_HIDE);
-		XmlParser* xmlParser = new XmlParser("C:\\GPTempDir\\manifest.xml");
+		XmlParser* xmlParser = new XmlParser(manifestFilePathCPPStyle);
 		xmlParser->grebBackupModeEnabledFlag();
 		xmlParser->grebExternalStorageFlag();
 		xmlParser->grebExportedActivities();
@@ -67,6 +90,8 @@ namespace APKInfoExtraction {
 		vector<string> tempExportedContentProviders = xmlParser->getExportedContentProviders();
 		vector<string> tempExportedServices = xmlParser->getExportedServices();
 		delete xmlParser;
+		File::Delete(manifestFilePath);//cleaning manifest
+
 		cli::array<String^>^exportedActivities = gcnew cli::array<String^>(tempExportedActivities.size());
 		cli::array<String^>^	exportedBroadCastReceivers = gcnew cli::array<String^>(tempExportedBroadcasts.size());
 		cli::array<String^>^exportedContentProviders = gcnew cli::array<String^>(tempExportedContentProviders.size());
@@ -120,16 +145,22 @@ namespace APKInfoExtraction {
 			vulnerabilities->Add(vul);
 		}
 	}
-	void APKInfoExtractor::getInfoFromApk(String^ apkPath, Boolean % debuggableFlag, Boolean % testFlag, cli::array<String^>^% launchableActivities,
-		cli::array<String^>^% permissions, String^% versionName, String^% versionCode, String^% packageName, String^% minSDKVersion,
-		String^% targetSDKVersion, SupportedArchitectures % supportedArchitectures)
+	void APKInfoExtractor::changeApkName(String ^ apkPath)
 	{
-		
-		
+		apkTime = getCurrentTime();
+		this->realApkPath = Path::GetDirectoryName(apkPath) + "\\" + getCurrentTime() + ".apk";
+		File::Move(apkPath, this->realApkPath);//give uniqueness to the file
+	}
+	void APKInfoExtractor::grabInfoFromApk()
+	{
+			
 		string command = "/C C:\\apkanalyzer\\build-tools\\27.0.3\\aapt.exe dump badging ";
 		msclr::interop::marshal_context context;
-		command += context.marshal_as<const char*>(apkPath);
-		command += " > C:\\GPTempDir\\apkInfoLines.txt";
+		command += context.marshal_as<const char*>(realApkPath);
+		String^ apkInfoLinesPath="C:\\GPTempDir\\apkInfoLines"+apkTime +".txt";
+		command += " > ";
+		string apkInfoLinesPathCPPStyle=context.marshal_as<const char*>(apkInfoLinesPath);
+		command += apkInfoLinesPathCPPStyle;
 		//system(command.c_str());
 		SHELLEXECUTEINFO ShExecInfo = { 0 };
 		ShExecInfo.cbSize = sizeof(SHELLEXECUTEINFO);
@@ -146,7 +177,7 @@ namespace APKInfoExtraction {
 
 
 		//HINSTANCE retVal = ShellExecute(NULL, "open","cmd", command.c_str(), "C:\\", SW_HIDE);
-		ApkInfo* apkInfo = new ApkInfo("C:\\GPTempDir\\apkInfoLines.txt", true);
+		ApkInfo* apkInfo = new ApkInfo(apkInfoLinesPathCPPStyle, true);
 		debuggableFlag = apkInfo->getAppDebuggableFlag();
 		if (debuggableFlag)
 		{
@@ -189,7 +220,7 @@ namespace APKInfoExtraction {
 		supportedArchitectures.x86 = temp.x86;
 		supportedArchitectures.x86_64 = temp.x86_64;
 		delete apkInfo;
-		
+		File::Delete(apkInfoLinesPath);//cleaning apkInfoLines file
 	
 	}
 }

@@ -9,10 +9,11 @@ namespace TaintAnalysis{
 public ref class TaintAnalyser
 {
 private : 
-	void changeApkPathInConfigurationFile(String^ apkPath);
+	String^ taintOutputFilePath;
+	void changeConfigurationFileData(String^ apkPath);
 	void extractTaintData();
 public:
-	TaintAnalyser(String^ apkPath);
+	TaintAnalyser(String^ realApkPath);
 	property List<Vulnerability>^ vulnerabilities;
 	
 };

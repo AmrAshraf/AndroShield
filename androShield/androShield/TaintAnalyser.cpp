@@ -4,19 +4,21 @@
 
 #include <string> 
 namespace TaintAnalysis {
-	void TaintAnalyser::changeApkPathInConfigurationFile(String ^ apkPath)
+	void TaintAnalyser::changeConfigurationFileData(String ^ apkPath)
 	{
 		XmlDocument^ xmlDoc = gcnew XmlDocument();	
 		xmlDoc->Load("C:\\taintAnalysis\\configuration.xml");
 		XmlNodeList^ list=xmlDoc->GetElementsByTagName("targetAPK");
 		list[0]->InnerXml = apkPath;
+		list = xmlDoc->GetElementsByTagName("outputFile");
+		taintOutputFilePath = "C:\\taintAnalysis\\" + System::IO::Path::GetFileNameWithoutExtension(apkPath) + ".xml";
+		list[0]->InnerXml = taintOutputFilePath;
 		xmlDoc->Save("C:\\taintAnalysis\\configuration.xml");
-		
-	}
+			}
 	void TaintAnalyser::extractTaintData()
 	{
 		XmlDocument^ xmlDoc = gcnew XmlDocument();
-		xmlDoc->Load("C:\\GPTempDir\\taintOutputFile.xml");
+		xmlDoc->Load(taintOutputFilePath);
 		XmlNodeList^ results = xmlDoc->GetElementsByTagName("Result");
 		for (int i = 0; i < results->Count; ++i)
 		{
@@ -47,11 +49,11 @@ namespace TaintAnalysis {
 		}
 				
 	}
-	TaintAnalyser::TaintAnalyser(String^ apkPath)
+	TaintAnalyser::TaintAnalyser(String^ realApkPath)
 	{
 
 		vulnerabilities = gcnew List<Vulnerability>();
-		changeApkPathInConfigurationFile(apkPath);
+		changeConfigurationFileData(realApkPath);
 		std::string command = "/C java -Xmx3g -jar C:\\taintAnalysis\\soot-infoflow-cmd.jar -c C:\\taintAnalysis\\configuration.xml ";
 		//system(command.c_str());
 		//HINSTANCE retVal = ShellExecute(NULL, "open", "cmd", command.c_str(), "C:\\", SW_HIDE);
@@ -68,5 +70,6 @@ namespace TaintAnalysis {
 		ShellExecuteEx(&ShExecInfo);
 		WaitForSingleObject(ShExecInfo.hProcess, INFINITE);
 		extractTaintData();
+		System::IO::File::Delete(taintOutputFilePath);
 	}
 }

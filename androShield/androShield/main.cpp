@@ -4,6 +4,7 @@
 #include "XmlParser.h"
 #include"APKInfoExtractor.h"
 #include"TaintAnalyser.h"
+#include<chrono>
 using namespace std;
 void testExtractInfoFromAPK()
 {
@@ -168,6 +169,8 @@ int main(int argc, const char * argv[])
 	cout << testFlag << endl << b1 << endl ;
 	system("pause");*/
 	//	TaintAnalysis::TaintAnalyser^ analyser = gcnew TaintAnalysis::TaintAnalyser("D:\\gp\\apks\\ArrayCopy1.apk");
-	
+	APKInfoExtraction::APKInfoExtractor^ a = gcnew APKInfoExtraction::APKInfoExtractor("D:\\gp\\apks\\wasla.apk");
+	a->startExtraction();
+	TaintAnalysis::TaintAnalyser ^ t = gcnew TaintAnalysis::TaintAnalyser(a->realApkPath);
 	return 0;
 }
