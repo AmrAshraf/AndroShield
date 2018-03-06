@@ -63,6 +63,11 @@ namespace AndroShield.Web_Forms
                 }
             }
         }
+
+        protected void analyzeBtn_Click(object sender, EventArgs e)
+        {
+
+        }
     }
     
 }

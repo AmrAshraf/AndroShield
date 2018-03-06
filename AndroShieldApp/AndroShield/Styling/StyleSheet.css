@@ -123,7 +123,7 @@ footer {
 .homeButtons:hover {
     background-color: #fcfc69
 }
-.homeButtons:active, .homeButtons:focus {
+.homeButtons:active {
     background-color: #fcfc50;
     box-shadow: 0 1px #666;
     transform: translateY(4px);
@@ -328,15 +328,18 @@ input.loginInput:focus::-webkit-input-placeholder {
     height: 24px;
     width: 50px;
 }
-.inputfile {
+/*.inputfile {
     width: 0.1px;
     height: 0.1px;
     opacity: 0;
     overflow: hidden;
     position: absolute;
     z-index: -1;
+}*/
+#browseLbl {
+    margin-top: -15px;
 }
-.browseLbl {
+/*.browseLbl {
     display: block;
     font-size: 1.25em;
     font-weight: 700;
@@ -348,4 +351,4 @@ input.loginInput:focus::-webkit-input-placeholder {
 .browseLbl:hover {
     background-color: red;
     cursor: pointer;
-}
+}*/
