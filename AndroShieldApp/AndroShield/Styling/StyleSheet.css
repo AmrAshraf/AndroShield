@@ -33,7 +33,7 @@ footer {
     padding-bottom: 17px;
     height: 220px;
 }
-label {
+.signUpContainer label {
     display: inline-block;
     min-width: 150px;
 }
@@ -123,7 +123,7 @@ label {
 .homeButtons:hover {
     background-color: #fcfc69
 }
-.homeButtons:active {
+.homeButtons:active, .homeButtons:focus {
     background-color: #fcfc50;
     box-shadow: 0 1px #666;
     transform: translateY(4px);
@@ -328,4 +328,24 @@ input.loginInput:focus::-webkit-input-placeholder {
     height: 24px;
     width: 50px;
 }
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+.browseLbl {
+    display: block;
+    font-size: 1.25em;
+    font-weight: 700;
+    color: white;
+    background-color: black;
+    display: inline-block;
+}
 
+.browseLbl:hover {
+    background-color: red;
+    cursor: pointer;
+}

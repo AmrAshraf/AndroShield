@@ -12,8 +12,9 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="pageContent" runat="server">
     <div class="wrapper lightBackground">
-            <div class="apkUploadContainer darkBackground lightText">
-                <asp:FileUpload ID="apkUpload" runat="server" />
+            <div class="apkUploadContainer incorrectCredentialsContainer darkBackground lightText">
+                <asp:FileUpload ID="apkUpload" name="apkUpload" runat="server" class="inputfile" />
+                <asp:Label CssClass="homeButtons lightText boldText" AssociatedControlID="apkUpload" runat="server" Text="Browse"></asp:Label>
                 <asp:Button ID="uploadBtn" runat="server" Text="Upload" OnClick="uploadBtn_Click"/>
 			</div>
     </div>

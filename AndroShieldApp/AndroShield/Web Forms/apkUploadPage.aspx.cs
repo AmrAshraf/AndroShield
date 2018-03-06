@@ -31,10 +31,6 @@ namespace AndroShield.Web_Forms
             if (IsPostBack)
             {
                 Boolean fileOK = false;
-                string pPath = @"C:\GPTempDir";
-                string vPath = pPath.Replace(@"C:\GPTempDir", "~").Replace(@"\", "/");
-
-                String path = Server.MapPath(vPath);
                 if (apkUpload.HasFile)
                 {
                     String fileExtension =
@@ -54,7 +50,7 @@ namespace AndroShield.Web_Forms
                 {
                     try
                     {
-                        apkUpload.PostedFile.SaveAs(path
+                        apkUpload.PostedFile.SaveAs("C:\\GPTempDir\\"
                             + apkUpload.FileName);
                     }
                     catch (Exception ex)
