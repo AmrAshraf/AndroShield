@@ -23,7 +23,7 @@
                     <asp:CheckBox ID="CheckBox1" runat="server" checked="true"  name="remember"/>Remember me
                 </label><br />
 
-                <asp:Button ID="loginBtn" runat="server" Text="Login" class="homeButtons lightText boldText" OnClick="Button1_Click" />
+                <asp:Button UseSubmitBehavior="true" ID="loginBtn" runat="server" Text="Login" class="homeButtons lightText boldText" OnClick="Button1_Click" />
                 <p class="lightText"><a href="signUpPage.aspx" class="lightText">Don't have an account?</a></p>
                 <asp:Button ID="signupButton" CausesValidation="false" runat="server" Text="Sign Up"  class="homeButtons lightText boldText" OnClick="signupButton_Click" />
             </div>
