@@ -23,6 +23,7 @@
     <ProjectGuid>{30541EE2-3DAA-4C49-89A6-0FD465EBF5D6}</ProjectGuid>
     <RootNamespace>androShield</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <ProjectName>androShieldCPP</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
