@@ -48,19 +48,19 @@ namespace AndroApp.Web_Forms
                 if (apkInfoExtraction.supportedArchitectures.arm64_v8a)
                     supportedArchiValue.Text += "arm64_v8a";
                 if (apkInfoExtraction.supportedArchitectures.armeabi)
-                    supportedArchiValue.Text += " armeabi";
+                    supportedArchiValue.Text += ", armeabi";
                 if (apkInfoExtraction.supportedArchitectures.armeabi_v7a)
-                    supportedArchiValue.Text += " armeabi_v7a";
+                    supportedArchiValue.Text += ", armeabi_v7a";
                 if (apkInfoExtraction.supportedArchitectures.mips)
-                    supportedArchiValue.Text += " mips";
+                    supportedArchiValue.Text += ", mips";
                 if (apkInfoExtraction.supportedArchitectures.mips64)
-                    supportedArchiValue.Text += " mips64";
+                    supportedArchiValue.Text += ", mips64";
                 if (apkInfoExtraction.supportedArchitectures.x86)
-                    supportedArchiValue.Text += " x86";
+                    supportedArchiValue.Text += ", x86";
                 if (apkInfoExtraction.supportedArchitectures.x86_64)
-                    supportedArchiValue.Text += " x86_64";
+                    supportedArchiValue.Text += ", x86_64";
                 if (apkInfoExtraction.supportedArchitectures.all)
-                    supportedArchiValue.Text += " All";
+                    supportedArchiValue.Text += ", All";
 
             }
         }

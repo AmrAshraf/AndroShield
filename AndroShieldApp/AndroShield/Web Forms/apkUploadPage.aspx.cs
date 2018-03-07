@@ -77,7 +77,6 @@ namespace AndroApp.Web_Forms
         {
             string apkName = Session["currentReportName"].ToString();
             string apkPath = "C:\\GPTempDir\\" + apkName;
-            APKInfoExtractor apkInfoExtraction = new APKInfoExtractor(apkPath);
             int x;
             x = 5;
 
