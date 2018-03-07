@@ -2,15 +2,21 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Types;
+using APKInfoExtraction;
+using TaintAnalysis;
+
 
 namespace AndroShield.Web_Forms
 {
     public partial class apkUploadPage : System.Web.UI.Page
     {
+        string uploadedFileName="";
         protected void Page_Load(object sender, EventArgs e)
         {
             userEmail.Text = Session["username"].ToString();
@@ -52,6 +58,8 @@ namespace AndroShield.Web_Forms
                     {
                         apkUpload.PostedFile.SaveAs("C:\\GPTempDir\\"
                             + apkUpload.FileName);
+                        analyzeBtn.Enabled = true;
+                        uploadedFileName = apkUpload.FileName;
                     }
                     catch (Exception ex)
                     {
@@ -66,8 +74,25 @@ namespace AndroShield.Web_Forms
 
         protected void analyzeBtn_Click(object sender, EventArgs e)
         {
+            Session["currentReportName"] = uploadedFileName;
+            string apkName = Session["currentReportName"].ToString();
+            string apkPath = "C:\\GPTempDir\\" + apkName;
+            Thread thread = new Thread(() => analyzeApk(apkPath));
+            thread.Start();
 
+            Response.Redirect("reportAnalysisPage.aspx");
         }
+        void analyzeApk(string path)
+        {
+            APKInfoExtractor apkInfoExtraction = new APKInfoExtractor(path);
+            apkInfoExtraction.startExtraction();
+
+            TaintAnalyser taintAnalysis = new TaintAnalyser(apkInfoExtraction.realApkPath);
+            Session["apkInfo"] = apkInfoExtraction;
+            Session["taint"] = taintAnalysis;
+            
+        }
+
     }
-    
+
 }

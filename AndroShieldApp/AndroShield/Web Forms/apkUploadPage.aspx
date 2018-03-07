@@ -16,6 +16,7 @@
                 <asp:FileUpload ID="apkUpload" name="apkUpload" runat="server" class="inputfile" />
                 <asp:Label ID="browseLbl" CssClass="homeButtons lightText boldText" AssociatedControlID="apkUpload" runat="server" Text="Browse"></asp:Label>
                 <asp:Button ID="uploadBtn" runat="server" Text="Upload" OnClick="uploadBtn_Click"/>
-			</div>
+                <asp:Button ID="analyzeBtn" runat="server" Text="Analyze" Enabled="false" OnClick="analyzeBtn_Click"/>
+            </div>
     </div>
 </asp:Content>

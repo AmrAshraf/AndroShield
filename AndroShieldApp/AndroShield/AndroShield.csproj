@@ -70,6 +70,9 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="test">
+      <HintPath>..\..\production\test.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\AndroShieldlogo.png" />
@@ -95,6 +98,7 @@
     <Content Include="Web Forms\apkUploadPage.aspx" />
     <Content Include="Web Forms\homePage.aspx" />
     <Content Include="Web Forms\incorrectCredentialsPage.aspx" />
+    <Content Include="Web Forms\reportAnalysisPage.aspx" />
     <Content Include="Web Forms\signUpPage.aspx" />
     <Content Include="Web Forms\user%27sReportsPage.aspx" />
     <Content Include="Web Forms\userHomePage.aspx" />
@@ -144,6 +148,13 @@
     </Compile>
     <Compile Include="Web Forms\incorrectCredentialsPage.aspx.designer.cs">
       <DependentUpon>incorrectCredentialsPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Web Forms\reportAnalysisPage.aspx.cs">
+      <DependentUpon>reportAnalysisPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Web Forms\reportAnalysisPage.aspx.designer.cs">
+      <DependentUpon>reportAnalysisPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Web Forms\signUpPage.aspx.cs">
       <DependentUpon>signUpPage.aspx</DependentUpon>
