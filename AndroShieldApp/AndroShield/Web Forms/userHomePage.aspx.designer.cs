@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AndroShield.Web_Forms {
+namespace AndroApp.Web_Forms {
     
     
     public partial class userHomePage {

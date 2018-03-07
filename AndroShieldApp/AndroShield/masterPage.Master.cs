@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace AndroShield
+namespace AndroApp
 {
     public partial class masterPage : System.Web.UI.MasterPage
     {

@@ -8,7 +8,7 @@ using Types;
 using APKInfoExtraction;
 using TaintAnalysis;
 using System.Threading;
-namespace AndroShield.Web_Forms
+namespace AndroApp.Web_Forms
 {
     public partial class reportAnalysisPage : System.Web.UI.Page
     {

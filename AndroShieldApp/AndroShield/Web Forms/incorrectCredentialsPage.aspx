@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/masterPage.Master" AutoEventWireup="true" CodeBehind="incorrectCredentialsPage.aspx.cs" Inherits="AndroShield.Web_Forms.incorrectCredentialsPage" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/masterPage.Master" AutoEventWireup="true" CodeBehind="incorrectCredentialsPage.aspx.cs" Inherits="AndroApp.Web_Forms.incorrectCredentialsPage" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="content3" ContentPlaceHolderID="navContentPlaceHolder" runat="server">

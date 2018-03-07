@@ -7,7 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AndroShield {
+namespace AndroApp
+{
     
     
     public partial class masterPage {

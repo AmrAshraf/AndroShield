@@ -12,7 +12,7 @@ using APKInfoExtraction;
 using TaintAnalysis;
 
 
-namespace AndroShield.Web_Forms
+namespace AndroApp.Web_Forms
 {
     public partial class apkUploadPage : System.Web.UI.Page
     {
@@ -60,6 +60,7 @@ namespace AndroShield.Web_Forms
                             + apkUpload.FileName);
                         analyzeBtn.Enabled = true;
                         uploadedFileName = apkUpload.FileName;
+                        Session["currentReportName"] = uploadedFileName;
                     }
                     catch (Exception ex)
                     {
@@ -74,11 +75,13 @@ namespace AndroShield.Web_Forms
 
         protected void analyzeBtn_Click(object sender, EventArgs e)
         {
-            Session["currentReportName"] = uploadedFileName;
             string apkName = Session["currentReportName"].ToString();
             string apkPath = "C:\\GPTempDir\\" + apkName;
-            Thread thread = new Thread(() => analyzeApk(apkPath));
-            thread.Start();
+            APKInfoExtractor apkInfoExtraction = new APKInfoExtractor(apkPath);
+            int x;
+            x = 5;
+
+            analyzeApk(apkPath);
 
             Response.Redirect("reportAnalysisPage.aspx");
         }

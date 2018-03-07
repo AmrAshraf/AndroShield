@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/masterPage.Master" AutoEventWireup="true" CodeBehind="homePage.aspx.cs" Inherits="AndroShield.homepage" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/masterPage.Master" AutoEventWireup="true" CodeBehind="homePage.aspx.cs" Inherits="AndroApp.homepage" %>
 <%@ MasterType VirtualPath="~/masterPage.Master" %> 
 <asp:Content ID="headContent" ContentPlaceHolderID="head" runat="server">
         <script src="/JavaScript/jquery.js"></script>

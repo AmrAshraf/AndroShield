@@ -7,7 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AndroShield {
+namespace AndroApp
+{
     
     
     public partial class homepage {
@@ -99,9 +100,9 @@ namespace AndroShield {
         /// <remarks>
         /// Auto-generated property.
         /// </remarks>
-        public new AndroShield.masterPage Master {
+        public new AndroApp.masterPage Master {
             get {
-                return ((AndroShield.masterPage)(base.Master));
+                return ((AndroApp.masterPage)(base.Master));
             }
         }
     }

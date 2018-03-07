@@ -5,7 +5,7 @@ using System.Web;
 using System.Data.SqlClient;
 
 
-namespace AndroShield
+namespace AndroApp
 {
     public class userAccountTable
     {
