@@ -16,6 +16,7 @@ namespace AndroApp.Web_Forms
 {
     public partial class apkUploadPage : System.Web.UI.Page
     {
+        string apkName;
         string uploadedFileName="";
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -75,7 +76,7 @@ namespace AndroApp.Web_Forms
 
         protected void analyzeBtn_Click(object sender, EventArgs e)
         {
-            string apkName = Session["currentReportName"].ToString();
+            apkName = Session["currentReportName"].ToString();
             string apkPath = "C:\\GPTempDir\\" + apkName;
             int x;
             x = 5;
@@ -86,13 +87,42 @@ namespace AndroApp.Web_Forms
         }
         void analyzeApk(string path)
         {
+            string currentUser = (string)Session["username"];
+            userAccountTable user = userAccountTable.findUserByEmail(currentUser);
             APKInfoExtractor apkInfoExtraction = new APKInfoExtractor(path);
             apkInfoExtraction.startExtraction();
-
             TaintAnalyser taintAnalysis = new TaintAnalyser(apkInfoExtraction.realApkPath);
-            Session["apkInfo"] = apkInfoExtraction;
-            Session["taint"] = taintAnalysis;
-            
+
+            apkInfoTable currentApk = apkInfoTable.insertAPK(0, apkName, "", apkInfoExtraction.minSDKVersion, apkInfoExtraction.targetSDKVersion, apkInfoExtraction.packageName, apkInfoExtraction.versionCode, apkInfoExtraction.versionName, apkInfoExtraction.testFlag, apkInfoExtraction.debuggableFlag, apkInfoExtraction.backupFlag, apkInfoExtraction.supportedArchitectures.all, apkInfoExtraction.supportedArchitectures.armeabi, apkInfoExtraction.supportedArchitectures.armeabi_v7a, apkInfoExtraction.supportedArchitectures.arm64_v8a, apkInfoExtraction.supportedArchitectures.x86, apkInfoExtraction.supportedArchitectures.x86_64, apkInfoExtraction.supportedArchitectures.mips, apkInfoExtraction.supportedArchitectures.mips64);
+            reportTable apkReport = reportTable.addNewReport(DateTime.Now.Date, true, false, currentApk.apkInfoID, user.ID);
+
+            List<Vulnerability> apkVulnerabilities= new List<Vulnerability>();
+            apkVulnerabilities.AddRange(apkInfoExtraction.vulnerabilities);
+            apkVulnerabilities.AddRange(taintAnalysis.vulnerabilities);
+
+            vulnerabilityTable dbVulnerability = new vulnerabilityTable();
+            for(int i=0; i<apkVulnerabilities.Count; i++)
+            {
+                dbVulnerability = vulnerabilityTable.addOrFindVulnerability(apkVulnerabilities[i].severity, apkVulnerabilities[i].category, apkVulnerabilities[i].type);
+                apkReport.createRelationBetweenReportAndVulnerability(apkReport.reportId, dbVulnerability.vulnID, apkVulnerabilities[i].extraInfo);
+            }
+
+            List<string> permissions = new List<string>(apkInfoExtraction.permissions);
+            for(int i=0; i<permissions.Count; i++)
+            {
+                permissionTable.addNewPermission(permissions[i]);
+                currentApk.createRelationBetweenAPKInfoAndPermission(currentApk.apkInfoID, permissions[i]);
+            }
+
+            List<string> launchableActivities = new List<string>(apkInfoExtraction.launchableActivities);
+            for(int i=0; i<launchableActivities.Count; i++)
+            {
+                launchableActivityTable.addNewActivity(launchableActivities[i], currentApk.apkInfoID);
+            }
+
+            Session["reportID"] = apkReport.reportId;
+            //Session["apkInfo"] = apkInfoExtraction;
+            //Session["taint"] = taintAnalysis;
         }
 
     }

@@ -1,21 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Data.SqlClient;
-
+using System.Web;
+using AndroApp.Web_Forms;
+using Types;
+using TaintAnalysis;
+using APKInfoExtraction;
 namespace AndroApp
 {
     public class apkInfoTable
     {
-        private int apkID;
+        public int apkInfoID;
         private float apkRiskLevel;
         private string apkName, apkVersion, minSDK, targetSDK, packageName, versionNumber, versionName;
         bool testOnly, debuggable, backup, all, armeabi, armeabi_v7a, arm64_v8a, x86, x86_64, mips, mips64;
-       public apkInfoTable() { }
-       public apkInfoTable(int apkID, float apkRiskLevel, string apkName, string apkVersion, string minSDK, string targetSDK, string packageName, string versionNumber, string versionName, bool testOnly, bool debuggable, bool backup, bool all, bool armeabi, bool armeabi_v7a, bool arm64_v8a, bool x86, bool x86_64, bool mips, bool mips64)
+        public apkInfoTable()
         {
-            this.apkID = apkID;
+        }
+        public apkInfoTable(int apkInfoID, float apkRiskLevel, string apkName, string apkVersion, string minSDK, string targetSDK, string packageName, string versionNumber, string versionName, bool testOnly, bool debuggable, bool backup, bool all, bool armeabi, bool armeabi_v7a, bool arm64_v8a, bool x86, bool x86_64, bool mips, bool mips64)
+        {
+            this.apkInfoID = apkInfoID;
             this.apkRiskLevel = apkRiskLevel;
             this.apkName = apkName;
             this.apkVersion = apkVersion;
@@ -36,26 +41,29 @@ namespace AndroApp
             this.mips = mips;
             this.mips64 = mips64;
         }
-
-     static  public bool insertAPK (int apkID, float apkRiskLevel, string apkName, string apkVersion, string minSDK, string targetSDK, string packageName, string versionNumber, string versionName, bool testOnly, bool debuggable, bool backup, bool all, bool armeabi, bool armeabi_v7a, bool arm64_v8a, bool x86, bool x86_64, bool mips, bool mips64)
+        static public apkInfoTable insertAPK(float apkRiskLevel, string apkName, string apkVersion, string minSDK, string targetSDK, string packageName, string versionNumber, string versionName, bool testOnly, bool debuggable, bool backup, bool all, bool armeabi, bool armeabi_v7a, bool arm64_v8a, bool x86, bool x86_64, bool mips, bool mips64)
         {
-            SqlConnection myConnection = new SqlConnection("Data Source=.\\sqlexpress;Initial Catalog=AndroShield;Integrated Security=True");
-            myConnection.Open();
-            SqlCommand checkExistenceOfUser = new SqlCommand("select apkID from ApkInfo where apkID=@y", myConnection);
-            SqlParameter Paramater = new SqlParameter("@y", apkID);
-            checkExistenceOfUser.Parameters.Add(Paramater);
-            checkExistenceOfUser.ExecuteNonQuery();
-            SqlDataReader reader = checkExistenceOfUser.ExecuteReader();
+            databaseLayer.myConnection.Open();
+            SqlCommand checkExistenceOfAPK = new SqlCommand("select apkID from ApkInfo where apkVersion=@y and packageName=@z", databaseLayer.myConnection);
+            SqlParameter Paramater = new SqlParameter("@y", apkVersion);
+            SqlParameter secondParamater = new SqlParameter("@z", packageName);
+            checkExistenceOfAPK.Parameters.Add(Paramater);
+            checkExistenceOfAPK.Parameters.Add(secondParamater);
+            checkExistenceOfAPK.ExecuteNonQuery();
+            SqlDataReader reader = checkExistenceOfAPK.ExecuteReader();
             if (reader.Read())
-                return false;
+            {
+                reader.Dispose();
+                databaseLayer.myConnection.Close();
+                return null;
+            }
             try
             {
                 reader.Dispose();
-                SqlCommand myCommand = new SqlCommand("insert into ApkInfo (apkID," +
+                SqlCommand myCommand = new SqlCommand("insert into ApkInfo (" +
                     "apkName, apkVersion , minSDK , targetSdk , packageName , versionNumber ," +
                     "versionName , apkRiskLevel , testOnlyFlag , debuggableFlag , backupFlag ," +
-                    " allFlag , armeabiFlag , armeabi_v7aFlag , arm64_V8aFlag , X86Flag , X86_64Flag , mipsFlag , mips64Flag ) values (@a,@b,@c,@d,@e,@f,@h,@I,@J,@K,@L,@M,@N,@O,@P,@Q,@R,@S,@T)", myConnection);
-                SqlParameter firstParameter = new SqlParameter("@a", apkID);
+                    " allFlag , armeabiFlag , armeabi_v7aFlag , arm64_V8aFlag , X86Flag , X86_64Flag , mipsFlag , mips64Flag ) OUTPUT INSERTED.ID values (@b,@c,@d,@e,@f,@h,@I,@J,@K,@L,@M,@N,@O,@P,@Q,@R,@S,@T)", databaseLayer.myConnection);
                 SqlParameter secondParameter = new SqlParameter("@b", apkName);
                 SqlParameter thirdParameter = new SqlParameter("@c", apkVersion);
                 SqlParameter forthParameter = new SqlParameter("@d", minSDK);
@@ -74,7 +82,6 @@ namespace AndroApp
                 SqlParameter T17th = new SqlParameter("@R", x86_64);
                 SqlParameter T18th = new SqlParameter("@S", mips);
                 SqlParameter T19th = new SqlParameter("@T", mips64);
-                myCommand.Parameters.Add(firstParameter);
                 myCommand.Parameters.Add(secondParameter);
                 myCommand.Parameters.Add(thirdParameter);
                 myCommand.Parameters.Add(forthParameter);
@@ -93,13 +100,221 @@ namespace AndroApp
                 myCommand.Parameters.Add(T17th);
                 myCommand.Parameters.Add(T18th);
                 myCommand.Parameters.Add(T19th);
-                myCommand.ExecuteNonQuery();
-                return true;
+                Int32 Id = (Int32)myCommand.ExecuteScalar();
+                apkInfoTable apkInfo = new apkInfoTable(Id, apkRiskLevel, apkName, apkVersion, minSDK, targetSDK, packageName, versionNumber, versionName, testOnly, debuggable, backup, all, armeabi, armeabi_v7a, arm64_v8a, x86, x86_64, mips, mips64);
+                databaseLayer.myConnection.Close();
+                return apkInfo;
             }
             catch (System.Data.SqlClient.SqlException)
             {
+                databaseLayer.myConnection.Close();
+                return null;
+            }
+        }
+        public List<reportTable> getAllReportsThatContainThisAPK(int ID)
+        {
+            try
+            {
+                databaseLayer.myConnection.Open();
+                SqlCommand myCommand = new SqlCommand("Select * from report where apkInfoID=@y", databaseLayer.myConnection);
+                SqlParameter secondParamater = new SqlParameter("@y", ID);
+                myCommand.Parameters.Add(secondParamater);
+                SqlDataReader reader = myCommand.ExecuteReader();
+                List<reportTable> reports = new List<reportTable>();
+                while (reader.Read())
+                {
+
+                    Int32 Id = (Int32)reader[0];
+                    DateTime date = (DateTime)reader[1];
+                    bool staticallyAnalyzed = (bool)reader[2];
+                    bool dynamicallyAnalyzed = (bool)reader[3];
+                    Int32 apkInfoID = (Int32)reader[4];
+                    Int32 userID = (Int32)reader[5];
+                    reportTable report = new reportTable(Id, userID, date, staticallyAnalyzed, dynamicallyAnalyzed,apkInfoID);
+                    reports.Add(report);
+
+                }
+                reader.Dispose();
+                databaseLayer.myConnection.Close();
+                return reports;
+            }
+            catch (System.InvalidOperationException)
+            {
+                databaseLayer.myConnection.Close();
+                return null;
+            }
+
+        }
+        public bool deleteRecord(int ID)
+        {
+            try
+            {
+                databaseLayer.myConnection.Open();
+                SqlCommand myCommand = new SqlCommand("Delete from ApkInfo where apkInfoID=@y", databaseLayer.myConnection);
+                SqlParameter secondParamater = new SqlParameter("@y", ID);
+                myCommand.Parameters.Add(secondParamater);
+                myCommand.ExecuteNonQuery();
+                databaseLayer.myConnection.Close();
+                return true;
+            }
+            catch
+            {
+                databaseLayer.myConnection.Close();
                 return false;
             }
         }
+        public List<permissionTable> getAllPermissionThatExistInThisAPK(int ID)
+        {
+            try
+            {
+                databaseLayer.myConnection.Open();
+                SqlCommand myCommand = new SqlCommand("Select permissionID from  apkInfo_Permission where apkInfoID=@y", databaseLayer.myConnection);
+                SqlParameter secondParamater = new SqlParameter("@y", ID);
+                myCommand.Parameters.Add(secondParamater);
+                SqlDataReader reader = myCommand.ExecuteReader();
+                List<int> permissionIDs = new List<int>();
+                while (reader.Read())
+                {
+
+                    Int32 Id = (Int32)reader[0];
+                    permissionIDs.Add(Id);
+                }
+                reader.Dispose();
+                try
+                {
+                    int i = 0;
+                    List<permissionTable> permissionObjs = new List<permissionTable>();
+                    while (i<permissionIDs.Count())
+                    {
+                        myCommand = new SqlCommand("Select * from  permission where permissionID=@y", databaseLayer.myConnection);
+                        SqlParameter thirdParamater = new SqlParameter("@y", permissionIDs[i]);
+                        myCommand.Parameters.Add(thirdParamater);
+                        reader = myCommand.ExecuteReader();
+                        Int32 index = (Int32)reader[0];
+                        string name = (string)reader[1];
+                        permissionTable perm = new permissionTable(index, name);
+                        permissionObjs.Add(perm);
+                        i++;
+                    }
+                    reader.Dispose();
+                    databaseLayer.myConnection.Close();
+                    return permissionObjs;
+
+                }
+                catch
+                {
+                    databaseLayer.myConnection.Close();
+                    return null;
+                }
+            }
+            catch (System.InvalidOperationException)
+            {
+                databaseLayer.myConnection.Close();
+                return null;
+            }
+
+        }
+        //public List<launchableActivityTable> getAllActivitiesInThisAPK(int ID)
+        //{
+        //    try
+        //    {
+        //        databaseLayer.myConnection.Open();
+        //        SqlCommand myCommand = new SqlCommand("Select * from launchableActivity where apkInfoID=@y", databaseLayer.myConnection);
+        //        SqlParameter secondParamater = new SqlParameter("@y", ID);
+        //        myCommand.Parameters.Add(secondParamater);
+        //        SqlDataReader reader = myCommand.ExecuteReader();
+        //        List<launchableActivityTable> activities = new List<launchableActivityTable>();
+        //        while (reader.Read())
+        //        {
+
+        //            Int32 Id = (Int32)reader[0];
+        //            string name = (string)reader[1];
+        //            Int32 apkID = (Int32)reader[2];
+        //            launchableActivityTable launchable = new launchableActivityTable(Id, apkID, name);
+        //            activities.Add(launchable);
+        //        }
+        //        reader.Dispose();
+        //        databaseLayer.myConnection.Close();
+        //        return activities;
+        //    }
+        //    catch (System.InvalidOperationException)
+        //    {
+        //        databaseLayer.myConnection.Close();
+        //        return null;
+        //    }
+
+        //}
+        public bool createRelationBetweenAPKInfoAndPermission(int apkPermission, string PermissionName)
+        {
+            try
+            {
+                databaseLayer.myConnection.Open();
+                SqlCommand myCommand = new SqlCommand("Select permissionID from permission where name=@y", databaseLayer.myConnection);
+                SqlParameter secondParamater = new SqlParameter("@y", PermissionName);
+                myCommand.Parameters.Add(secondParamater);
+                SqlDataReader reader = myCommand.ExecuteReader();
+                if (reader.Read())
+                {
+
+                    Int32 Id = (Int32)reader[0];
+                    reader.Dispose();
+                    try
+                    {
+                        SqlCommand checkExistenceOfRelation = new SqlCommand("select * from apkInfo_Permission where apkInfoID=@y and permissionID=@z", databaseLayer.myConnection);
+                        SqlParameter Paramater = new SqlParameter("@y", apkPermission);
+                        SqlParameter thirdParamater = new SqlParameter("@z", PermissionName);
+                        checkExistenceOfRelation.Parameters.Add(Paramater);
+                        checkExistenceOfRelation.Parameters.Add(thirdParamater);
+                        checkExistenceOfRelation.ExecuteNonQuery();
+                        reader = checkExistenceOfRelation.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            databaseLayer.myConnection.Close();
+                            reader.Dispose();
+                            return false;
+                        }
+                        try
+                        {
+                            reader.Dispose();
+                            myCommand = new SqlCommand("insert into apkInfo_Permission (" +
+                           "apkInfoID, permssionID)values (@b,@c)", databaseLayer.myConnection);
+                            SqlParameter forthParamater = new SqlParameter("@b", apkInfoID);
+                            SqlParameter fifthParamter = new SqlParameter("@c", Id);
+                            myCommand.Parameters.Add(forthParamater);
+                            myCommand.Parameters.Add(fifthParamter);
+                            myCommand.ExecuteNonQuery();
+                            databaseLayer.myConnection.Close();
+                            return true;
+
+                        }
+                        catch
+                        {
+                            databaseLayer.myConnection.Close();
+                            return false;
+                        }
+                    }
+                    catch (System.InvalidOperationException)
+                    {
+                        databaseLayer.myConnection.Close();
+                        return false;
+                    }
+
+                }
+
+                else
+                {
+                    databaseLayer.myConnection.Close();
+                    return false;
+                }
+            }
+            catch (System.InvalidOperationException)
+            {
+                databaseLayer.myConnection.Close();
+                return false;
+            }
+
+
+        }
+
     }
 }

@@ -15,8 +15,8 @@ namespace AndroApp
         userAccountTable userAccount;
         protected void Page_Load(object sender, EventArgs e)
         {
-            userAccount = new userAccountTable();
             androDatabase = new databaseLayer();
+            userAccount = new userAccountTable();
         }
         protected void btn_Click(object sender, EventArgs e)
         {
