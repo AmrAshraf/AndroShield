@@ -9,7 +9,7 @@ namespace AndroShield
 
     public class databaseLayer
     {
-        SqlConnection myConnection = new SqlConnection("Data Source=.\\sqlexpress;Initial Catalog=AndroShield;Integrated Security=True");
+       static public SqlConnection myConnection = new SqlConnection("Data Source=.\\sqlexpress;Initial Catalog=AndroShield;Integrated Security=True");
         public databaseLayer()
         {
             createAPKInfoTable();
@@ -29,7 +29,7 @@ namespace AndroShield
             if (result == 0)
             {
                 string createApkInfoTable = "CREATE TABLE ApkInfo" +
-                    "(apkID int CONSTRAINT PkeyIDApkInfo PRIMARY KEY," +
+                    "(apkID int CONSTRAINT PkeyIDApkInfo PRIMARY KEY IDENTITY(1,1)," +
                     "apkName varchar(50) , apkVersion varchar(50), minSDK varchar(50), targetSdk varchar(50), packageName varchar(50), versionNumber varchar(50)," +
                     "versionName varchar(50), apkRiskLevel float, testOnlyFlag bit, debuggableFlag bit, backupFlag bit," +
                     " allFlag bit, armeabiFlag bit, armeabi_v7aFlag bit, arm64_V8aFlag bit, X86Flag bit, X86_64Flag bit, mipsFlag bit, mips64Flag bit)";
@@ -37,7 +37,7 @@ namespace AndroShield
                 create.ExecuteNonQuery();
             }
             myConnection.Close();
-        }
+        } //done testing
         private void createLaunchableActivityTable()
         {
             myConnection.Open();
@@ -46,15 +46,15 @@ namespace AndroShield
             if (result == 0)
             {
                 string createTable = "CREATE TABLE launchableActivity " +
-                  "(launchableActivityID int CONSTRAINT PkeyLaunchedActivity PRIMARY KEY," +
+                  "(launchableActivityID int CONSTRAINT PkeyLaunchedActivity PRIMARY KEY IDENTITY(1,1)," +
                  "name varchar(50), apkInfoID int)";
                 SqlCommand create = new SqlCommand(createTable, myConnection);
                 create.ExecuteNonQuery();
-                SqlCommand addRelation = new SqlCommand("ALTER TABLE launchableActivity ADD CONSTRAINT FK_launchableActivity_APKINFO FOREIGN KEY (apkInfoID) REFERENCES ApkInfo(apkID) On delete set NULL On update cascade", myConnection);
+                SqlCommand addRelation = new SqlCommand("ALTER TABLE launchableActivity ADD CONSTRAINT FK_launchableActivity_APKINFO FOREIGN KEY (apkInfoID) REFERENCES ApkInfo(apkID) On delete cascade On update cascade", myConnection);
                 addRelation.ExecuteNonQuery();
             }
             myConnection.Close();
-        }
+        } //done testing
         private void createUserAccountTable()
         {
             myConnection.Open();
@@ -69,7 +69,7 @@ namespace AndroShield
                 create.ExecuteNonQuery();
             }
             myConnection.Close();
-        }
+        } //done testing
         private void createVulnerabilityTable()
         {
             myConnection.Open();
@@ -78,13 +78,13 @@ namespace AndroShield
             if (result == 0)
             {
                 string createTable = "CREATE TABLE vulnerability " +
-                  "(vulnerabilityID int CONSTRAINT Pkeyvulnerability PRIMARY KEY, category varchar(50), type varchar(50)," +
+                  "(vulnerabilityID int CONSTRAINT Pkeyvulnerability PRIMARY KEY IDENTITY(1,1), category varchar(50), type varchar(50)," +
                  "severity float )";
                 SqlCommand create = new SqlCommand(createTable, myConnection);
                 create.ExecuteNonQuery();
             }
             myConnection.Close();
-        }
+        } //done testing
         private void createReportTable()
         {
             myConnection.Open();
@@ -93,17 +93,17 @@ namespace AndroShield
             if (result == 0)
             {
                 string createTable = "CREATE TABLE report " +
-                  "(reportID int CONSTRAINT PkeyReport PRIMARY KEY, reportDate date, staticallyAnalyzed bit," +
+                  "(reportID int CONSTRAINT PkeyReport PRIMARY KEY IDENTITY(1,1), reportDate date, staticallyAnalyzed bit," +
                  "dynamicallyAnalyzed bit, apkInfoID int, userAccountID int )";
                 SqlCommand create = new SqlCommand(createTable, myConnection);
                 create.ExecuteNonQuery();
-                SqlCommand addRelation = new SqlCommand("ALTER TABLE report ADD CONSTRAINT FK_report_apkInfo FOREIGN KEY (apkInfoID) REFERENCES ApkInfo(apkID) On delete set NULL On update cascade", myConnection);
-                SqlCommand addNewRelation = new SqlCommand("ALTER TABLE report ADD CONSTRAINT FK_report_userAccount FOREIGN KEY (userAccountID) REFERENCES userAccount(userID) On delete set NULL On update cascade", myConnection);
+                SqlCommand addRelation = new SqlCommand("ALTER TABLE report ADD CONSTRAINT FK_report_apkInfo FOREIGN KEY (apkInfoID) REFERENCES ApkInfo(apkID) On delete cascade On update cascade", myConnection);
+                SqlCommand addNewRelation = new SqlCommand("ALTER TABLE report ADD CONSTRAINT FK_report_userAccount FOREIGN KEY (userAccountID) REFERENCES userAccount(userID) On delete cascade On update cascade", myConnection);
                 addRelation.ExecuteNonQuery();
                 addNewRelation.ExecuteNonQuery();
             }
             myConnection.Close();
-        }
+        } //done testing
         private void createPermissionTable()
         {
             myConnection.Open();
@@ -111,14 +111,14 @@ namespace AndroShield
             int result = (int)myCommand.ExecuteScalar();
             if (result == 0)
             {
-                string createTable = "CREATE TABLE permission " +
-                  "(permissionID int CONSTRAINT Pkeypermission PRIMARY KEY," +
+                string createTable = "CREATE TABLE permission" +
+                  "(permissionID int CONSTRAINT Pkeypermission PRIMARY KEY IDENTITY(1,1) ," +
                  "name varchar(50))";
                 SqlCommand create = new SqlCommand(createTable, myConnection);
                 create.ExecuteNonQuery();
             }
             myConnection.Close();
-        }
+        } //done testing
         private void createApkInfo_PermissionTable()
         {
             myConnection.Open();
@@ -131,13 +131,13 @@ namespace AndroShield
                  "permissionID int )";
                 SqlCommand create = new SqlCommand(createTable, myConnection);
                 create.ExecuteNonQuery();
-                SqlCommand addRelation = new SqlCommand("ALTER TABLE apkInfo_Permission ADD CONSTRAINT FK_apkInfo_PT FOREIGN KEY (apkInfoID) REFERENCES ApkInfo(apkID) On delete set NULL On update cascade", myConnection);
-                SqlCommand addNewRelation = new SqlCommand("ALTER TABLE apkInfo_Permission ADD CONSTRAINT FK_apkInfo_Permission FOREIGN KEY (permissionID) REFERENCES permission(permissionID) On delete set NULL On update cascade", myConnection);
+                SqlCommand addRelation = new SqlCommand("ALTER TABLE apkInfo_Permission ADD CONSTRAINT FK_apkInfo_PT FOREIGN KEY (apkInfoID) REFERENCES ApkInfo(apkID) On delete cascade On update cascade", myConnection);
+                SqlCommand addNewRelation = new SqlCommand("ALTER TABLE apkInfo_Permission ADD CONSTRAINT FK_apkInfo_Permission FOREIGN KEY (permissionID) REFERENCES permission(permissionID) On delete cascade On update cascade", myConnection);
                 addRelation.ExecuteNonQuery();
                 addNewRelation.ExecuteNonQuery();
             }
             myConnection.Close();
-        }
+        } //done testing
         private void createReport_VulnerabilityTable()
         {
             myConnection.Open();
@@ -150,12 +150,12 @@ namespace AndroShield
                  "vulnerabilityID int, extraInfo varchar(50) )";
                 SqlCommand create = new SqlCommand(createTable, myConnection);
                 create.ExecuteNonQuery();
-                SqlCommand addRelation = new SqlCommand("ALTER TABLE report_Vulnerability ADD CONSTRAINT FK_reportVuln FOREIGN KEY (reportID) REFERENCES report(reportID) On delete set NULL On update cascade", myConnection);
-                SqlCommand addNewRelation = new SqlCommand("ALTER TABLE report_Vulnerability ADD CONSTRAINT FK_reportVulnerability FOREIGN KEY (vulnerabilityID) REFERENCES vulnerability(vulnerabilityID) On delete set NULL On update cascade", myConnection);
+                SqlCommand addRelation = new SqlCommand("ALTER TABLE report_Vulnerability ADD CONSTRAINT FK_reportVuln FOREIGN KEY (reportID) REFERENCES report(reportID) On delete cascade On update cascade", myConnection);
+                SqlCommand addNewRelation = new SqlCommand("ALTER TABLE report_Vulnerability ADD CONSTRAINT FK_reportVulnerability FOREIGN KEY (vulnerabilityID) REFERENCES vulnerability(vulnerabilityID) On delete cascade On update cascade", myConnection);
                 addRelation.ExecuteNonQuery();
                 addNewRelation.ExecuteNonQuery();
             }
             myConnection.Close();
-        }
+        } //done testing
     }
 }
