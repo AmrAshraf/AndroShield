@@ -210,6 +210,8 @@ namespace APKInfoExtraction {
 		packageName = gcnew String(&apkInfo->getPackageName()[0]);
 		minSDKVersion = gcnew String(&apkInfo->getMinSDKVersion()[0]);
 		targetSDKVersion = gcnew String(&apkInfo->getTargetSDKVersion()[0]);
+		if (targetSDKVersion == "")//TODO: this case need to be studied
+			targetSDKVersion = minSDKVersion;
 		ApkInfo::SupportedArchi temp = apkInfo->getSupportedArchi();
 		supportedArchitectures.all = temp.all;
 		supportedArchitectures.arm64_v8a = temp.arm64_v8a;
