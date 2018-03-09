@@ -140,6 +140,7 @@ namespace AndroApp
                 List<KeyValuePair< int,string>> reportsID = new List<KeyValuePair<int, string>>();
                 while (reader.Read())
                 {
+                    
                     Int32 Id = (Int32)reader[0];
                     string concatinatedInfo = "";
                     concatinatedInfo += reader[1].ToString()+"#";

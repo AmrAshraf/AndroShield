@@ -29,7 +29,7 @@ namespace AndroApp.Web_Forms
             userEmail.Text = Session["username"].ToString();
             if (!IsPostBack)
             {
-                if((Session["reportID"]!=null || Session["reportID"].ToString()!="") && (Session["apk"]!=null))
+                if((Session["reportID"]!=null || Session["reportID"].ToString()!=""))// && (Session["apk"]!=null))
                 {
                     reportTable analysisReport = reportTable.findReportByID(int.Parse(Session["reportID"].ToString()), ref permissions, ref reportApk, ref vulnerabilities);
                     int x;
@@ -37,8 +37,8 @@ namespace AndroApp.Web_Forms
                 }
                 if (Session["currentReportName"] != null && Session["currentReportName"].ToString() != "")
                 {
-                    apkInfoExtraction = (APKInfoExtractor)Session["apkInfo"];
-                    taintAnalysis = (TaintAnalyser)Session["taint"];
+                    //apkInfoExtraction = (APKInfoExtractor)Session["apkInfo"];
+                    //taintAnalysis = (TaintAnalyser)Session["taint"];
 
                     apkNameValue.Text = Session["currentReportName"].ToString();
                     apkVersionValue.Text = reportApk.versionName;

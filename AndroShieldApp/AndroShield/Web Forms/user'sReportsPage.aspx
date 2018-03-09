@@ -14,7 +14,8 @@
                     <asp:TableHeaderCell CssClass="cell rightBorder" Width="200px">Apk Name</asp:TableHeaderCell>
                     <asp:TableHeaderCell CssClass="cell rightBorder" Width="200px">Package Name</asp:TableHeaderCell>
                     <asp:TableHeaderCell CssClass="cell rightBorder" Width="200px">Version Number</asp:TableHeaderCell>
-                    <asp:TableHeaderCell CssClass="cell" Width="470px">Date</asp:TableHeaderCell>
+                    <asp:TableHeaderCell CssClass="cell" Width="200px">Date</asp:TableHeaderCell>
+                    <asp:TableHeaderCell CssClass="cell" Width="100px" ></asp:TableHeaderCell>
                 </asp:TableHeaderRow>
             </asp:Table>
         </div>
