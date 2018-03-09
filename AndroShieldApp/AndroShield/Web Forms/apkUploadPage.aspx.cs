@@ -20,7 +20,10 @@ namespace AndroApp.Web_Forms
         string uploadedFileName="";
         protected void Page_Load(object sender, EventArgs e)
         {
-            userEmail.Text = Session["username"].ToString();
+            if (!IsPostBack)
+            {
+                userEmail.Text = Session["username"].ToString();
+            }
         }
         protected void signupNav_Click(object sender, EventArgs e)
         {
@@ -78,8 +81,6 @@ namespace AndroApp.Web_Forms
         {
             apkName = Session["currentReportName"].ToString();
             string apkPath = "C:\\GPTempDir\\" + apkName;
-            int x;
-            x = 5;
 
             analyzeApk(apkPath);
 
@@ -92,8 +93,8 @@ namespace AndroApp.Web_Forms
             APKInfoExtractor apkInfoExtraction = new APKInfoExtractor(path);
             apkInfoExtraction.startExtraction();
             TaintAnalyser taintAnalysis = new TaintAnalyser(apkInfoExtraction.realApkPath);
-
-            apkInfoTable currentApk = apkInfoTable.insertAPK(0, apkName, "", apkInfoExtraction.minSDKVersion, apkInfoExtraction.targetSDKVersion, apkInfoExtraction.packageName, apkInfoExtraction.versionCode, apkInfoExtraction.versionName, apkInfoExtraction.testFlag, apkInfoExtraction.debuggableFlag, apkInfoExtraction.backupFlag, apkInfoExtraction.supportedArchitectures.all, apkInfoExtraction.supportedArchitectures.armeabi, apkInfoExtraction.supportedArchitectures.armeabi_v7a, apkInfoExtraction.supportedArchitectures.arm64_v8a, apkInfoExtraction.supportedArchitectures.x86, apkInfoExtraction.supportedArchitectures.x86_64, apkInfoExtraction.supportedArchitectures.mips, apkInfoExtraction.supportedArchitectures.mips64);
+            //TODO: apkRiskLevel determination
+            apkInfoTable currentApk = apkInfoTable.insertAPKInfo(0, apkName,  apkInfoExtraction.minSDKVersion, apkInfoExtraction.targetSDKVersion, apkInfoExtraction.packageName, apkInfoExtraction.versionCode, apkInfoExtraction.versionName, apkInfoExtraction.testFlag, apkInfoExtraction.debuggableFlag, apkInfoExtraction.backupFlag, apkInfoExtraction.supportedArchitectures.all, apkInfoExtraction.supportedArchitectures.armeabi, apkInfoExtraction.supportedArchitectures.armeabi_v7a, apkInfoExtraction.supportedArchitectures.arm64_v8a, apkInfoExtraction.supportedArchitectures.x86, apkInfoExtraction.supportedArchitectures.x86_64, apkInfoExtraction.supportedArchitectures.mips, apkInfoExtraction.supportedArchitectures.mips64);
             reportTable apkReport = reportTable.addNewReport(DateTime.Now.Date, true, false, currentApk.apkInfoID, user.ID);
 
             List<Vulnerability> apkVulnerabilities= new List<Vulnerability>();
@@ -107,22 +108,24 @@ namespace AndroApp.Web_Forms
                 apkReport.createRelationBetweenReportAndVulnerability(apkReport.reportId, dbVulnerability.vulnID, apkVulnerabilities[i].extraInfo);
             }
 
-            List<string> permissions = new List<string>(apkInfoExtraction.permissions);
-            for(int i=0; i<permissions.Count; i++)
+            string[] permissions = apkInfoExtraction.permissions;
+            
+          //  List<string> permissions = new List<string>(apkInfoExtraction.permissions);
+            for(int i=0; i<permissions.Length; i++)
             {
                 permissionTable.addNewPermission(permissions[i]);
                 currentApk.createRelationBetweenAPKInfoAndPermission(currentApk.apkInfoID, permissions[i]);
             }
-
-            List<string> launchableActivities = new List<string>(apkInfoExtraction.launchableActivities);
-            for(int i=0; i<launchableActivities.Count; i++)
+            string[] launchableActivities = apkInfoExtraction.launchableActivities;
+            //List<string> launchableActivities = new List<string>(apkInfoExtraction.launchableActivities);
+            for (int i=0; i<launchableActivities.Length; i++)
             {
                 launchableActivityTable.addNewActivity(launchableActivities[i], currentApk.apkInfoID);
             }
 
             Session["reportID"] = apkReport.reportId;
-            //Session["apkInfo"] = apkInfoExtraction;
-            //Session["taint"] = taintAnalysis;
+            Session["apkInfo"] = apkInfoExtraction;
+            Session["taint"] = taintAnalysis;
         }
 
     }

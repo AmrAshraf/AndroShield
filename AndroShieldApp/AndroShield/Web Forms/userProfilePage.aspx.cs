@@ -11,8 +11,11 @@ namespace AndroApp.Web_Forms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            ClientScript.GetPostBackEventReference(this, string.Empty);
-            userEmail.Text = Session["username"].ToString();
+            if (!IsPostBack)
+            {
+                ClientScript.GetPostBackEventReference(this, string.Empty);
+                userEmail.Text = Session["username"].ToString();
+            }
         }
         protected void logout_Click(object sender, EventArgs e)
         {

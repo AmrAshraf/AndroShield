@@ -9,7 +9,7 @@ namespace AndroApp
     public class reportTable
     {
         public int apkInfoID, userAccountID, reportId;
-        private DateTime reportDate;
+        private DateTime reportDate; 
         bool staticallyAnalyzed, dynamicallyAnalyzed;
         public reportTable()
         {
@@ -21,12 +21,14 @@ namespace AndroApp
             this.staticallyAnalyzed = staticallyAnalyzed;
             this.dynamicallyAnalyzed = dynamicallyAnalyzed;
             this.userAccountID = userAccountID;
+            this.apkInfoID = apkInfoID;
+            this.reportDate = reportDate;
             
         }
         static public reportTable addNewReport ( DateTime reportDate, bool staticallyAnalyzed, bool dynamicallyAnalyzed, int apkInfoID, int userID)
         {
             databaseLayer.myConnection.Open();
-            SqlCommand checkExistenceOfReport = new SqlCommand("select reportID from report where reportDate=@y and apkInfoID=@x and userAccountID=@z", databaseLayer.myConnection);
+          /*  SqlCommand checkExistenceOfReport = new SqlCommand("select reportID from report where reportDate=@y and apkInfoID=@x and userAccountID=@z", databaseLayer.myConnection);
             SqlParameter Paramater = new SqlParameter("@y", reportDate);
             SqlParameter secondParamater = new SqlParameter("@x", apkInfoID);
             SqlParameter thirdParamater = new SqlParameter("@z", userID);
@@ -37,15 +39,15 @@ namespace AndroApp
             SqlDataReader reader = checkExistenceOfReport.ExecuteReader();
             if (reader.Read())
             {
-                databaseLayer.myConnection.Close();
                 reader.Dispose();
+                databaseLayer.myConnection.Close();
                 return null;
             }
-
+            */
             try
             {
-                reader.Dispose();
-                SqlCommand myCommand = new SqlCommand("insert into report (reportDate,staticallyAnalyzed,dynamicallyAnalyzed,apkInfoID,userAccountID) OUTPUT INSERTED.ID values (@a,@b,@c,@d,@e)", databaseLayer.myConnection);
+              //  reader.Dispose();
+                SqlCommand myCommand = new SqlCommand("insert into report (reportDate,staticallyAnalyzed,dynamicallyAnalyzed,apkInfoID,userAccountID) OUTPUT INSERTED.reportID values (@a,@b,@c,@d,@e)", databaseLayer.myConnection);
                 SqlParameter forthParamater = new SqlParameter("@a", reportDate);
                 SqlParameter fifthParamater = new SqlParameter("@b", staticallyAnalyzed);
                 SqlParameter sixthParamater = new SqlParameter("@c", dynamicallyAnalyzed);
@@ -63,7 +65,7 @@ namespace AndroApp
                 databaseLayer.myConnection.Close();
                 return report;
             }
-            catch (System.Data.SqlClient.SqlException)
+            catch (System.Data.SqlClient.SqlException ex)
             {
                 databaseLayer.myConnection.Close();
                 return null;
@@ -117,8 +119,8 @@ namespace AndroApp
             SqlDataReader reader = checkExistenceOfRelation.ExecuteReader();
             if (reader.Read())
             {
-                databaseLayer.myConnection.Close();
                 reader.Dispose();
+                databaseLayer.myConnection.Close();
                 return false;
             }
 
@@ -154,12 +156,12 @@ namespace AndroApp
                 if (reader.Read())
                 {
                     Int32 apkID = (Int32)reader[0];
-                    String apkName = (String)reader[0];
-                    String apkVersion = (String)reader[1];
+                    String apkName = (String)reader[1];
+               //     String apkVersion = (String)reader[1];
                     String minSDK = (String)reader[2];
                     String targetSdk = (String)reader[3];
                     String packageName = (String)reader[4];
-                    String versionNumber = (String)reader[5];
+                    String versionCode = (String)reader[5];
                     String versionName = (String)reader[6];
                     float apkRiskLevel = (float)reader[7];
                     bool testOnlyFlag = (bool)reader[8];
@@ -173,7 +175,7 @@ namespace AndroApp
                     bool X86_64Flag = (bool)reader[16];
                     bool mipsFlag = (bool)reader[17];
                     bool mips64Flag = (bool)reader[18];
-                    apkInfoTable apk = new apkInfoTable( apkInfoID,  apkRiskLevel,  apkName,  apkVersion,  minSDK,  targetSdk,  packageName,  versionNumber,  versionName,  testOnlyFlag,  debuggableFlag,  backupFlag,  allFlag,  armeabiFlag,  armeabi_v7aFlag,  arm64_V8aFlag,  X86Flag, X86_64Flag, mipsFlag, mips64Flag);
+                    apkInfoTable apk = new apkInfoTable( apkInfoID,  apkRiskLevel,  apkName,  minSDK,  targetSdk,  packageName,  versionCode,  versionName,  testOnlyFlag,  debuggableFlag,  backupFlag,  allFlag,  armeabiFlag,  armeabi_v7aFlag,  arm64_V8aFlag,  X86Flag, X86_64Flag, mipsFlag, mips64Flag);
                     reader.Dispose();
                     databaseLayer.myConnection.Close();
                     return apk;
@@ -245,16 +247,11 @@ namespace AndroApp
         }
         public List<permissionTable> getPermissionsofThisReport (int reportID)
         {
-            try
-            {
+
                 apkInfoTable apk = getApkOfThisReport(reportID);
                 List<permissionTable> perms = apk.getAllPermissionThatExistInThisAPK(apk.apkInfoID);
                 return perms;
-            }
-            catch
-            {
-                return null;
-            }
+
         }
         public bool deleteRecord(int ID)
         {

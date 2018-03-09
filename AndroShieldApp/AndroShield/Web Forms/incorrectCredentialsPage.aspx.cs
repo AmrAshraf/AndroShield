@@ -13,8 +13,11 @@ namespace AndroApp.Web_Forms
         userAccountTable userAccount;
         protected void Page_Load(object sender, EventArgs e)
         {
-            userAccount = new userAccountTable();
-            androDatabase = new databaseLayer();
+            if (!IsPostBack)
+            {
+                userAccount = new userAccountTable();
+                androDatabase = new databaseLayer();
+            }
         }
 
         protected void loginBtn_Click(object sender, EventArgs e)

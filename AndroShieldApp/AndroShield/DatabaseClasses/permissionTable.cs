@@ -34,7 +34,7 @@ namespace AndroApp
             try
             {
                 reader.Dispose();
-                SqlCommand myCommand = new SqlCommand("insert into permission (name)  OUTPUT INSERTED.ID values (@c)", databaseLayer.myConnection);
+                SqlCommand myCommand = new SqlCommand("insert into permission (name)  OUTPUT INSERTED.permissionID values (@c)", databaseLayer.myConnection);
                 SqlParameter fifthParamater = new SqlParameter("@c", name);
                 myCommand.Parameters.Add(fifthParamater);
               Int32 Num=(Int32)  myCommand.ExecuteScalar();

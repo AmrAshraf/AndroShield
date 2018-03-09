@@ -95,13 +95,16 @@ namespace AndroApp
                     String lastName = (String)myReader[5];
                     userAccountTable user = new userAccountTable(userID, lastLoginDate, userPassword, email, firstName, lastName);
                     reader.Dispose();
+                    databaseLayer.myConnection.Close();
                     return user;
                 }
             }
             catch (System.InvalidOperationException)
             {
+                databaseLayer.myConnection.Close();
                 return null;
             }
+            databaseLayer.myConnection.Close();
             return null;
 
         } //tested

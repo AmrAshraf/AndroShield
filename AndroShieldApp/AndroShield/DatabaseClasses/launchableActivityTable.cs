@@ -29,15 +29,15 @@ namespace AndroApp
             SqlDataReader reader = checkExistenceOfActivity.ExecuteReader();
             if (reader.Read())
             {
-                databaseLayer.myConnection.Close();
                 reader.Dispose();
+                databaseLayer.myConnection.Close();
                 return null;
             }
 
             try
             {
                 reader.Dispose();
-                SqlCommand myCommand = new SqlCommand("insert into launchableActivity (name,apkInfoID)  OUTPUT INSERTED.ID  values (@c,@d)", databaseLayer.myConnection);
+                SqlCommand myCommand = new SqlCommand("insert into launchableActivity (name,apkInfoID)  OUTPUT INSERTED.launchableActivityID  values (@c,@d)", databaseLayer.myConnection);
                 SqlParameter fifthParamater = new SqlParameter("@c", name);
                 SqlParameter sixthParamater = new SqlParameter("@d", apkInfoID);
                 myCommand.Parameters.Add(fifthParamater);

@@ -11,7 +11,10 @@ namespace AndroApp.Web_Forms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            userEmail.Text = Session["username"].ToString();
+            if (!IsPostBack)
+            {
+                userEmail.Text = Session["username"].ToString();
+            }
         }
         protected void signupNav_Click(object sender, EventArgs e)
         {

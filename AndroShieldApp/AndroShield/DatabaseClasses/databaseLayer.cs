@@ -30,7 +30,7 @@ namespace AndroApp
             {
                 string createApkInfoTable = "CREATE TABLE ApkInfo" +
                     "(apkID int CONSTRAINT PkeyIDApkInfo PRIMARY KEY IDENTITY(1,1)," +
-                    "apkName varchar(50) , apkVersion varchar(50), minSDK varchar(50), targetSdk varchar(50), packageName varchar(50), versionNumber varchar(50)," +
+                    "apkName varchar(50) , minSDK varchar(50), targetSdk varchar(50), packageName varchar(50), versionCode varchar(50)," +
                     "versionName varchar(50), apkRiskLevel float, testOnlyFlag bit, debuggableFlag bit, backupFlag bit," +
                     " allFlag bit, armeabiFlag bit, armeabi_v7aFlag bit, arm64_V8aFlag bit, X86Flag bit, X86_64Flag bit, mipsFlag bit, mips64Flag bit)";
                 SqlCommand create = new SqlCommand(createApkInfoTable, myConnection);

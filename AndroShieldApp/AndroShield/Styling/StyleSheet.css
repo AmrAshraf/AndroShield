@@ -55,7 +55,7 @@ footer {
     border: none;
     width: 50px;
     height: 55px;
-    margin: 0px 5px;
+    margin: 0 5px;
     background: url('../Images/AndroShieldlogo.png') no-repeat;
     background-repeat: no-repeat;
     background-size: 50px 55px;
@@ -67,7 +67,6 @@ footer {
     border: none;
     width: 290px;
     height: 55px;
-    background-size: contain;
     background: url('../Images/AndroShieldword.jpg') no-repeat;
     background-repeat: no-repeat;
     background-size: 290px 55px;
@@ -159,7 +158,7 @@ footer {
     position: relative;
     float: right;
     margin: 5px 5px 5px 10px;
-    top: 0px;
+    top: 0;
     left: 1px;
 }
 .topRight:hover {
@@ -340,7 +339,7 @@ input.loginInput:focus::-webkit-input-placeholder {
     border-radius: 5px;
     box-shadow: 0 5px #666;
     display: inline-block;
-    margin: 10px 0px 20px 20px;
+    margin: 10px 0 20px 20px;
 }
 .reportPageButtons:hover {
     background-color: #424242;
@@ -355,7 +354,7 @@ input.loginInput:focus::-webkit-input-placeholder {
     min-height: 80px;
 }
 #vulnerabilityReportTable, #apkInfoTable, table, th, td {
-    margin: 0px auto;
+    margin: 0 auto;
     border-top: 2px solid black;
     border-bottom: 2px solid black;
     border-collapse: collapse;

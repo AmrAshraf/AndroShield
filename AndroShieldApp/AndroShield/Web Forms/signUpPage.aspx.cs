@@ -12,7 +12,10 @@ namespace AndroApp.Web_Forms
         userAccountTable userAccount;
         protected void Page_Load(object sender, EventArgs e)
         {
-            userAccount = new userAccountTable();
+            if (!IsPostBack)
+            {
+                userAccount = new userAccountTable();
+            }
         }
 
         protected void signUpButton_Click(object sender, EventArgs e)

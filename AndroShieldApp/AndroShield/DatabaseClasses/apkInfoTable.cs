@@ -13,21 +13,21 @@ namespace AndroApp
     {
         public int apkInfoID;
         private float apkRiskLevel;
-        private string apkName, apkVersion, minSDK, targetSDK, packageName, versionNumber, versionName;
+        private string apkName, minSDK, targetSDK, packageName, versionCode, versionName;
         bool testOnly, debuggable, backup, all, armeabi, armeabi_v7a, arm64_v8a, x86, x86_64, mips, mips64;
         public apkInfoTable()
         {
         }
-        public apkInfoTable(int apkInfoID, float apkRiskLevel, string apkName, string apkVersion, string minSDK, string targetSDK, string packageName, string versionNumber, string versionName, bool testOnly, bool debuggable, bool backup, bool all, bool armeabi, bool armeabi_v7a, bool arm64_v8a, bool x86, bool x86_64, bool mips, bool mips64)
+        public apkInfoTable(int apkInfoID, float apkRiskLevel, string apkName, string minSDK, string targetSDK, string packageName, string versionCode, string versionName, bool testOnly, bool debuggable, bool backup, bool all, bool armeabi, bool armeabi_v7a, bool arm64_v8a, bool x86, bool x86_64, bool mips, bool mips64)
         {
             this.apkInfoID = apkInfoID;
             this.apkRiskLevel = apkRiskLevel;
             this.apkName = apkName;
-            this.apkVersion = apkVersion;
+          //  this.apkVersion = apkVersion;
             this.minSDK = minSDK;
             this.targetSDK = targetSDK;
             this.packageName = packageName;
-            this.versionNumber = versionNumber;
+            this.versionCode = versionCode;
             this.versionName = versionName;
             this.testOnly = testOnly;
             this.debuggable = debuggable;
@@ -41,34 +41,39 @@ namespace AndroApp
             this.mips = mips;
             this.mips64 = mips64;
         }
-        static public apkInfoTable insertAPK(float apkRiskLevel, string apkName, string apkVersion, string minSDK, string targetSDK, string packageName, string versionNumber, string versionName, bool testOnly, bool debuggable, bool backup, bool all, bool armeabi, bool armeabi_v7a, bool arm64_v8a, bool x86, bool x86_64, bool mips, bool mips64)
+        static public apkInfoTable insertAPKInfo(float apkRiskLevel, string apkName, string minSDK, string targetSDK, string packageName, string versionCode, string versionName, bool testOnly, bool debuggable, bool backup, bool all, bool armeabi, bool armeabi_v7a, bool arm64_v8a, bool x86, bool x86_64, bool mips, bool mips64)
         {
             databaseLayer.myConnection.Open();
-            SqlCommand checkExistenceOfAPK = new SqlCommand("select apkID from ApkInfo where apkVersion=@y and packageName=@z", databaseLayer.myConnection);
-            SqlParameter Paramater = new SqlParameter("@y", apkVersion);
+         /*   SqlCommand checkExistenceOfAPK = new SqlCommand("select apkID from ApkInfo where versionCode=@y and packageName=@z", databaseLayer.myConnection);
+            SqlParameter Paramater = new SqlParameter("@y", versionCode); 
             SqlParameter secondParamater = new SqlParameter("@z", packageName);
             checkExistenceOfAPK.Parameters.Add(Paramater);
             checkExistenceOfAPK.Parameters.Add(secondParamater);
-            checkExistenceOfAPK.ExecuteNonQuery();
+            checkExistenceOfAPK.ExecuteNonQuery();//TODO: change the logic of this uniqueness check because it prevent analyze the same apk from our system
             SqlDataReader reader = checkExistenceOfAPK.ExecuteReader();
             if (reader.Read())
             {
                 reader.Dispose();
                 databaseLayer.myConnection.Close();
                 return null;
-            }
+            }*/
             try
             {
-                reader.Dispose();
+              //  reader.Dispose();
+                /*          SqlCommand myCommand = new SqlCommand("insert into ApkInfo (" +
+                              "apkName, apkVersion , minSDK , targetSdk , packageName , versionCode ," +
+                              "versionName , apkRiskLevel , testOnlyFlag , debuggableFlag , backupFlag ," +
+                              " allFlag , armeabiFlag , armeabi_v7aFlag , arm64_V8aFlag , X86Flag , X86_64Flag , mipsFlag , mips64Flag ) OUTPUT INSERTED.ID values (@b,@c,@d,@e,@f,@h,@I,@J,@K,@L,@M,@N,@O,@P,@Q,@R,@S,@T)", databaseLayer.myConnection);*/
                 SqlCommand myCommand = new SqlCommand("insert into ApkInfo (" +
-                    "apkName, apkVersion , minSDK , targetSdk , packageName , versionNumber ," +
-                    "versionName , apkRiskLevel , testOnlyFlag , debuggableFlag , backupFlag ," +
-                    " allFlag , armeabiFlag , armeabi_v7aFlag , arm64_V8aFlag , X86Flag , X86_64Flag , mipsFlag , mips64Flag ) OUTPUT INSERTED.ID values (@b,@c,@d,@e,@f,@h,@I,@J,@K,@L,@M,@N,@O,@P,@Q,@R,@S,@T)", databaseLayer.myConnection);
+               "apkName , minSDK , targetSdk , packageName , versionCode ," +
+               "versionName , apkRiskLevel , testOnlyFlag , debuggableFlag , backupFlag ," +
+               " allFlag , armeabiFlag , armeabi_v7aFlag , arm64_V8aFlag , X86Flag , X86_64Flag , mipsFlag , mips64Flag ) OUTPUT INSERTED.apkID values (@b,@d,@c,@e,@f,@h,@I,@J,@K,@L,@M,@N,@O,@P,@Q,@R,@S,@T)", databaseLayer.myConnection);
+                //it is OUTPUT INSERTED.apkID  not  OUTPUT INSERTED.ID and no need for it
                 SqlParameter secondParameter = new SqlParameter("@b", apkName);
-                SqlParameter thirdParameter = new SqlParameter("@c", apkVersion);
                 SqlParameter forthParameter = new SqlParameter("@d", minSDK);
+                SqlParameter thirdParameter = new SqlParameter("@c", targetSDK);
                 SqlParameter fifthParameter = new SqlParameter("@e", packageName);
-                SqlParameter sixthParameter = new SqlParameter("@f", versionNumber);
+                SqlParameter sixthParameter = new SqlParameter("@f", versionCode);
                 SqlParameter seventhParemeter = new SqlParameter("@h", versionName);
                 SqlParameter eighthParameter = new SqlParameter("@I", apkRiskLevel);
                 SqlParameter ninthParameter = new SqlParameter("@J", testOnly);
@@ -77,14 +82,15 @@ namespace AndroApp
                 SqlParameter twelvethParameter = new SqlParameter("@M", all);
                 SqlParameter T13th = new SqlParameter("@N", armeabi);
                 SqlParameter T14th = new SqlParameter("@O", armeabi_v7a);
-                SqlParameter T15th = new SqlParameter("@P", x86_64);
+                SqlParameter T15th = new SqlParameter("@P", arm64_v8a);
                 SqlParameter T16th = new SqlParameter("@Q", x86);
                 SqlParameter T17th = new SqlParameter("@R", x86_64);
                 SqlParameter T18th = new SqlParameter("@S", mips);
                 SqlParameter T19th = new SqlParameter("@T", mips64);
+            
                 myCommand.Parameters.Add(secondParameter);
-                myCommand.Parameters.Add(thirdParameter);
                 myCommand.Parameters.Add(forthParameter);
+                myCommand.Parameters.Add(thirdParameter);
                 myCommand.Parameters.Add(fifthParameter);
                 myCommand.Parameters.Add(sixthParameter);
                 myCommand.Parameters.Add(seventhParemeter);
@@ -100,12 +106,12 @@ namespace AndroApp
                 myCommand.Parameters.Add(T17th);
                 myCommand.Parameters.Add(T18th);
                 myCommand.Parameters.Add(T19th);
-                Int32 Id = (Int32)myCommand.ExecuteScalar();
-                apkInfoTable apkInfo = new apkInfoTable(Id, apkRiskLevel, apkName, apkVersion, minSDK, targetSDK, packageName, versionNumber, versionName, testOnly, debuggable, backup, all, armeabi, armeabi_v7a, arm64_v8a, x86, x86_64, mips, mips64);
+                Int32 Id = (Int32)myCommand.ExecuteScalar(); // works only with output clause
+                apkInfoTable apkInfo = new apkInfoTable(Id, apkRiskLevel, apkName, minSDK, targetSDK, packageName, versionCode, versionName, testOnly, debuggable, backup, all, armeabi, armeabi_v7a, arm64_v8a, x86, x86_64, mips, mips64);
                 databaseLayer.myConnection.Close();
                 return apkInfo;
             }
-            catch (System.Data.SqlClient.SqlException)
+            catch (System.Data.SqlClient.SqlException ex)
             {
                 databaseLayer.myConnection.Close();
                 return null;
@@ -244,7 +250,7 @@ namespace AndroApp
         //    }
 
         //}
-        public bool createRelationBetweenAPKInfoAndPermission(int apkPermission, string PermissionName)
+        public bool createRelationBetweenAPKInfoAndPermission(int apkInfoID, string PermissionName)
         {
             try
             {
@@ -256,30 +262,30 @@ namespace AndroApp
                 if (reader.Read())
                 {
 
-                    Int32 Id = (Int32)reader[0];
+                    Int32 permissionId = (Int32)reader[0];
                     reader.Dispose();
                     try
                     {
                         SqlCommand checkExistenceOfRelation = new SqlCommand("select * from apkInfo_Permission where apkInfoID=@y and permissionID=@z", databaseLayer.myConnection);
-                        SqlParameter Paramater = new SqlParameter("@y", apkPermission);
-                        SqlParameter thirdParamater = new SqlParameter("@z", PermissionName);
+                        SqlParameter Paramater = new SqlParameter("@y", apkInfoID);
+                        SqlParameter thirdParamater = new SqlParameter("@z", permissionId);
                         checkExistenceOfRelation.Parameters.Add(Paramater);
                         checkExistenceOfRelation.Parameters.Add(thirdParamater);
                         checkExistenceOfRelation.ExecuteNonQuery();
                         reader = checkExistenceOfRelation.ExecuteReader();
                         if (reader.Read())
                         {
-                            databaseLayer.myConnection.Close();
                             reader.Dispose();
+                            databaseLayer.myConnection.Close();
                             return false;
                         }
                         try
                         {
                             reader.Dispose();
                             myCommand = new SqlCommand("insert into apkInfo_Permission (" +
-                           "apkInfoID, permssionID)values (@b,@c)", databaseLayer.myConnection);
+                           "apkInfoID, permissionID)values (@b,@c)", databaseLayer.myConnection);
                             SqlParameter forthParamater = new SqlParameter("@b", apkInfoID);
-                            SqlParameter fifthParamter = new SqlParameter("@c", Id);
+                            SqlParameter fifthParamter = new SqlParameter("@c", permissionId);
                             myCommand.Parameters.Add(forthParamater);
                             myCommand.Parameters.Add(fifthParamter);
                             myCommand.ExecuteNonQuery();
@@ -287,7 +293,7 @@ namespace AndroApp
                             return true;
 
                         }
-                        catch
+                        catch(Exception ex)
                         {
                             databaseLayer.myConnection.Close();
                             return false;
