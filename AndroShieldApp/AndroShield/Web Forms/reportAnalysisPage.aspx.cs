@@ -17,20 +17,22 @@ namespace AndroApp.Web_Forms
 
         apkInfoTable reportApk;
         List<permissionTable> permissions;
-        List<vulnerabilityTable> vulnerabilities;
+        List<List<string>> vulnerabilities;
 
 
         protected void Page_Load(object sender, EventArgs e)
         {
             reportApk = new AndroApp.apkInfoTable();
             permissions= new List<permissionTable>();
-            vulnerabilities= new List<vulnerabilityTable>();
+            vulnerabilities= new List<List<string>>();
 
             if (!IsPostBack)
             {
                 if((Session["reportID"]!=null || Session["reportID"].ToString()!="") && (Session["apk"]!=null))
                 {
-                    reportTable analysisReport = reportTable.findReportByID(int.Parse(Session["reportID"].ToString()), permissions, reportApk, vulnerabilities);
+                    reportTable analysisReport = reportTable.findReportByID(int.Parse(Session["reportID"].ToString()), ref permissions, ref reportApk, ref vulnerabilities);
+                    int x;
+                    x = 6;
                 }
             }
 
