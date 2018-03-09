@@ -30,5 +30,9 @@ namespace AndroApp.Web_Forms
         {
             Response.Redirect("apkUploadPage.aspx");
         }
+        protected void viewReportsButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("user'sReportsPage.aspx");
+        }
     }
 }

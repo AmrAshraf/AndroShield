@@ -6,7 +6,6 @@
     <asp:Button ID="logoutButton" runat="server" Text="Log Out"  class="topRight topMenu lightText" CausesValidation="false" OnClick="logoutButton_Click"/>
 
     <asp:HyperLink ID="userEmail" class="lightText top" runat="server" NavigateUrl="~/Web Forms/userProfilePage.aspx">HyperLink</asp:HyperLink><p class="lightText top">Welcome, </p>
-
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="pageContent" runat="server">
 </asp:Content>

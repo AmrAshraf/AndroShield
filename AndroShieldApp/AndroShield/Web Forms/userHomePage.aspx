@@ -16,7 +16,7 @@
                     <asp:Button ID="uploadApkButton" runat="server" Text="Upload Apk" class="userHomePageButtons boldText" OnClick="uploadApkButton_Click"/>
                 </div>
                 <div class="twoColumns">
-                    <asp:Button ID="viewReportsButton" runat="server" Text="View Reports" class="userHomePageButtons boldText"/>
+                    <asp:Button ID="viewReportsButton" runat="server" Text="View Reports" class="userHomePageButtons boldText" OnClick="viewReportsButton_Click"/>
                 </div>
             </div>
         </div>

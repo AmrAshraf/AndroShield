@@ -11,7 +11,17 @@ namespace AndroApp.Web_Forms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            userEmail.Text = Session["username"].ToString();
+        }
+        protected void signupNav_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("userProfilePage.aspx");
+        }
+        protected void logoutButton_Click(object sender, EventArgs e)
+        {
+            Session["username"] = "";
+            Session["userAccount"] = "";
+            Response.Redirect("homePage.aspx");
         }
     }
 }
