@@ -49,15 +49,6 @@ namespace AndroApp.Web_Forms {
         protected global::System.Web.UI.WebControls.FileUpload apkUpload;
         
         /// <summary>
-        /// browseLbl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label browseLbl;
-        
-        /// <summary>
         /// uploadBtn control.
         /// </summary>
         /// <remarks>

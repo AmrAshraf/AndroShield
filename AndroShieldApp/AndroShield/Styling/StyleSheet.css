@@ -392,6 +392,9 @@ input.loginInput:focus::-webkit-input-placeholder {
     margin-bottom: 20px;
     margin-top: 20px;
 }
+.apkUploadContainer button{
+    margin: 0px auto;
+}
 /*.inputfile {
     width: 0.1px;
     height: 0.1px;

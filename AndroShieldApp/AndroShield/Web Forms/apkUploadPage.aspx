@@ -13,10 +13,10 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="pageContent" runat="server">
     <div class="wrapper lightBackground">
             <div class="apkUploadContainer incorrectCredentialsContainer darkBackground lightText">
-                <asp:FileUpload ID="apkUpload" name="apkUpload" runat="server" class="inputfile" />
-                <asp:Label ID="browseLbl" CssClass="homeButtons lightText boldText" AssociatedControlID="apkUpload" runat="server" Text="Browse"></asp:Label>
-                <asp:Button ID="uploadBtn" runat="server" Text="Upload" OnClick="uploadBtn_Click"/>
-                <asp:Button ID="analyzeBtn" runat="server" Text="Analyze" Enabled="false" OnClick="analyzeBtn_Click"/>
+                <asp:FileUpload ID="apkUpload" name="apkUpload" runat="server" class="inputfile"/>
+                <%--<asp:Label ID="browseLbl" CssClass="homeButtons lightText boldText" AssociatedControlID="apkUpload" runat="server" Text="Browse"></asp:Label><br />--%>
+                <asp:Button ID="uploadBtn" CssClass="homeButtons lightText boldText" runat="server" Text="Upload" OnClick="uploadBtn_Click"/><br />
+                <asp:Button ID="analyzeBtn" CssClass="homeButtons lightText boldText" runat="server" Text="Analyze" Enabled="false" OnClick="analyzeBtn_Click"/>
             </div>
     </div>
 </asp:Content>
