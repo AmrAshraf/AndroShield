@@ -12,9 +12,9 @@ namespace AndroApp
     public class apkInfoTable
     {
         public int apkInfoID;
-        private float apkRiskLevel;
-        private string apkName, minSDK, targetSDK, packageName, versionCode, versionName;
-        bool testOnly, debuggable, backup, all, armeabi, armeabi_v7a, arm64_v8a, x86, x86_64, mips, mips64;
+        public float apkRiskLevel;
+        public string apkName, minSDK, targetSDK, packageName, versionCode, versionName;
+        public bool testOnly, debuggable, backup, all, armeabi, armeabi_v7a, arm64_v8a, x86, x86_64, mips, mips64;
         public apkInfoTable()
         {
         }
@@ -173,7 +173,8 @@ namespace AndroApp
         {
             try
             {
-                databaseLayer.myConnection.Open();
+                if(databaseLayer.myConnection.State == System.Data.ConnectionState.Closed)
+                    databaseLayer.myConnection.Open();
                 SqlCommand myCommand = new SqlCommand("Select permissionID from  apkInfo_Permission where apkInfoID=@y", databaseLayer.myConnection);
                 SqlParameter secondParamater = new SqlParameter("@y", ID);
                 myCommand.Parameters.Add(secondParamater);

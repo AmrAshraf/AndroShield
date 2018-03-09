@@ -353,7 +353,7 @@ input.loginInput:focus::-webkit-input-placeholder {
     text-align: center;
     min-height: 80px;
 }
-#vulnerabilityReportTable, #apkInfoTable, table, th, td {
+#vulnerabilityReportTable, #apkInfoTable, #permissionsTable, table, th, td {
     margin: 0 auto;
     border-top: 2px solid black;
     border-bottom: 2px solid black;
@@ -361,7 +361,12 @@ input.loginInput:focus::-webkit-input-placeholder {
     text-align: left;
     background-color: #feffea;
 }
-.rightBorder  {
+#permissionsTable {
+    width: 400px;
+    text-align: center;
+}
+    
+.rightBorder {
     border-right: 2px solid black;
 }
 .cellHeader {
@@ -372,7 +377,6 @@ input.loginInput:focus::-webkit-input-placeholder {
 .cell {
     background-color: #424242;
     color: whitesmoke;
-
 }
 .centeredClass {
     font-size:xx-large;

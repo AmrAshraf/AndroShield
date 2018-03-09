@@ -9,7 +9,7 @@ namespace AndroApp
 
     public class databaseLayer
     {
-       static public SqlConnection myConnection = new SqlConnection("Data Source=.\\sqlexpress;Initial Catalog=AndroShield;Integrated Security=True");
+       static public SqlConnection myConnection = new SqlConnection("Data Source=.\\sqlexpress;Initial Catalog=AndroShield;Integrated Security=True; MultipleActiveResultSets=True");
         public databaseLayer()
         {
             createAPKInfoTable();

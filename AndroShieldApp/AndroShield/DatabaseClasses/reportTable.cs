@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.SqlClient;
+using System.Data;
 
 namespace AndroApp
 {
@@ -73,8 +74,8 @@ namespace AndroApp
         }
         static public reportTable findReportByID (int reportID,  List<permissionTable> listOfPermissions,  apkInfoTable apkInfoOfThisReport,  List<vulnerabilityTable> vulnerabilityListOfThisReport)
         {
-            try
-            {
+            //try
+            //{
                 databaseLayer.myConnection.Open();
                 SqlCommand myCommand = new SqlCommand("Select * from  report where reportID=@y", databaseLayer.myConnection);
                 SqlParameter secondParamater = new SqlParameter("@y", reportID);
@@ -101,35 +102,36 @@ namespace AndroApp
                     databaseLayer.myConnection.Close();
                     return null;
                 }
-            }
-            catch (System.InvalidOperationException)
-            {
-                databaseLayer.myConnection.Close();
-                return null;
-            }
+            //}
+            //catch (System.InvalidOperationException)
+            //{
+            //    databaseLayer.myConnection.Close();
+            //    return null;
+            //}
 
         }
         public bool createRelationBetweenReportAndVulnerability (int reportID, int vulID, string extraInfo)
         {
             databaseLayer.myConnection.Open();
-            SqlCommand checkExistenceOfRelation = new SqlCommand("select reportID from report_Vulnerability where extraInfo=@y", databaseLayer.myConnection);
-            SqlParameter Paramater = new SqlParameter("@y", extraInfo);
-            checkExistenceOfRelation.Parameters.Add(Paramater);
-            checkExistenceOfRelation.ExecuteNonQuery();
-            SqlDataReader reader = checkExistenceOfRelation.ExecuteReader();
-            if (reader.Read())
-            {
-                reader.Dispose();
-                databaseLayer.myConnection.Close();
-                return false;
-            }
+            //SqlCommand checkExistenceOfRelation = new SqlCommand("select reportID from report_Vulnerability where extraInfo=@y", databaseLayer.myConnection);
+            //SqlParameter Paramater = new SqlParameter("@y", extraInfo);
+            //checkExistenceOfRelation.Parameters.Add(Paramater);
+            //checkExistenceOfRelation.ExecuteNonQuery();
+            //SqlDataReader reader = checkExistenceOfRelation.ExecuteReader();
+            //if (reader.Read())
+            //{
+            //    reader.Dispose();
+            //    databaseLayer.myConnection.Close();
+            //    return false;
+            //}
 
-            try
-            {
-                reader.Dispose();
+            //try
+            //{
+            //    reader.Dispose();
                 SqlCommand myCommand = new SqlCommand("insert into report_Vulnerability (reportID,vulnerabilityID,extraInfo) values (@a,@b,@c)", databaseLayer.myConnection);
                 SqlParameter forthParamater = new SqlParameter("@a", reportId);
                 SqlParameter fifthParamater = new SqlParameter("@b", vulID);
+            extraInfo = "test";
                 SqlParameter sixthParamater = new SqlParameter("@c", extraInfo);
                 myCommand.Parameters.Add(forthParamater);
                 myCommand.Parameters.Add(fifthParamater);
@@ -137,18 +139,21 @@ namespace AndroApp
                 myCommand.ExecuteNonQuery();
                 databaseLayer.myConnection.Close();
                 return true;
-            }
-            catch (System.Data.SqlClient.SqlException)
-            {
-                databaseLayer.myConnection.Close();
-                return false;
-            }
+            //}
+            //catch (System.Data.SqlClient.SqlException)
+            //{
+            //    databaseLayer.myConnection.Close();
+            //    return false;
+            //}
+            //return false;
         }
         public apkInfoTable getApkOfThisReport (int reportID)
         {
-            try
-            {
-                databaseLayer.myConnection.Open();
+            //try
+            //{
+                apkInfoTable apkk;
+                if (databaseLayer.myConnection.State == ConnectionState.Closed)
+                    databaseLayer.myConnection.Open();
                 SqlCommand myCommand = new SqlCommand("Select apkInfoID from  report where reportID=@y", databaseLayer.myConnection);
                 SqlParameter secondParamater = new SqlParameter("@y", reportID);
                 myCommand.Parameters.Add(secondParamater);
@@ -156,48 +161,58 @@ namespace AndroApp
                 if (reader.Read())
                 {
                     Int32 apkID = (Int32)reader[0];
-                    String apkName = (String)reader[1];
-               //     String apkVersion = (String)reader[1];
-                    String minSDK = (String)reader[2];
-                    String targetSdk = (String)reader[3];
-                    String packageName = (String)reader[4];
-                    String versionCode = (String)reader[5];
-                    String versionName = (String)reader[6];
-                    float apkRiskLevel = (float)reader[7];
-                    bool testOnlyFlag = (bool)reader[8];
-                    bool debuggableFlag = (bool)reader[9];
-                    bool backupFlag = (bool)reader[10];
-                    bool allFlag = (bool)reader[11];
-                    bool armeabiFlag = (bool)reader[12];
-                    bool armeabi_v7aFlag = (bool)reader[13];
-                    bool arm64_V8aFlag = (bool)reader[14];
-                    bool X86Flag = (bool)reader[15];
-                    bool X86_64Flag = (bool)reader[16];
-                    bool mipsFlag = (bool)reader[17];
-                    bool mips64Flag = (bool)reader[18];
-                    apkInfoTable apk = new apkInfoTable( apkInfoID,  apkRiskLevel,  apkName,  minSDK,  targetSdk,  packageName,  versionCode,  versionName,  testOnlyFlag,  debuggableFlag,  backupFlag,  allFlag,  armeabiFlag,  armeabi_v7aFlag,  arm64_V8aFlag,  X86Flag, X86_64Flag, mipsFlag, mips64Flag);
+                    SqlCommand apk = new SqlCommand("Select * from ApkInfo where apkID=@id", databaseLayer.myConnection);
+                    SqlParameter id = new SqlParameter("@id", apkID);
+                    apk.Parameters.Add(id);
+                    SqlDataReader apkInfo = apk.ExecuteReader();
+                    if(apkInfo.Read())
+                    {
+                        String apkName = (String)apkInfo[1];
+                        String minSDK = (String)apkInfo[2];
+                        String targetSdk = (String)apkInfo[3];
+                        String packageName = (String)apkInfo[4];
+                        String versionCode = (String)apkInfo[5];
+                        String versionName = (String)apkInfo[6];
+                        float apkRiskLevel = float.Parse(apkInfo[7].ToString());
+                        bool testOnlyFlag = bool.Parse(apkInfo[8].ToString());
+                        bool debuggableFlag = bool.Parse(apkInfo[9].ToString());
+                        bool backupFlag = bool.Parse(apkInfo[10].ToString());
+                        bool allFlag = bool.Parse(apkInfo[11].ToString());
+                        bool armeabiFlag = bool.Parse(apkInfo[12].ToString());
+                        bool armeabi_v7aFlag = bool.Parse(apkInfo[13].ToString());
+                        bool arm64_V8aFlag = bool.Parse(apkInfo[14].ToString());
+                        bool X86Flag = bool.Parse(apkInfo[15].ToString());
+                        bool X86_64Flag = bool.Parse(apkInfo[16].ToString());
+                        bool mipsFlag = bool.Parse(apkInfo[17].ToString());
+                        bool mips64Flag = bool.Parse(apkInfo[18].ToString());
+                        apkk = new apkInfoTable( apkInfoID,  apkRiskLevel,  apkName,  minSDK,  targetSdk,  packageName,  versionCode,  versionName,  testOnlyFlag,  debuggableFlag,  backupFlag,  allFlag,  armeabiFlag,  armeabi_v7aFlag,  arm64_V8aFlag,  X86Flag, X86_64Flag, mipsFlag, mips64Flag);
+                        apkInfo.Dispose();
+                    }
+                    else
+                    {
+                        apkInfo.Dispose();
+                        return null;
+                    }
                     reader.Dispose();
-                    databaseLayer.myConnection.Close();
-                    return apk;
+                    return apkk;
                 }
                 else
                 {
-                    databaseLayer.myConnection.Close();
                     return null;
                 }
-            }
-            catch (System.InvalidOperationException)
-            {
-                databaseLayer.myConnection.Close();
-                return null;
-            }
+            //}
+            //catch (System.InvalidOperationException)
+            //{
+            //    return null;
+            //}
 
         }
         public List<vulnerabilityTable> getVulnerabilitiesOfThisReport (int reportID)
         {
             try
             {
-                databaseLayer.myConnection.Open();
+                if(databaseLayer.myConnection.State == ConnectionState.Closed)
+                    databaseLayer.myConnection.Open();
                 SqlCommand myCommand = new SqlCommand("Select VulnerabilityID from  report_Vulnerability where reportID=@y", databaseLayer.myConnection);
                 SqlParameter secondParamater = new SqlParameter("@y", reportID);
                 myCommand.Parameters.Add(secondParamater);
@@ -229,19 +244,19 @@ namespace AndroApp
                         i++;
                     }
                     reader.Dispose();
-                    databaseLayer.myConnection.Close();
+                    //databaseLayer.myConnection.Close();
                     return vulnObjs;
 
                 }
                 catch
                 {
-                    databaseLayer.myConnection.Close();
+                    //databaseLayer.myConnection.Close();
                     return null;
                 }
             }
             catch (System.InvalidOperationException)
             {
-                databaseLayer.myConnection.Close();
+                //databaseLayer.myConnection.Close();
                 return null;
             }
         }

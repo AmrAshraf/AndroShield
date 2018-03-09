@@ -65,6 +65,15 @@
 
             </asp:Table>
         </div>
+        <p class="centeredClass " id="permissionsTitle">Apk Permissions</p>
+        <div class="permissionsContainer">
+            <asp:Table ID="permissionsTable" runat="server">
+                <asp:TableHeaderRow CssClass="PermissionHeader">
+                    <asp:TableHeaderCell CssClass="cell permissionTable" Width="200px">Permission Name</asp:TableHeaderCell>
+                </asp:TableHeaderRow>
+
+            </asp:Table>
+        </div>
         <p class="centeredClass" id="vulnTitle">Vulnerabilities Report</p>
         <div class="vulnerabilityReportContainer">
             <asp:Table ID="vulnerabilityReportTable" runat="server">

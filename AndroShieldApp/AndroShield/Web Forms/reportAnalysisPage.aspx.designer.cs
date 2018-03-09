@@ -166,6 +166,15 @@ namespace AndroApp.Web_Forms {
         protected global::System.Web.UI.WebControls.TableCell supportedArchiValue;
         
         /// <summary>
+        /// permissionsTable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Table permissionsTable;
+        
+        /// <summary>
         /// vulnerabilityReportTable control.
         /// </summary>
         /// <remarks>
