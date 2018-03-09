@@ -126,50 +126,60 @@ namespace AndroApp
                 return false;
             }
         }
-        static public List<KeyValuePair<string, int>> getReportsOfThisUser(string email)
+        static public List<KeyValuePair<int, string>> getReportsOfThisUser(string email)
         {
             try
             {
                 databaseLayer.myConnection.Open();
                 userAccountTable user = findUserByEmail(email);
                 Int32 ID = user.ID;
-                SqlCommand myCommand = new SqlCommand("Select reportID from report where apkInfoID=@y", databaseLayer.myConnection);
+                SqlCommand myCommand = new SqlCommand("select report.reportID, ApkInfo.apkName , ApkInfo.packageName , ApkInfo.versionCode , report.reportDate from report inner join ApkInfo on report.apkInfoID=ApkInfo.apkID where report.userAccountID=@y", databaseLayer.myConnection);
                 SqlParameter secondParamater = new SqlParameter("@y", ID);
                 myCommand.Parameters.Add(secondParamater);
                 SqlDataReader reader = myCommand.ExecuteReader();
-                List<int> reportsID = new List<int>();
+                List<KeyValuePair< int,string>> reportsID = new List<KeyValuePair<int, string>>();
                 while (reader.Read())
                 {
-
                     Int32 Id = (Int32)reader[0];
-                    reportsID.Add(Id);
+                    string concatinatedInfo = "";
+                    concatinatedInfo += reader[1].ToString()+"#";
+                    concatinatedInfo += reader[2].ToString() + "#";
+                    concatinatedInfo += reader[3].ToString() + "#";
+                    concatinatedInfo += reader[4].ToString();
 
+                    reportsID.Add(new KeyValuePair<int, string>(Id, concatinatedInfo));
                 }
                 reader.Dispose();
-                myCommand = new SqlCommand("Select apkName from ApkInfo where apkInfoID=@y", databaseLayer.myConnection);
-                SqlParameter thirdParamater = new SqlParameter("@y", ID);
-                myCommand.Parameters.Add(thirdParamater);
-                reader = myCommand.ExecuteReader();
+                databaseLayer.myConnection.Close();
 
-                if (reader.Read())
-                {
-                    string name = (string)reader[0];
-                    List<KeyValuePair<string, int>> Result = new List<KeyValuePair<string, int>>();
-                    int i = 0;
-                    while (i < reportsID.Count())
-                    {
-                        Result.Add(new KeyValuePair<string, int>(name, reportsID[i]));
-                        i++;
-                    }
-                    databaseLayer.myConnection.Close();
-                    return Result;
-                }
+                return reportsID;
 
-                else
-                {
-                    databaseLayer.myConnection.Close();
-                    return null;
-                }
+                //    myCommand = new SqlCommand("Select apkName,packageName,versionCode from ApkInfo where apkInfoID=@y", databaseLayer.myConnection);
+                //    SqlParameter thirdParamater = new SqlParameter("@y", ID);
+                //    myCommand.Parameters.Add(thirdParamater);
+                //    reader = myCommand.ExecuteReader();
+
+                //    if (reader.Read())
+                //    {
+                //        string name = (string)reader[0];
+                //        string packageName = (string)reader[1];
+                //        string versionCode = (string)reader[2];
+                //        List<KeyValuePair<string, int>> Result = new List<KeyValuePair<string, int>>();
+                //        int i = 0;
+                //        while (i < reportsID.Count())
+                //        {
+                //            Result.Add(new KeyValuePair<string, int>(name+"#"+packageName+"#"+versionCode, reportsID[i].Key+"#"+reportsID[i].Value));
+                //            i++;
+                //        }
+                //        databaseLayer.myConnection.Close();
+                //        return Result;
+                //    }
+
+                //    else
+                //    {
+                //        databaseLayer.myConnection.Close();
+                //        return null;
+                //    }
             }
             catch
             {
@@ -181,7 +191,7 @@ namespace AndroApp
         {
             try
             {
-                databaseLayer.myConnection.Open();
+                //databaseLayer.myConnection.Open();
                 SqlCommand myCommand = new SqlCommand("Select * from userAccount where email =@y", databaseLayer.myConnection);
                 SqlParameter firstParamater = new SqlParameter("@y", email);
                 myCommand.Parameters.Add(firstParamater);
@@ -196,12 +206,12 @@ namespace AndroApp
                     String lastName = (String)reader[5];
                     userAccountTable user = new userAccountTable(ID, date, password, Email, firstName, lastName);
                     reader.Dispose();
-                    databaseLayer.myConnection.Close();
+                    //databaseLayer.myConnection.Close();
                     return user;
                 }
                 else
                 {
-                    databaseLayer.myConnection.Close();
+                    //databaseLayer.myConnection.Close();
                     return null;
                 }
 
@@ -209,7 +219,7 @@ namespace AndroApp
             }
             catch
             {
-                databaseLayer.myConnection.Close();
+                //databaseLayer.myConnection.Close();
                 return null;
             }
 

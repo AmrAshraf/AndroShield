@@ -8,4 +8,14 @@
     <asp:HyperLink ID="userEmail" class="lightText top" runat="server" NavigateUrl="~/Web Forms/userProfilePage.aspx">HyperLink</asp:HyperLink><p class="lightText top">Welcome, </p>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="pageContent" runat="server">
+        <div id="allReportContainer" class="wrapper lightBackground">
+            <asp:Table ID="allReportsTable" runat="server">
+                <asp:TableHeaderRow CssClass="vulnerabilityReportHeader">
+                    <asp:TableHeaderCell CssClass="cell rightBorder" Width="200px">Apk Name</asp:TableHeaderCell>
+                    <asp:TableHeaderCell CssClass="cell rightBorder" Width="200px">Package Name</asp:TableHeaderCell>
+                    <asp:TableHeaderCell CssClass="cell rightBorder" Width="200px">Version Number</asp:TableHeaderCell>
+                    <asp:TableHeaderCell CssClass="cell" Width="470px">Date</asp:TableHeaderCell>
+                </asp:TableHeaderRow>
+            </asp:Table>
+        </div>
 </asp:Content>

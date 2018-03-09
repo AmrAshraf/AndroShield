@@ -127,6 +127,9 @@ footer {
     box-shadow: 0 1px #666;
     transform: translateY(4px);
 }
+th , tr , td {
+    padding: 10px;
+}
 .wrapper {
     background: #e3dc95;
     height: calc(100% - 220px);
