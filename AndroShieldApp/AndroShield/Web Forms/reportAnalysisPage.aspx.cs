@@ -16,16 +16,17 @@ namespace AndroApp.Web_Forms
         TaintAnalyser taintAnalysis;
 
         apkInfoTable reportApk;
-        List<permissionTable> permissions;
+        List<string> permissions;
         List<List<string>> vulnerabilities;
 
 
         protected void Page_Load(object sender, EventArgs e)
         {
             reportApk = new AndroApp.apkInfoTable();
-            permissions= new List<permissionTable>();
+            permissions= new List<string>();
             vulnerabilities= new List<List<string>>();
 
+            userEmail.Text = Session["username"].ToString();
             if (!IsPostBack)
             {
                 if((Session["reportID"]!=null || Session["reportID"].ToString()!="") && (Session["apk"]!=null))
@@ -34,11 +35,6 @@ namespace AndroApp.Web_Forms
                     int x;
                     x = 6;
                 }
-            }
-
-                if (!IsPostBack)
-            {
-                userEmail.Text = Session["username"].ToString();
                 if (Session["currentReportName"] != null && Session["currentReportName"].ToString() != "")
                 {
                     apkInfoExtraction = (APKInfoExtractor)Session["apkInfo"];
@@ -83,6 +79,39 @@ namespace AndroApp.Web_Forms
                             supportedArchiValue.Text += ", mips";
                         if (reportApk.mips64)
                             supportedArchiValue.Text += ", mips64";
+                    }
+
+                    TableCell cell1 = new TableCell();
+                    for (int i=0; i<permissions.Count; i++)
+                    {
+                        TableRow row = new TableRow();
+                        cell1.Text = permissions[i];
+                        row.Cells.Add(cell1);
+                        permissionsTable.Rows.Add(row);
+                    }
+                    TableCell severity = new TableCell();
+                    TableCell category = new TableCell();
+                    TableCell type = new TableCell();
+                    TableCell info = new TableCell();
+                    for (int i = 0; i < vulnerabilities.Count; i++)
+                    {
+                        TableRow row = new TableRow();
+                        severity = new TableCell();
+                        category = new TableCell();
+                        type = new TableCell();
+                        info = new TableCell();
+
+                        severity.Text = vulnerabilities[i][0];
+                        category.Text = vulnerabilities[i][1];
+                        type.Text = vulnerabilities[i][2];
+                        info.Text = vulnerabilities[i][3];
+
+                        row.Cells.Add(severity);
+                        row.Cells.Add(category);
+                        row.Cells.Add(type);
+                        row.Cells.Add(info);
+
+                        vulnerabilityReportTable.Rows.Add(row);
                     }
 
                 }

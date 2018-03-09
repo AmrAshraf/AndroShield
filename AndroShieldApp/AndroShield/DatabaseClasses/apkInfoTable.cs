@@ -169,50 +169,57 @@ namespace AndroApp
                 return false;
             }
         }
-        public List<permissionTable> getAllPermissionThatExistInThisAPK(int ID)
+        public List<string> getAllPermissionThatExistInThisAPK(int ID)
         {
             try
             {
                 if(databaseLayer.myConnection.State == System.Data.ConnectionState.Closed)
                     databaseLayer.myConnection.Open();
-                SqlCommand myCommand = new SqlCommand("Select permissionID from  apkInfo_Permission where apkInfoID=@y", databaseLayer.myConnection);
-                SqlParameter secondParamater = new SqlParameter("@y", ID);
+                SqlCommand myCommand = new SqlCommand("select permission.name from permission inner join apkInfo_Permission on permission.permissionID = apkInfo_Permission.permissionID where apkInfo_Permission.apkInfoID=@id", databaseLayer.myConnection);
+                SqlParameter secondParamater = new SqlParameter("@id", ID);
                 myCommand.Parameters.Add(secondParamater);
                 SqlDataReader reader = myCommand.ExecuteReader();
-                List<int> permissionIDs = new List<int>();
-                while (reader.Read())
+                List<string> permissions = new List<string>();
+                while(reader.Read())
                 {
-
-                    Int32 Id = (Int32)reader[0];
-                    permissionIDs.Add(Id);
+                    permissions.Add(reader[0].ToString());
                 }
                 reader.Dispose();
-                try
-                {
-                    int i = 0;
-                    List<permissionTable> permissionObjs = new List<permissionTable>();
-                    while (i<permissionIDs.Count())
-                    {
-                        myCommand = new SqlCommand("Select * from  permission where permissionID=@y", databaseLayer.myConnection);
-                        SqlParameter thirdParamater = new SqlParameter("@y", permissionIDs[i]);
-                        myCommand.Parameters.Add(thirdParamater);
-                        reader = myCommand.ExecuteReader();
-                        Int32 index = (Int32)reader[0];
-                        string name = (string)reader[1];
-                        permissionTable perm = new permissionTable(index, name);
-                        permissionObjs.Add(perm);
-                        i++;
-                    }
-                    reader.Dispose();
-                    databaseLayer.myConnection.Close();
-                    return permissionObjs;
+                return permissions;
+                //List<int> permissionIDs = new List<int>();
+                //while (reader.Read())
+                //{
 
-                }
-                catch
-                {
-                    databaseLayer.myConnection.Close();
-                    return null;
-                }
+                //    Int32 Id = (Int32)reader[0];
+                //    permissionIDs.Add(Id);
+                //}
+                //reader.Dispose();
+                //try
+                //{
+                //    int i = 0;
+                //    List<permissionTable> permissionObjs = new List<permissionTable>();
+                //    while (i<permissionIDs.Count())
+                //    {
+                //        myCommand = new SqlCommand("Select * from  permission where permissionID=@y", databaseLayer.myConnection);
+                //        SqlParameter thirdParamater = new SqlParameter("@y", permissionIDs[i]);
+                //        myCommand.Parameters.Add(thirdParamater);
+                //        reader = myCommand.ExecuteReader();
+                //        Int32 index = (Int32)reader[0];
+                //        string name = (string)reader[1];
+                //        permissionTable perm = new permissionTable(index, name);
+                //        permissionObjs.Add(perm);
+                //        i++;
+                //    }
+                //    reader.Dispose();
+                //    databaseLayer.myConnection.Close();
+                //    return permissionObjs;
+
+                //}
+                //catch
+                //{
+                //    databaseLayer.myConnection.Close();
+                //    return null;
+                //}
             }
             catch (System.InvalidOperationException)
             {
