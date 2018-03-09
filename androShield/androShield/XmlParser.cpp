@@ -263,8 +263,19 @@ void XmlParser::grebExportedContentProviders()
 	xml_node<>* sdkNode = doc.first_node("manifest", 0, false)->first_node("uses-sdk", 0, false);
 	xml_node<>* applicationNode = doc.first_node("manifest", 0, false)->first_node("application", 0, false);
 
-	char* tarSDK = sdkNode->first_attribute("android:targetSdkVersion", 0, false)->value();
-
+	 xml_attribute<>*targetSDKAtt = sdkNode->first_attribute("android:targetSdkVersion", 0, false);
+	 char* tarSDK;
+	if (targetSDKAtt == NULL)
+	{
+		xml_attribute<>*minSDKAtt = sdkNode->first_attribute("android:minSdkVersion", 0, false);
+		if (minSDKAtt == NULL)
+			return;
+		tarSDK = minSDKAtt->value();
+	}
+	else
+	{
+		tarSDK = targetSDKAtt->value();
+	}
 	if (tarSDK && atoi(tarSDK) <= 16)
 		exportAttributeDefaultValueIsTrue = true;
 
