@@ -131,7 +131,6 @@ namespace AndroApp
                 SqlCommand myCommand = new SqlCommand("insert into report_Vulnerability (reportID,vulnerabilityID,extraInfo) values (@a,@b,@c)", databaseLayer.myConnection);
                 SqlParameter forthParamater = new SqlParameter("@a", reportId);
                 SqlParameter fifthParamater = new SqlParameter("@b", vulID);
-            extraInfo = "test";
                 SqlParameter sixthParamater = new SqlParameter("@c", extraInfo);
                 myCommand.Parameters.Add(forthParamater);
                 myCommand.Parameters.Add(fifthParamater);

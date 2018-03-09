@@ -147,7 +147,7 @@ namespace AndroApp
             {
                 string createTable = "CREATE TABLE report_Vulnerability " +
                   "(reportID int, " +
-                 "vulnerabilityID int, extraInfo varchar(50) )";
+                 "vulnerabilityID int, extraInfo varchar(MAX) )";
                 SqlCommand create = new SqlCommand(createTable, myConnection);
                 create.ExecuteNonQuery();
                 SqlCommand addRelation = new SqlCommand("ALTER TABLE report_Vulnerability ADD CONSTRAINT FK_reportVuln FOREIGN KEY (reportID) REFERENCES report(reportID) On delete cascade On update cascade", myConnection);

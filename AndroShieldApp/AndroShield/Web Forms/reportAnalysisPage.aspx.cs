@@ -101,7 +101,8 @@ namespace AndroApp.Web_Forms
                         type = new TableCell();
                         info = new TableCell();
 
-                        severity.Text = vulnerabilities[i][0];
+                        float severityValue = (float)Math.Round(double.Parse(vulnerabilities[i][0]), 2);
+                        severity.Text = severityValue.ToString();
                         category.Text = vulnerabilities[i][1];
                         type.Text = vulnerabilities[i][2];
                         info.Text = vulnerabilities[i][3];
