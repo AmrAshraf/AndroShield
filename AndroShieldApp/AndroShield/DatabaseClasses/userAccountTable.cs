@@ -9,8 +9,8 @@ namespace AndroApp
 {
     public class userAccountTable
     {
-        private string email, password, firstName, lastName;
-        private DateTime lastLoginDate;
+        public string email, password, firstName, lastName;
+        public DateTime lastLoginDate;
         public int ID;
         public userAccountTable()
         {
@@ -192,7 +192,12 @@ namespace AndroApp
         {
             try
             {
-                //databaseLayer.myConnection.Open();
+                bool close = false;
+                if(databaseLayer.myConnection.State == System.Data.ConnectionState.Closed)
+                {
+                    databaseLayer.myConnection.Open();
+                    close = true;
+                }
                 SqlCommand myCommand = new SqlCommand("Select * from userAccount where email =@y", databaseLayer.myConnection);
                 SqlParameter firstParamater = new SqlParameter("@y", email);
                 myCommand.Parameters.Add(firstParamater);
@@ -207,12 +212,14 @@ namespace AndroApp
                     String lastName = (String)reader[5];
                     userAccountTable user = new userAccountTable(ID, date, password, Email, firstName, lastName);
                     reader.Dispose();
-                    //databaseLayer.myConnection.Close();
+                    if(close)
+                        databaseLayer.myConnection.Close();
                     return user;
                 }
                 else
                 {
-                    //databaseLayer.myConnection.Close();
+                    if(close)
+                        databaseLayer.myConnection.Close();
                     return null;
                 }
 
@@ -232,18 +239,21 @@ namespace AndroApp
             try
             {
                 databaseLayer.myConnection.Open();
-                SqlCommand myCommand = new SqlCommand("update userAccount set lastLoginDate=@a,password=@b,email=@c,firstName=@d,lastName=@e", databaseLayer.myConnection);
+                SqlCommand myCommand = new SqlCommand("update userAccount set lastLoginDate=@a,password=@b,email=@c,firstName=@d,lastName=@e where userID=@id", databaseLayer.myConnection);
                 SqlParameter secondParamater = new SqlParameter("@a", lastLoginDate);
                 SqlParameter thirdParamater = new SqlParameter("@b", password);
                 SqlParameter forthParamater = new SqlParameter("@c", email);
                 SqlParameter fifthParamater = new SqlParameter("@d", firstName);
                 SqlParameter sixthParamater = new SqlParameter("@e", lastName);
+                SqlParameter seventhParamater = new SqlParameter("@id", this.ID);
+
                 myCommand.Parameters.Add(secondParamater);
                 myCommand.Parameters.Add(thirdParamater);
                 myCommand.Parameters.Add(forthParamater);
                 myCommand.Parameters.Add(fifthParamater);
                 myCommand.Parameters.Add(sixthParamater);
-                myCommand.ExecuteNonQuery();
+                myCommand.Parameters.Add(seventhParamater);
+                int r=myCommand.ExecuteNonQuery();
                 databaseLayer.myConnection.Close();
                 return true;
             }

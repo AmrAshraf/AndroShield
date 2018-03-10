@@ -72,7 +72,7 @@ namespace AndroApp.Web_Forms
                 }
                 else
                 {
-                    uploadBtn.Text = "Cannot accept files of this type.";
+                    //uploadBtn.Text = "Cannot accept files of this type.";
                 }
             }
         }

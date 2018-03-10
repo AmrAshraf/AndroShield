@@ -392,8 +392,53 @@ input.loginInput:focus::-webkit-input-placeholder {
     margin-bottom: 20px;
     margin-top: 20px;
 }
-.apkUploadContainer button{
+.apkUploadContainer {
+    margin-top: 50px;
+    clear: both;
+    width: 500px;
+    background: #1b2021;
+    align-self: center;
+    border: 2px solid #1b2021;
+    border-radius: 5px;
+    box-shadow: 0 5px #A6A867;
+    padding: 10px 20px;
+    line-height: 200%;
+    margin-left: auto;
+    margin-right: auto;
+    vertical-align: auto;
+    min-height: 100px;
+}
+.twoColumns2 {
+    float: left;
+    width: 50%;
+    position: relative;
+    align-content: center;
+    min-height: 70px;
+    position: relative
+}
+.uploadBtn, .analyzeBtn {
+    position: absolute;
+    left: 63px;
+    display: block;
     margin: 0px auto;
+}
+.folderImage {
+    position: absolute;
+    left: 145px;
+    clear: both;
+}
+.inputfile {
+    position: absolute;
+    left: 129px;
+    top: 147px;
+}
+.inputContainer {
+    position: relative;
+    text-align: center;
+    align-self: center;
+    align-content: center;
+    clear: both;
+    height: 200px;
 }
 /*.inputfile {
     width: 0.1px;

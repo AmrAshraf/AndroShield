@@ -76,6 +76,7 @@
     <Content Include="Images\AndroShieldword.jpg" />
     <Content Include="Images\ASU Logo.png" />
     <Content Include="Images\exclamationMark.png" />
+    <Content Include="Images\opened-folder.png" />
     <Content Include="Images\SWE Logo.png" />
     <Content Include="Images\x-symbol.png" />
     <Content Include="JavaScript\JavaScript.js" />
