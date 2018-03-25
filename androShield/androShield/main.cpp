@@ -1,3 +1,4 @@
+#include<Windows.h>
 #include<iostream>
 #include<vector>
 #include"ApkInfo.h"
@@ -5,6 +6,8 @@
 #include"APKInfoExtractor.h"
 #include"TaintAnalyser.h"
 #include<chrono>
+using namespace System;
+
 using namespace std;
 void testExtractInfoFromAPK()
 {
@@ -169,8 +172,17 @@ int main(int argc, const char * argv[])
 	cout << testFlag << endl << b1 << endl ;
 	system("pause");*/
 	//	TaintAnalysis::TaintAnalyser^ analyser = gcnew TaintAnalysis::TaintAnalyser("D:\\gp\\apks\\ArrayCopy1.apk");
-	APKInfoExtraction::APKInfoExtractor^ a = gcnew APKInfoExtraction::APKInfoExtractor("D:\\gp\\apks\\bb.apk");
+
+
+	cout << "apk name: ";
+	String^ apk = Console::ReadLine();
+	String^ path = "C:\\GPTempDir\\" + apk;
+	APKInfoExtraction::APKInfoExtractor^ a = gcnew APKInfoExtraction::APKInfoExtractor(path);
 	a->startExtraction();
+	cout << "finish extraction only" << endl;
 	TaintAnalysis::TaintAnalyser ^ t = gcnew TaintAnalysis::TaintAnalyser(a->realApkPath);
+	cout << "finish";
+	system("pause");
+
 	return 0;
 }

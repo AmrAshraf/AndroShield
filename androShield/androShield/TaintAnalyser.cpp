@@ -49,12 +49,26 @@ namespace TaintAnalysis {
 		}
 				
 	}
+	short TaintAnalyser::getFreeMem()
+	{
+		MEMORYSTATUSEX status;
+		status.dwLength = sizeof(status);
+		GlobalMemoryStatusEx(&status);
+		return status.ullAvailPhys / (1024 * 1024 * 1024);
+	}
+
 	TaintAnalyser::TaintAnalyser(String^ realApkPath)
 	{
 
 		vulnerabilities = gcnew List<Vulnerability>();
 		changeConfigurationFileData(realApkPath);
-		std::string command = "/C java -Xmx3g -jar C:\\taintAnalysis\\soot-infoflow-cmd.jar -c C:\\taintAnalysis\\configuration.xml ";
+		short freeMemory = getFreeMem();
+		std::string command;
+		if (freeMemory<1)
+			command = "/C java -jar C:\\taintAnalysis\\soot-infoflow-cmd.jar -c C:\\taintAnalysis\\configuration.xml ";
+		else
+			command = "/C java -Xmx" + std::to_string(freeMemory) + "g -jar C:\\taintAnalysis\\soot-infoflow-cmd.jar -c C:\\taintAnalysis\\configuration.xml ";
+
 		//system(command.c_str());
 		//HINSTANCE retVal = ShellExecute(NULL, "open", "cmd", command.c_str(), "C:\\", SW_HIDE);
 		SHELLEXECUTEINFO ShExecInfo = { 0 };

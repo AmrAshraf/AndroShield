@@ -12,6 +12,7 @@ private :
 	String^ taintOutputFilePath;
 	void changeConfigurationFileData(String^ apkPath);
 	void extractTaintData();
+	short getFreeMem();
 public:
 	TaintAnalyser(String^ realApkPath);
 	property List<Vulnerability>^ vulnerabilities;
