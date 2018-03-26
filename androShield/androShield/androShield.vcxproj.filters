@@ -14,6 +14,9 @@
     <ClCompile Include="XmlParser.cpp">
       <Filter>sources</Filter>
     </ClCompile>
+    <ClCompile Include="IntentCrashesDetector.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ApkInfo.h">
@@ -29,6 +32,9 @@
       <Filter>headers</Filter>
     </ClInclude>
     <ClInclude Include="XmlParser.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="IntentCrashesDetector.h">
       <Filter>headers</Filter>
     </ClInclude>
   </ItemGroup>

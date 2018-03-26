@@ -6,6 +6,7 @@
 #include"APKInfoExtractor.h"
 #include"TaintAnalyser.h"
 #include<chrono>
+#include"IntentCrashesDetector.h"
 using namespace System;
 
 using namespace std;
@@ -182,6 +183,8 @@ int main(int argc, const char * argv[])
 	cout << "finish extraction only" << endl;
 	TaintAnalysis::TaintAnalyser ^ t = gcnew TaintAnalysis::TaintAnalyser(a->realApkPath);
 	cout << "finish";
+	
+//	DynamicAnalysis::IntentCrashesDetector^ detector = gcnew DynamicAnalysis::IntentCrashesDetector("D:\\gp\\Intent Crashes\\Logcat.txt");
 	system("pause");
 
 	return 0;

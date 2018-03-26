@@ -121,12 +121,14 @@
   <ItemGroup>
     <ClCompile Include="ApkInfo.cpp" />
     <ClCompile Include="APKInfoExtractor.cpp" />
+    <ClCompile Include="IntentCrashesDetector.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TaintAnalyser.cpp" />
     <ClCompile Include="XmlParser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="APKInfoExtractor.h" />
+    <ClInclude Include="IntentCrashesDetector.h" />
     <ClInclude Include="TaintAnalyser.h" />
     <ClInclude Include="Vulnerability.h" />
     <ClInclude Include="XmlParser.h" />
