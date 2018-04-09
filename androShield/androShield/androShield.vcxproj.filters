@@ -17,6 +17,15 @@
     <ClCompile Include="IntentCrashesDetector.cpp">
       <Filter>sources</Filter>
     </ClCompile>
+    <ClCompile Include="CurrentTimeString.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="UserSimulator.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="ShellExecutionProcess.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ApkInfo.h">
@@ -35,6 +44,15 @@
       <Filter>headers</Filter>
     </ClInclude>
     <ClInclude Include="IntentCrashesDetector.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="CurrentTimeString.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="UserSimulator.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ShellExecutionProcess.h">
       <Filter>headers</Filter>
     </ClInclude>
   </ItemGroup>
