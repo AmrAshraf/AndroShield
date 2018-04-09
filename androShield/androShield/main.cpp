@@ -6,8 +6,10 @@
 #include"APKInfoExtractor.h"
 #include"TaintAnalyser.h"
 #include<chrono>
+#include"IntentCrashesDetector.h"
+#include"UserSimulator.h"
 using namespace System;
-
+using namespace DynamicAnalysis;
 using namespace std;
 void testExtractInfoFromAPK()
 {
@@ -174,7 +176,7 @@ int main(int argc, const char * argv[])
 	//	TaintAnalysis::TaintAnalyser^ analyser = gcnew TaintAnalysis::TaintAnalyser("D:\\gp\\apks\\ArrayCopy1.apk");
 
 
-	cout << "apk name: ";
+	/*cout << "apk name: ";
 	String^ apk = Console::ReadLine();
 	String^ path = "C:\\GPTempDir\\" + apk;
 	APKInfoExtraction::APKInfoExtractor^ a = gcnew APKInfoExtraction::APKInfoExtractor(path);
@@ -182,7 +184,16 @@ int main(int argc, const char * argv[])
 	cout << "finish extraction only" << endl;
 	TaintAnalysis::TaintAnalyser ^ t = gcnew TaintAnalysis::TaintAnalyser(a->realApkPath);
 	cout << "finish";
-	system("pause");
+	*/
+
+	UserSimulator^ userSimulator = gcnew UserSimulator();
+	//userSimulator->runEmulator();
+	userSimulator->startSimulation("D:\\gp\\apks\\2.apk",200);
+	
+
+	//userSimulator->removeOutputFolder();
+//	IntentCrashesDetector^ detector = gcnew DynamicAnalysis::IntentCrashesDetector("D:\\gp\\Intent Crashes\\Logcat.txt");
+
 
 	return 0;
 }

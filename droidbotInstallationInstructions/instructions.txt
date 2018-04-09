@@ -1,0 +1,5 @@
+1-install last python 2.7
+2-take the files from me and put in C:\
+3-C:\Python27\Scripts\pip.exe install -e <path of the inner directory>
+4-pip uninstall androguard
+5-pip install androguard==3.0.1

@@ -121,13 +121,21 @@
   <ItemGroup>
     <ClCompile Include="ApkInfo.cpp" />
     <ClCompile Include="APKInfoExtractor.cpp" />
+    <ClCompile Include="CurrentTimeString.cpp" />
+    <ClCompile Include="IntentCrashesDetector.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ShellExecutionProcess.cpp" />
     <ClCompile Include="TaintAnalyser.cpp" />
+    <ClCompile Include="UserSimulator.cpp" />
     <ClCompile Include="XmlParser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="APKInfoExtractor.h" />
+    <ClInclude Include="CurrentTimeString.h" />
+    <ClInclude Include="IntentCrashesDetector.h" />
+    <ClInclude Include="ShellExecutionProcess.h" />
     <ClInclude Include="TaintAnalyser.h" />
+    <ClInclude Include="UserSimulator.h" />
     <ClInclude Include="Vulnerability.h" />
     <ClInclude Include="XmlParser.h" />
   </ItemGroup>
