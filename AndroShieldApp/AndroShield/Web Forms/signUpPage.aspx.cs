@@ -9,24 +9,25 @@ namespace AndroApp.Web_Forms
 {
     public partial class signUpPage : System.Web.UI.Page
     {
-        userAccountTable userAccount;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                userAccount = new userAccountTable();
-            }
+            //if (!IsPostBack)
+            //{
+            //    Session["userAccount"] = new userAccountTable();
+            //}
         }
 
         protected void signUpButton_Click(object sender, EventArgs e)
         {
-            string firstName = firstNameTxt.Text.ToString();
-            string lastName = lastNameTxt.Text.ToString();
-            string email = emailTxt.Text.ToString();
-            string password = passwordTxt.Text.ToString();
-            DateTime lastLogin = DateTime.Now;
-            bool userCreated= userAccountTable.createUserAccount(email, password, firstName, lastName, lastLogin);
-            if (userCreated)
+            Session["firstName"] = firstNameTxt.Text.ToString();
+            Session["lastName"] = lastNameTxt.Text.ToString();
+            Session["tempUsername"] = emailTxt.Text.ToString();
+            Session["tempPassword"] = passwordTxt.Text.ToString();
+            Session["lastLogin"] = DateTime.Now;
+            Session["userAccountCreated"] = userAccountTable.createUserAccount(Session["tempUsername"].ToString(), Session["tempPassword"].ToString(), Session["firstName"].ToString(), Session["lastName"].ToString(), (DateTime)Session["lastLogin"]);
+            int x;
+            x = 66;
+            if ((bool)Session["userAccountCreated"])
             {
                 Response.Redirect("homePage.aspx");
             }

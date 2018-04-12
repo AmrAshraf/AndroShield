@@ -21,12 +21,15 @@ namespace AndroApp.Web_Forms
         protected void loginBtn_Click(object sender, EventArgs e)
         {
             Session["tempUsername"] = emailTxt.Text.ToString();
-            Session["password"] = passwordTxt.Text.ToString();
-
-            Session["userAccount"] = userAccountTable.userLogin(Session["tempUsername"].ToString(), Session["password"].ToString());
+            Session["tempPassword"] = passwordTxt.Text.ToString();
+            Session["userAccount"] = userAccountTable.userLogin(Session["tempUsername"].ToString(), Session["tempPassword"].ToString());
+            int x;
+            x = 23;
             if (Session["userAccount"] != null)
             {
                 Session["username"] = Session["tempUsername"];
+                Session["password"] = Session["tempPassword"];
+
                 Response.Redirect("userHomePage.aspx");
             }
             else
