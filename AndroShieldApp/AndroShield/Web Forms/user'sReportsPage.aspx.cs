@@ -9,37 +9,37 @@ namespace AndroApp.Web_Forms
 {
     public partial class user_sReportsPage : System.Web.UI.Page
     {
-        List<KeyValuePair<int, string>> userReports;
-        List<string> apkNames;
+        //List<KeyValuePair<int, string>> userReports;
+        //List<string> apkNames;
         protected void Page_Load(object sender, EventArgs e)
         {
-            string currentUserEmail = Session["username"].ToString();
+            //string currentUserEmail = Session["username"].ToString();
             userEmail.Text = Session["username"].ToString();
-            userReports= userAccountTable.getReportsOfThisUser(currentUserEmail);
-            apkNames = new List<string>();
+            Session["userReports"]= userAccountTable.getReportsOfThisUser(Session["username"].ToString());
+            Session["apkNames"] = new List<string>();
 
             HyperLink link = new HyperLink();
             link.NavigateUrl = "~/Web Forms/reportAnalysisPage.aspx";
-            for (int i=0; i<userReports.Count; i++)
+            for (int i=0; i< ((List<KeyValuePair<int, string>>)Session["userReports"]).Count; i++)
             {
                 TableRow row = new TableRow();
-                String[] info = userReports[i].Value.Split('#');
+                Session["reportInfo"] = ((List<KeyValuePair<int, string>>)Session["userReports"])[i].Value.Split('#');
                 TableCell apkName = new TableCell();
                 apkName.Controls.Add(link);
-                apkName.Text = info[0];
-                apkNames.Add(info[0]);
+                apkName.Text = ((string[])Session["reportInfo"])[0];
+                ((List<string>)Session["apkNames"]).Add(((string[])Session["reportInfo"])[0]);
 
                 TableCell packageName = new TableCell();
                 packageName.Controls.Add(link);
-                packageName.Text = info[1];
+                packageName.Text = ((string[])Session["reportInfo"])[1];
 
                 TableCell versionCode = new TableCell();
                 versionCode.Controls.Add(link);
-                versionCode.Text = info[2];
+                versionCode.Text = ((string[])Session["reportInfo"])[2];
 
                 TableCell date = new TableCell();
                 date.Controls.Add(link);
-                date.Text = info[3];
+                date.Text = ((string[])Session["reportInfo"])[3];
                 TableCell viewButton = new TableCell();
                 Button view = new Button();
                 view.Text = "View";
@@ -63,9 +63,9 @@ namespace AndroApp.Web_Forms
         }
         protected void viewReport(object sender, EventArgs e)
         {
-            int ID = int.Parse(((Button)sender).ID);
-            Session["reportID"] = userReports[ID].Key;
-            Session["currentReportName"] = apkNames[ID];
+            Session["tempReportId"] = int.Parse(((Button)sender).ID);
+            Session["reportID"] = ((List<KeyValuePair<int, string>>)Session["userReports"])[int.Parse(Session["tempReportId"].ToString())].Key;
+            Session["currentReportName"] = ((List<string>)Session["apkNames"])[int.Parse(Session["tempReportId"].ToString())];
             Response.Redirect("reportAnalysisPage.aspx");
         }
         protected void logoutButton_Click(object sender, EventArgs e)

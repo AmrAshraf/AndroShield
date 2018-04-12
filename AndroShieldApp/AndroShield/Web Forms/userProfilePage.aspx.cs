@@ -61,8 +61,6 @@ namespace AndroApp.Web_Forms
                 Session["lname"] = lastNameTxt.Text;
             }
             ((userAccountTable)Session["currentUser"]).updateUser(DateTime.Now, Session["newpass"].ToString(), Session["username"].ToString(), Session["fname"].ToString(), Session["lname"].ToString());
-            int x;
-            x = 23;
         }
 
         protected void resetBtn_Click(object sender, EventArgs e)
