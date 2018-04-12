@@ -26,6 +26,9 @@
     <ClCompile Include="ShellExecutionProcess.cpp">
       <Filter>sources</Filter>
     </ClCompile>
+    <ClCompile Include="HttpRequestsDetector.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ApkInfo.h">
@@ -53,6 +56,9 @@
       <Filter>headers</Filter>
     </ClInclude>
     <ClInclude Include="ShellExecutionProcess.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpRequestsDetector.h">
       <Filter>headers</Filter>
     </ClInclude>
   </ItemGroup>
