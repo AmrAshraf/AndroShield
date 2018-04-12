@@ -1,0 +1,49 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="masterPage.Master.cs" Inherits="AndroApp.masterPage" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+
+    <link rel="stylesheet" href="/Styling/StyleSheet.css" />
+
+    <script src="/JavaScript/jquery.js"></script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <script src="/JavaScript/JavaScript.js"></script>
+</head>
+<body>
+    <form runat="server">
+    <nav class="navigationBar darkBackground" runat="server">
+        <asp:Button ID="logo" runat="server" class="topLeft topMenu" CausesValidation="false" OnClick="logo_Click"/>
+        <asp:Button ID="logoWord" runat="server"  class="topLeft topMenu" CausesValidation="false" OnClick="logoWord_Click"/>
+
+        <asp:Button ID="navAbout" runat="server" Text="About" class="topRight topMenu lightText" CausesValidation="false" OnClick="navAbout_Click"/>
+        
+        <asp:ContentPlaceHolder ID="navContentPlaceHolder" runat="server">
+        </asp:ContentPlaceHolder>
+
+    </nav>
+    <asp:ContentPlaceHolder ID="pageContent" runat="server">
+
+    </asp:ContentPlaceHolder>
+    <footer id="footer" class="footer darkBackground">
+        <div class="footerColumn footerLeft">
+            <img class="footerImage" src="/Images/SWE Logo.png" alt="SWE Department Logo" />
+        </div>
+        <div class="footerColumn footerMiddle">
+            <p class="boldText centerAligned lightText">Created By</p>
+            <p class="centerAligned lightText">Amr Ashraf <br />Amgad ElDessouki<br />Menna Tullah Magdy<br />Nouran Abdeen</p><br />
+            <p class="boldText centerAligned lightText">Supervised By</p>
+            <p class="centerAligned lightText">Dr Islam Hegazy<br />AL Hanan Yousry</p><br />
+            <p class="boldText centerAligned lightText"> Software Engineering Department 2018</p>
+        </div>
+        <div class="footerColumn footerRight">
+            <img class="footerImage" src="/Images/ASU Logo.png" alt="Ain Shams University Logo" />
+        </div>
+    </footer>
+        </form>
+</body>
+
+</html>
