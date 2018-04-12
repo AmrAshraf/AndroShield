@@ -27,13 +27,13 @@ namespace AndroApp
         }
         protected void Button1_Click(object sender, EventArgs e)
         {
-            string email = emailTxt.Text.ToString();
-            string password = passwordTxt.Text.ToString();
+            Session["tempUsername"] = emailTxt.Text.ToString();
+            Session["password"] = passwordTxt.Text.ToString();
 
-            userAccount = userAccountTable.userLogin(email, password);
+            userAccount = userAccountTable.userLogin(Session["tempUsername"].ToString(), Session["password"].ToString());
             if(userAccount!=null)
             {
-                Session["username"] = email;
+                Session["username"] = Session["tempUsername"];
                 Session["userAccount"] = userAccount;
                 Response.Redirect("userHomePage.aspx");
             }
