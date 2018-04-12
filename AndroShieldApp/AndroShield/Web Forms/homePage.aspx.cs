@@ -12,13 +12,11 @@ namespace AndroApp
     public partial class homepage : System.Web.UI.Page
     {
         databaseLayer androDatabase;
-        userAccountTable userAccount;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 androDatabase = new databaseLayer();
-                userAccount = new userAccountTable();
             }
         }
         protected void btn_Click(object sender, EventArgs e)
@@ -30,11 +28,10 @@ namespace AndroApp
             Session["tempUsername"] = emailTxt.Text.ToString();
             Session["password"] = passwordTxt.Text.ToString();
 
-            userAccount = userAccountTable.userLogin(Session["tempUsername"].ToString(), Session["password"].ToString());
-            if(userAccount!=null)
+            Session["userAccount"] = userAccountTable.userLogin(Session["tempUsername"].ToString(), Session["password"].ToString());
+            if(Session["userAccount"] != null)
             {
                 Session["username"] = Session["tempUsername"];
-                Session["userAccount"] = userAccount;
                 Response.Redirect("userHomePage.aspx");
             }
             else
