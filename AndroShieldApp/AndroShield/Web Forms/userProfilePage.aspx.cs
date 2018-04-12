@@ -9,22 +9,18 @@ namespace AndroApp.Web_Forms
 {
     public partial class userProfilePage : System.Web.UI.Page
     {
-        userAccountTable currentUser;
-        string oldPassword;
+        //userAccountTable currentUser;
+        //string oldPassword;
         protected void Page_Load(object sender, EventArgs e)
         {
-                currentUser = userAccountTable.findUserByEmail(Session["username"].ToString());
-                userEmail.Text = Session["username"].ToString();
-                oldPassword = currentUser.password;
-            if(!IsPostBack)
+            Session["currentUser"] = userAccountTable.findUserByEmail(Session["username"].ToString());
+            userEmail.Text = Session["username"].ToString();
+            Session["oldPassword"] = ((userAccountTable)Session["currentUser"]).password;
+            if (!IsPostBack)
             {
-
-                firstNameTxt.Text = currentUser.firstName;
-                lastNameTxt.Text = currentUser.lastName;
-
+                firstNameTxt.Text = ((userAccountTable)Session["currentUser"]).firstName;
+                lastNameTxt.Text = ((userAccountTable)Session["currentUser"]).lastName;
             }
-
-            
         }
         protected void logout_Click(object sender, EventArgs e)
         {
@@ -40,38 +36,39 @@ namespace AndroApp.Web_Forms
 
         protected void updateBtn_Click(object sender, EventArgs e)
         {
-            string fname = currentUser.firstName;
-            string lname = currentUser.lastName;
-            string newpass = oldPassword;
-
+            Session["fname"] = ((userAccountTable)Session["currentUser"]).firstName;
+            Session["lname"] = ((userAccountTable)Session["currentUser"]).lastName;
+            Session["newpass"] = Session["oldPassword"];
 
             if (passwordTxt.Text == "")
             {
-                newpass = oldPassword;
+                Session["newpass"] = Session["oldPassword"];
             }
-            else if (oldPassword!=passwordTxt.Text)
+            else if (Session["oldPassword"].ToString()!= passwordTxt.Text)
             {
                 incorrectPasswordMsg.Visible = true;
             }
             else
             {
-                newpass = newPassword.Text;
+                Session["newpass"] = newPassword.Text;
             }
-            if(firstNameTxt.Text!=currentUser.firstName && firstNameTxt.Text!="")
+            if(firstNameTxt.Text!= ((userAccountTable)Session["currentUser"]).firstName && firstNameTxt.Text!="")
             {
-                fname = firstNameTxt.Text;
+                Session["fname"] = firstNameTxt.Text;
             }
-            if (lastNameTxt.Text != currentUser.lastName && lastNameTxt.Text != "")
+            if (lastNameTxt.Text != ((userAccountTable)Session["currentUser"]).lastName && lastNameTxt.Text != "")
             {
-                lname = lastNameTxt.Text;
+                Session["lname"] = lastNameTxt.Text;
             }
-            currentUser.updateUser(DateTime.Now, newpass, Session["username"].ToString(), fname, lname);
+            ((userAccountTable)Session["currentUser"]).updateUser(DateTime.Now, Session["newpass"].ToString(), Session["username"].ToString(), Session["fname"].ToString(), Session["lname"].ToString());
+            int x;
+            x = 23;
         }
 
         protected void resetBtn_Click(object sender, EventArgs e)
         {
-            firstNameTxt.Text = currentUser.firstName;
-            lastNameTxt.Text = currentUser.lastName;
+            firstNameTxt.Text = ((userAccountTable)Session["currentUser"]).firstName;
+            lastNameTxt.Text = ((userAccountTable)Session["currentUser"]).lastName;
         }
     }
 }
