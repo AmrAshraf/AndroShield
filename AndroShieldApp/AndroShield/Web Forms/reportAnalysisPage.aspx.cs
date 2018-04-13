@@ -24,10 +24,14 @@ namespace AndroApp.Web_Forms
                     Session["AnalysisReportApk"] = ((reportTable)Session["analysisReport"]).getApkOfThisReport();
                     Session["AnalysisReportPermissions"] = ((reportTable)Session["analysisReport"]).getPermissionsofThisReport();
                     Session["AnalysisReportVulnerabilities"] = ((reportTable)Session["analysisReport"]).getVulnerabilitiesOfThisReport();
+
+                    Session.Contents.Remove("analysisReport");
                 }
                 if (Session["currentReportName"] != null && Session["currentReportName"].ToString() != "")
                 {
                     apkNameValue.Text = Session["currentReportName"].ToString();
+                    Session.Contents.Remove("currentReportName");
+
                     apkVersionValue.Text = ((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).versionName;
                     minSdkValue.Text = ((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).minSDK;
                     targetSdkValue.Text = ((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).targetSDK;
@@ -66,6 +70,9 @@ namespace AndroApp.Web_Forms
                             supportedArchiValue.Text += ", mips";
                         if (((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).mips64)
                             supportedArchiValue.Text += ", mips64";
+
+
+                        Session.Contents.Remove("AnalysisReportApk");
                     }
 
                     TableCell cell1 = new TableCell();
@@ -76,6 +83,8 @@ namespace AndroApp.Web_Forms
                         row.Cells.Add(cell1);
                         permissionsTable.Rows.Add(row);
                     }
+                    Session.Contents.Remove("AnalysisReportPermissions");
+
                     TableCell severity = new TableCell();
                     TableCell category = new TableCell();
                     TableCell type = new TableCell();
@@ -90,6 +99,7 @@ namespace AndroApp.Web_Forms
 
                         Session["severityValue"] = (float)Math.Round(double.Parse(((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][0]), 2);
                         severity.Text = Session["severityValue"].ToString();
+                        Session.Contents.Remove("severityValue");
                         category.Text = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][1];
                         type.Text = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][2];
                         info.Text = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][3];
