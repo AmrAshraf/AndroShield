@@ -70,6 +70,8 @@ namespace AndroApp.Web_Forms
                 {
                     //uploadBtn.Text = "Cannot accept files of this type.";
                 }
+                Session.Contents.Remove("fileExtension");
+                Session.Contents.Remove("fileOK");
             }
         }
 
@@ -79,7 +81,7 @@ namespace AndroApp.Web_Forms
             Session["apkPath"] = "C:\\GPTempDir\\" + Session["apkName"].ToString();
 
             analyzeApk(Session["apkPath"].ToString());
-
+            Session.Contents.Remove("apkPath");
             Response.Redirect("reportAnalysisPage.aspx");
         }
         void analyzeApk(string path)
@@ -91,12 +93,11 @@ namespace AndroApp.Web_Forms
             //TODO: apkRiskLevel determination
             Session["apk"] = apkInfoTable.insertAPKInfo(0, Session["apkName"].ToString(), ((APKInfoExtractor)Session["apkInfoExtraction"]).minSDKVersion, ((APKInfoExtractor)Session["apkInfoExtraction"]).targetSDKVersion, ((APKInfoExtractor)Session["apkInfoExtraction"]).packageName, ((APKInfoExtractor)Session["apkInfoExtraction"]).versionCode, ((APKInfoExtractor)Session["apkInfoExtraction"]).versionName, ((APKInfoExtractor)Session["apkInfoExtraction"]).testFlag, ((APKInfoExtractor)Session["apkInfoExtraction"]).debuggableFlag, ((APKInfoExtractor)Session["apkInfoExtraction"]).backupFlag, ((APKInfoExtractor)Session["apkInfoExtraction"]).supportedArchitectures.all, ((APKInfoExtractor)Session["apkInfoExtraction"]).supportedArchitectures.armeabi, ((APKInfoExtractor)Session["apkInfoExtraction"]).supportedArchitectures.armeabi_v7a, ((APKInfoExtractor)Session["apkInfoExtraction"]).supportedArchitectures.arm64_v8a, ((APKInfoExtractor)Session["apkInfoExtraction"]).supportedArchitectures.x86, ((APKInfoExtractor)Session["apkInfoExtraction"]).supportedArchitectures.x86_64, ((APKInfoExtractor)Session["apkInfoExtraction"]).supportedArchitectures.mips, ((APKInfoExtractor)Session["apkInfoExtraction"]).supportedArchitectures.mips64);
             Session["apkReport"] = reportTable.addNewReport(DateTime.Now.Date, true, false, ((apkInfoTable)Session["apk"]).apkInfoID, ((userAccountTable)Session["user"]).ID);
-            reportTable test = (reportTable)Session["apkReport"];
             Session["apkVulnerabilities"] = new List<Vulnerability>();
             ((List<Vulnerability>)Session["apkVulnerabilities"]).AddRange(((APKInfoExtractor)Session["apkInfoExtraction"]).vulnerabilities);
             ((List<Vulnerability>)Session["apkVulnerabilities"]).AddRange(((TaintAnalyser)Session["taintAnalysis"]).vulnerabilities);
 
-            for(int i=0; i< ((List<Vulnerability>)Session["apkVulnerabilities"]).Count; i++)
+            for (int i=0; i< ((List<Vulnerability>)Session["apkVulnerabilities"]).Count; i++)
             {
                 Session["dbVulnerability"] = vulnerabilityTable.addOrFindVulnerability(((List<Vulnerability>)Session["apkVulnerabilities"])[i].severity, ((List<Vulnerability>)Session["apkVulnerabilities"])[i].category, ((List<Vulnerability>)Session["apkVulnerabilities"])[i].type);
                 ((reportTable)Session["apkReport"]).createRelationBetweenReportAndVulnerability(((reportTable)Session["apkReport"]).reportId, ((vulnerabilityTable)Session["dbVulnerability"]).vulnID, ((List<Vulnerability>)Session["apkVulnerabilities"])[i].extraInfo);
@@ -114,8 +115,16 @@ namespace AndroApp.Web_Forms
             {
                 launchableActivityTable.addNewActivity(((string[])Session["launchableActivities"])[i], ((apkInfoTable)Session["apk"]).apkInfoID);
             }
-
             Session["reportID"] = ((reportTable)Session["apkReport"]).reportId;
+
+            Session.Contents.Remove("apkName");
+            Session.Contents.Remove("taintAnalysis");
+            Session.Contents.Remove("apkVulnerabilities");
+            Session.Contents.Remove("dbVulnerability");
+            Session.Contents.Remove("apkInfoExtraction");
+            Session.Contents.Remove("apk");
+            Session.Contents.Remove("apkReport");
+            Session.Contents.Remove("launchableActivities");
         }
 
     }

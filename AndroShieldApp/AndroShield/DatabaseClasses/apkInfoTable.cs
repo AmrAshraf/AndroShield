@@ -42,7 +42,8 @@ namespace AndroApp
         }
         static public apkInfoTable insertAPKInfo(float apkRiskLevel, string apkName, string minSDK, string targetSDK, string packageName, string versionCode, string versionName, bool testOnly, bool debuggable, bool backup, bool all, bool armeabi, bool armeabi_v7a, bool arm64_v8a, bool x86, bool x86_64, bool mips, bool mips64)
         {
-            databaseLayer.myConnection.Open();
+            if (databaseLayer.myConnection.State == System.Data.ConnectionState.Closed)
+                databaseLayer.myConnection.Open();
             try
             {
                 SqlCommand myCommand = new SqlCommand("insert into ApkInfo (" +
