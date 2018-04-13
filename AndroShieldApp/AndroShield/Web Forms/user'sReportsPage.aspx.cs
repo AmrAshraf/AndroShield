@@ -58,6 +58,8 @@ namespace AndroApp.Web_Forms
                 row.Cells.Add(viewButton);
 
                 allReportsTable.Rows.Add(row);
+
+                Session.Contents.Remove("reportInfo");
             }
         }
         protected void signupNav_Click(object sender, EventArgs e)
@@ -69,6 +71,7 @@ namespace AndroApp.Web_Forms
             Session["tempReportId"] = int.Parse(((Button)sender).ID);
             Session["reportID"] = ((List<KeyValuePair<int, string>>)Session["userReports"])[int.Parse(Session["tempReportId"].ToString())].Key;
             Session["currentReportName"] = ((List<string>)Session["apkNames"])[int.Parse(Session["tempReportId"].ToString())];
+            Session.Contents.Remove("apkNames");
             Response.Redirect("reportAnalysisPage.aspx",false);
         }
         protected void logoutButton_Click(object sender, EventArgs e)
