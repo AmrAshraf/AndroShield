@@ -198,7 +198,6 @@ namespace AndroApp
             }
             catch (System.InvalidOperationException)
             {
-                //databaseLayer.myConnection.Close();
                 return null;
             }
         }
