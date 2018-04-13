@@ -16,6 +16,7 @@ namespace AndroApp
         {
             if (!IsPostBack)
             {
+                Session.Timeout = 80;
                 androDatabase = new databaseLayer();
             }
         }

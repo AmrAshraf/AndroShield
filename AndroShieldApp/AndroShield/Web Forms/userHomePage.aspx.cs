@@ -14,6 +14,7 @@ namespace AndroApp.Web_Forms
             if (!IsPostBack)
             {
                 userEmail.Text = Session["username"].ToString();
+                Session.Timeout = 80;
             }
         }
         protected void signupNav_Click(object sender, EventArgs e)
