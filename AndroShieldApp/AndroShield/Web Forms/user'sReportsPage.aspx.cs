@@ -9,14 +9,17 @@ namespace AndroApp.Web_Forms
 {
     public partial class user_sReportsPage : System.Web.UI.Page
     {
-        //List<KeyValuePair<int, string>> userReports;
-        //List<string> apkNames;
+        List<KeyValuePair<int, string>> userReports;
         protected void Page_Load(object sender, EventArgs e)
         {
-            //string currentUserEmail = Session["username"].ToString();
-            userEmail.Text = Session["username"].ToString();
-            Session["userReports"]= userAccountTable.getReportsOfThisUser(Session["username"].ToString());
-            Session["apkNames"] = new List<string>();
+            if(!IsPostBack)
+            {
+                userEmail.Text = Session["username"].ToString();
+                Session["userReports"]= userAccountTable.getReportsOfThisUser(Session["username"].ToString());
+                userReports = new List<KeyValuePair<int, string>>();
+                userReports = userAccountTable.getReportsOfThisUser(Session["username"].ToString());
+                Session["apkNames"] = new List<string>();
+            }
 
             HyperLink link = new HyperLink();
             link.NavigateUrl = "~/Web Forms/reportAnalysisPage.aspx";
@@ -66,12 +69,11 @@ namespace AndroApp.Web_Forms
             Session["tempReportId"] = int.Parse(((Button)sender).ID);
             Session["reportID"] = ((List<KeyValuePair<int, string>>)Session["userReports"])[int.Parse(Session["tempReportId"].ToString())].Key;
             Session["currentReportName"] = ((List<string>)Session["apkNames"])[int.Parse(Session["tempReportId"].ToString())];
-            Response.Redirect("reportAnalysisPage.aspx");
+            Response.Redirect("reportAnalysisPage.aspx",false);
         }
         protected void logoutButton_Click(object sender, EventArgs e)
         {
-            Session["username"] = "";
-            Session["userAccount"] = "";
+            Session.Abandon();
             Response.Redirect("homePage.aspx");
         }
     }

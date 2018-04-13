@@ -23,7 +23,6 @@ namespace AndroApp
             this.apkInfoID = apkInfoID;
             this.apkRiskLevel = apkRiskLevel;
             this.apkName = apkName;
-          //  this.apkVersion = apkVersion;
             this.minSDK = minSDK;
             this.targetSDK = targetSDK;
             this.packageName = packageName;
@@ -44,26 +43,8 @@ namespace AndroApp
         static public apkInfoTable insertAPKInfo(float apkRiskLevel, string apkName, string minSDK, string targetSDK, string packageName, string versionCode, string versionName, bool testOnly, bool debuggable, bool backup, bool all, bool armeabi, bool armeabi_v7a, bool arm64_v8a, bool x86, bool x86_64, bool mips, bool mips64)
         {
             databaseLayer.myConnection.Open();
-         /*   SqlCommand checkExistenceOfAPK = new SqlCommand("select apkID from ApkInfo where versionCode=@y and packageName=@z", databaseLayer.myConnection);
-            SqlParameter Paramater = new SqlParameter("@y", versionCode); 
-            SqlParameter secondParamater = new SqlParameter("@z", packageName);
-            checkExistenceOfAPK.Parameters.Add(Paramater);
-            checkExistenceOfAPK.Parameters.Add(secondParamater);
-            checkExistenceOfAPK.ExecuteNonQuery();//TODO: change the logic of this uniqueness check because it prevent analyze the same apk from our system
-            SqlDataReader reader = checkExistenceOfAPK.ExecuteReader();
-            if (reader.Read())
-            {
-                reader.Dispose();
-                databaseLayer.myConnection.Close();
-                return null;
-            }*/
             try
             {
-              //  reader.Dispose();
-                /*          SqlCommand myCommand = new SqlCommand("insert into ApkInfo (" +
-                              "apkName, apkVersion , minSDK , targetSdk , packageName , versionCode ," +
-                              "versionName , apkRiskLevel , testOnlyFlag , debuggableFlag , backupFlag ," +
-                              " allFlag , armeabiFlag , armeabi_v7aFlag , arm64_V8aFlag , X86Flag , X86_64Flag , mipsFlag , mips64Flag ) OUTPUT INSERTED.ID values (@b,@c,@d,@e,@f,@h,@I,@J,@K,@L,@M,@N,@O,@P,@Q,@R,@S,@T)", databaseLayer.myConnection);*/
                 SqlCommand myCommand = new SqlCommand("insert into ApkInfo (" +
                "apkName , minSDK , targetSdk , packageName , versionCode ," +
                "versionName , apkRiskLevel , testOnlyFlag , debuggableFlag , backupFlag ," +
@@ -186,40 +167,6 @@ namespace AndroApp
                 }
                 reader.Dispose();
                 return permissions;
-                //List<int> permissionIDs = new List<int>();
-                //while (reader.Read())
-                //{
-
-                //    Int32 Id = (Int32)reader[0];
-                //    permissionIDs.Add(Id);
-                //}
-                //reader.Dispose();
-                //try
-                //{
-                //    int i = 0;
-                //    List<permissionTable> permissionObjs = new List<permissionTable>();
-                //    while (i<permissionIDs.Count())
-                //    {
-                //        myCommand = new SqlCommand("Select * from  permission where permissionID=@y", databaseLayer.myConnection);
-                //        SqlParameter thirdParamater = new SqlParameter("@y", permissionIDs[i]);
-                //        myCommand.Parameters.Add(thirdParamater);
-                //        reader = myCommand.ExecuteReader();
-                //        Int32 index = (Int32)reader[0];
-                //        string name = (string)reader[1];
-                //        permissionTable perm = new permissionTable(index, name);
-                //        permissionObjs.Add(perm);
-                //        i++;
-                //    }
-                //    reader.Dispose();
-                //    databaseLayer.myConnection.Close();
-                //    return permissionObjs;
-
-                //}
-                //catch
-                //{
-                //    databaseLayer.myConnection.Close();
-                //    return null;
-                //}
             }
             catch (System.InvalidOperationException)
             {

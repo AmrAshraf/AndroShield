@@ -14,7 +14,6 @@ namespace AndroApp.Web_Forms
             if (!IsPostBack)
             {
                 userEmail.Text = Session["username"].ToString();
-                Session.Timeout = 80;
             }
         }
         protected void signupNav_Click(object sender, EventArgs e)
@@ -23,8 +22,7 @@ namespace AndroApp.Web_Forms
         }
         protected void logoutButton_Click(object sender, EventArgs e)
         {
-            Session["username"] = "";
-            Session["userAccount"] = "";
+            Session.Abandon();
             Response.Redirect("homePage.aspx");
         }
         protected void uploadApkButton_Click(object sender, EventArgs e)
@@ -33,7 +31,8 @@ namespace AndroApp.Web_Forms
         }
         protected void viewReportsButton_Click(object sender, EventArgs e)
         {
-            Response.Redirect("user'sReportsPage.aspx");
+            Session["userReports"] = userAccountTable.getReportsOfThisUser(Session["username"].ToString());
+            Response.Redirect("user'sReportsPage.aspx",false);
         }
     }
 }

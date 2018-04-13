@@ -9,8 +9,6 @@ namespace AndroApp.Web_Forms
 {
     public partial class userProfilePage : System.Web.UI.Page
     {
-        //userAccountTable currentUser;
-        //string oldPassword;
         protected void Page_Load(object sender, EventArgs e)
         {
             Session["currentUser"] = userAccountTable.findUserByEmail(Session["username"].ToString());
@@ -24,8 +22,7 @@ namespace AndroApp.Web_Forms
         }
         protected void logout_Click(object sender, EventArgs e)
         {
-            Session["username"] = "";
-            Session["userAccount"] = "";
+            Session.Abandon();
             Response.Redirect("homePage.aspx");
         }
 

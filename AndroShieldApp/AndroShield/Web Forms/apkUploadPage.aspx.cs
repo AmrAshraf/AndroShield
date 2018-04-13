@@ -16,8 +16,6 @@ namespace AndroApp.Web_Forms
 {
     public partial class apkUploadPage : System.Web.UI.Page
     {
-        //string apkName;
-        //string uploadedFileName="";
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -31,8 +29,7 @@ namespace AndroApp.Web_Forms
         }
         protected void logoutButton_Click(object sender, EventArgs e)
         {
-            Session["username"] = "";
-            Session["userAccount"] = "";
+            Session.Abandon();
             Response.Redirect("homePage.aspx");
         }
 
@@ -99,7 +96,6 @@ namespace AndroApp.Web_Forms
             ((List<Vulnerability>)Session["apkVulnerabilities"]).AddRange(((APKInfoExtractor)Session["apkInfoExtraction"]).vulnerabilities);
             ((List<Vulnerability>)Session["apkVulnerabilities"]).AddRange(((TaintAnalyser)Session["taintAnalysis"]).vulnerabilities);
 
-            //Session["dbVulnerability"] = new vulnerabilityTable();
             for(int i=0; i< ((List<Vulnerability>)Session["apkVulnerabilities"]).Count; i++)
             {
                 Session["dbVulnerability"] = vulnerabilityTable.addOrFindVulnerability(((List<Vulnerability>)Session["apkVulnerabilities"])[i].severity, ((List<Vulnerability>)Session["apkVulnerabilities"])[i].category, ((List<Vulnerability>)Session["apkVulnerabilities"])[i].type);
@@ -120,8 +116,6 @@ namespace AndroApp.Web_Forms
             }
 
             Session["reportID"] = ((reportTable)Session["apkReport"]).reportId;
-            //Session["apkInfo"] = apkInfoExtraction;
-            //Session["taint"] = taintAnalysis;
         }
 
     }

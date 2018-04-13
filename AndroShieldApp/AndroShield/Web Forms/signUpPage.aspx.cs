@@ -11,10 +11,6 @@ namespace AndroApp.Web_Forms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if (!IsPostBack)
-            //{
-            //    Session["userAccount"] = new userAccountTable();
-            //}
         }
 
         protected void signUpButton_Click(object sender, EventArgs e)

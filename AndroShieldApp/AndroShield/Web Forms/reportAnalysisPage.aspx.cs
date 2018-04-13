@@ -12,80 +12,67 @@ namespace AndroApp.Web_Forms
 {
     public partial class reportAnalysisPage : System.Web.UI.Page
     {
-        APKInfoExtractor apkInfoExtraction;
-        TaintAnalyser taintAnalysis;
-
-        apkInfoTable reportApk;
-        List<string> permissions;
-        List<List<string>> vulnerabilities;
-
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            reportApk = new AndroApp.apkInfoTable();
-            permissions= new List<string>();
-            vulnerabilities= new List<List<string>>();
-
             userEmail.Text = Session["username"].ToString();
             if (!IsPostBack)
             {
-                if((Session["reportID"]!=null || Session["reportID"].ToString()!=""))// && (Session["apk"]!=null))
+                if((Session["reportID"]!=null || Session["reportID"].ToString()!=""))
                 {
-                    reportTable analysisReport = reportTable.findReportByID(int.Parse(Session["reportID"].ToString()), ref permissions, ref reportApk, ref vulnerabilities);
-                    int x;
-                    x = 6;
+                    Session["analysisReport"] = reportTable.findReportByID(int.Parse(Session["reportID"].ToString()));
+
+                    Session["AnalysisReportApk"] = ((reportTable)Session["analysisReport"]).getApkOfThisReport();
+                    Session["AnalysisReportPermissions"] = ((reportTable)Session["analysisReport"]).getPermissionsofThisReport();
+                    Session["AnalysisReportVulnerabilities"] = ((reportTable)Session["analysisReport"]).getVulnerabilitiesOfThisReport();
                 }
                 if (Session["currentReportName"] != null && Session["currentReportName"].ToString() != "")
                 {
-                    //apkInfoExtraction = (APKInfoExtractor)Session["apkInfo"];
-                    //taintAnalysis = (TaintAnalyser)Session["taint"];
-
                     apkNameValue.Text = Session["currentReportName"].ToString();
-                    apkVersionValue.Text = reportApk.versionName;
-                    minSdkValue.Text = reportApk.minSDK;
-                    targetSdkValue.Text = reportApk.targetSDK;
-                    if (reportApk.testOnly)
+                    apkVersionValue.Text = ((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).versionName;
+                    minSdkValue.Text = ((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).minSDK;
+                    targetSdkValue.Text = ((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).targetSDK;
+                    if (((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).testOnly)
                         testOnlyValue.Text = "True";
                     else
                         testOnlyValue.Text = "False";
-                    packageNameValue.Text = reportApk.packageName;
-                    versionNoValue.Text = reportApk.versionCode;
-                    versionNameValue.Text = reportApk.versionName;
-                    if (reportApk.debuggable)
+                    packageNameValue.Text = ((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).packageName;
+                    versionNoValue.Text = ((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).versionCode;
+                    versionNameValue.Text = ((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).versionName;
+                    if (((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).debuggable)
                         debugValue.Text = "True";
                     else
                         debugValue.Text = "False";
-                    if (reportApk.backup)
+                    if (((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).backup)
                         backupValue.Text = "True";
                     else
                         backupValue.Text = "False";
 
                     supportedArchiValue.Text = "";
-                    if (reportApk.all)
+                    if (((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).all)
                         supportedArchiValue.Text += "All";
                     else
                     {
-                        if (reportApk.armeabi)
+                        if (((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).armeabi)
                             supportedArchiValue.Text += "armeabi";
-                        if (reportApk.armeabi_v7a)
+                        if (((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).armeabi_v7a)
                             supportedArchiValue.Text += ", armeabi_v7a";
-                        if (reportApk.arm64_v8a)
+                        if (((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).arm64_v8a)
                             supportedArchiValue.Text += ", arm64_v8a";
-                        if (reportApk.x86)
+                        if (((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).x86)
                             supportedArchiValue.Text += ", x86";
-                        if (reportApk.x86_64)
+                        if (((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).x86_64)
                             supportedArchiValue.Text += ", x86_64";
-                        if (reportApk.mips)
+                        if (((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).mips)
                             supportedArchiValue.Text += ", mips";
-                        if (reportApk.mips64)
+                        if (((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).mips64)
                             supportedArchiValue.Text += ", mips64";
                     }
 
                     TableCell cell1 = new TableCell();
-                    for (int i=0; i<permissions.Count; i++)
+                    for (int i=0; i<((List<string>)Session["AnalysisReportPermissions"]).Count; i++)
                     {
                         TableRow row = new TableRow();
-                        cell1.Text = permissions[i];
+                        cell1.Text = ((List<string>)Session["AnalysisReportPermissions"])[i];
                         row.Cells.Add(cell1);
                         permissionsTable.Rows.Add(row);
                     }
@@ -93,7 +80,7 @@ namespace AndroApp.Web_Forms
                     TableCell category = new TableCell();
                     TableCell type = new TableCell();
                     TableCell info = new TableCell();
-                    for (int i = 0; i < vulnerabilities.Count; i++)
+                    for (int i = 0; i < ((List<List<string>>)Session["AnalysisReportVulnerabilities"]).Count; i++)
                     {
                         TableRow row = new TableRow();
                         severity = new TableCell();
@@ -101,11 +88,11 @@ namespace AndroApp.Web_Forms
                         type = new TableCell();
                         info = new TableCell();
 
-                        float severityValue = (float)Math.Round(double.Parse(vulnerabilities[i][0]), 2);
-                        severity.Text = severityValue.ToString();
-                        category.Text = vulnerabilities[i][1];
-                        type.Text = vulnerabilities[i][2];
-                        info.Text = vulnerabilities[i][3];
+                        Session["severityValue"] = (float)Math.Round(double.Parse(((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][0]), 2);
+                        severity.Text = Session["severityValue"].ToString();
+                        category.Text = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][1];
+                        type.Text = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][2];
+                        info.Text = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][3];
 
                         row.Cells.Add(severity);
                         row.Cells.Add(category);
@@ -114,7 +101,6 @@ namespace AndroApp.Web_Forms
 
                         vulnerabilityReportTable.Rows.Add(row);
                     }
-
                 }
             }
         }
@@ -124,18 +110,18 @@ namespace AndroApp.Web_Forms
         }
         protected void logoutButton_Click(object sender, EventArgs e)
         {
-            Session["username"] = "";
-            Session["userAccount"] = "";
+            Session.Abandon();
             Response.Redirect("homePage.aspx");
         }
         protected void newAnalysisBtn_Click(object sender, EventArgs e)
         {
-            Response.Redirect("apkUploadPage.aspx");
+            Response.Redirect("apkUploadPage.aspx",false);
         }
 
         protected void allReportsBtn_Click(object sender, EventArgs e)
         {
-            Response.Redirect("user'sReportsPage.aspx");
+            Session["userReports"] = userAccountTable.getReportsOfThisUser(Session["username"].ToString());
+            Response.Redirect("user'sReportsPage.aspx",false);
         }
     }
 }

@@ -154,33 +154,6 @@ namespace AndroApp
                 databaseLayer.myConnection.Close();
 
                 return reportsID;
-
-                //    myCommand = new SqlCommand("Select apkName,packageName,versionCode from ApkInfo where apkInfoID=@y", databaseLayer.myConnection);
-                //    SqlParameter thirdParamater = new SqlParameter("@y", ID);
-                //    myCommand.Parameters.Add(thirdParamater);
-                //    reader = myCommand.ExecuteReader();
-
-                //    if (reader.Read())
-                //    {
-                //        string name = (string)reader[0];
-                //        string packageName = (string)reader[1];
-                //        string versionCode = (string)reader[2];
-                //        List<KeyValuePair<string, int>> Result = new List<KeyValuePair<string, int>>();
-                //        int i = 0;
-                //        while (i < reportsID.Count())
-                //        {
-                //            Result.Add(new KeyValuePair<string, int>(name+"#"+packageName+"#"+versionCode, reportsID[i].Key+"#"+reportsID[i].Value));
-                //            i++;
-                //        }
-                //        databaseLayer.myConnection.Close();
-                //        return Result;
-                //    }
-
-                //    else
-                //    {
-                //        databaseLayer.myConnection.Close();
-                //        return null;
-                //    }
             }
             catch
             {

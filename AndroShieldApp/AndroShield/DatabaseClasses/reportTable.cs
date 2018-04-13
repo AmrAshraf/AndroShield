@@ -29,25 +29,8 @@ namespace AndroApp
         static public reportTable addNewReport ( DateTime reportDate, bool staticallyAnalyzed, bool dynamicallyAnalyzed, int apkInfoID, int userID)
         {
             databaseLayer.myConnection.Open();
-          /*  SqlCommand checkExistenceOfReport = new SqlCommand("select reportID from report where reportDate=@y and apkInfoID=@x and userAccountID=@z", databaseLayer.myConnection);
-            SqlParameter Paramater = new SqlParameter("@y", reportDate);
-            SqlParameter secondParamater = new SqlParameter("@x", apkInfoID);
-            SqlParameter thirdParamater = new SqlParameter("@z", userID);
-            checkExistenceOfReport.Parameters.Add(Paramater);
-            checkExistenceOfReport.Parameters.Add(secondParamater);
-            checkExistenceOfReport.Parameters.Add(thirdParamater);
-            checkExistenceOfReport.ExecuteNonQuery();
-            SqlDataReader reader = checkExistenceOfReport.ExecuteReader();
-            if (reader.Read())
-            {
-                reader.Dispose();
-                databaseLayer.myConnection.Close();
-                return null;
-            }
-            */
             try
             {
-              //  reader.Dispose();
                 SqlCommand myCommand = new SqlCommand("insert into report (reportDate,staticallyAnalyzed,dynamicallyAnalyzed,apkInfoID,userAccountID) OUTPUT INSERTED.reportID values (@a,@b,@c,@d,@e)", databaseLayer.myConnection);
                 SqlParameter forthParamater = new SqlParameter("@a", reportDate);
                 SqlParameter fifthParamater = new SqlParameter("@b", staticallyAnalyzed);
@@ -72,7 +55,7 @@ namespace AndroApp
                 return null;
             }
         }
-        static public reportTable findReportByID (int reportID,  ref List<string> listOfPermissions,  ref apkInfoTable apkInfoOfThisReport,  ref List<List<string>> vulnerabilityListOfThisReport)
+        static public reportTable findReportByID (int reportID)
         {
             try
             {
@@ -90,9 +73,6 @@ namespace AndroApp
                     Int32 apkInfoID = (Int32)reader[4];
                     Int32 userAccountID = (Int32)reader[5];
                     reportTable rep = new reportTable( Id,  userAccountID,  reportDate,  staticallyAnalyzed,  dynamicallyAnalyzed,apkInfoID);
-                    listOfPermissions = rep.getPermissionsofThisReport(reportID);
-                    apkInfoOfThisReport  = rep.getApkOfThisReport(reportID);
-                    vulnerabilityListOfThisReport = rep.getVulnerabilitiesOfThisReport(reportID);
                     reader.Dispose();
                     databaseLayer.myConnection.Close();
                     return rep;
@@ -113,19 +93,6 @@ namespace AndroApp
         public bool createRelationBetweenReportAndVulnerability (int reportID, int vulID, string extraInfo)
         {
             databaseLayer.myConnection.Open();
-            //SqlCommand checkExistenceOfRelation = new SqlCommand("select reportID from report_Vulnerability where extraInfo=@y", databaseLayer.myConnection);
-            //SqlParameter Paramater = new SqlParameter("@y", extraInfo);
-            //checkExistenceOfRelation.Parameters.Add(Paramater);
-            //checkExistenceOfRelation.ExecuteNonQuery();
-            //SqlDataReader reader = checkExistenceOfRelation.ExecuteReader();
-            //if (reader.Read())
-            //{
-            //    reader.Dispose();
-            //    databaseLayer.myConnection.Close();
-            //    return false;
-            //}
-
-            //    reader.Dispose();
             try
             {
                 SqlCommand myCommand = new SqlCommand("insert into report_Vulnerability (reportID,vulnerabilityID,extraInfo) values (@a,@b,@c)", databaseLayer.myConnection);
@@ -145,7 +112,7 @@ namespace AndroApp
                 return false;
             }
         }
-        public apkInfoTable getApkOfThisReport (int reportID)
+        public apkInfoTable getApkOfThisReport()
         {
             try
             {
@@ -153,7 +120,7 @@ namespace AndroApp
                 if (databaseLayer.myConnection.State == ConnectionState.Closed)
                     databaseLayer.myConnection.Open();
                 SqlCommand myCommand = new SqlCommand("Select apkInfoID from  report where reportID=@y", databaseLayer.myConnection);
-                SqlParameter secondParamater = new SqlParameter("@y", reportID);
+                SqlParameter secondParamater = new SqlParameter("@y", reportId);
                 myCommand.Parameters.Add(secondParamater);
                 SqlDataReader reader = myCommand.ExecuteReader();
                 if (reader.Read())
@@ -205,14 +172,14 @@ namespace AndroApp
             }
 
         }
-        public List<List<string>> getVulnerabilitiesOfThisReport (int reportID)
+        public List<List<string>> getVulnerabilitiesOfThisReport()
         {
             try
             {
                 if (databaseLayer.myConnection.State == ConnectionState.Closed)
                     databaseLayer.myConnection.Open();
                 SqlCommand myCommand = new SqlCommand("select vulnerability.severity, vulnerability.category , vulnerability.type , report_Vulnerability.extraInfo from vulnerability inner join report_Vulnerability on vulnerability.vulnerabilityID = report_Vulnerability.vulnerabilityID where report_Vulnerability.reportID=@repID", databaseLayer.myConnection);
-                SqlParameter secondParamater = new SqlParameter("@repID", reportID);
+                SqlParameter secondParamater = new SqlParameter("@repID", reportId);
                 myCommand.Parameters.Add(secondParamater);
                 SqlDataReader reader = myCommand.ExecuteReader();
                 List<List<string>> vulnerabilities = new List<List<string>>();
@@ -234,48 +201,11 @@ namespace AndroApp
                 //databaseLayer.myConnection.Close();
                 return null;
             }
-
-            //HashSet<int> vulnIDs = new HashSet<int>();
-            //while (reader.Read())
-            //{
-
-            //    Int32 Id = (Int32)reader[0];
-            //    vulnIDs.Add(Id);
-            //}
-            ////try
-            ////{
-            //    int i = 0;
-            //    List<vulnerabilityTable> vulnObjs = new List<vulnerabilityTable>();
-            //    while (i<vulnIDs.Count())
-            //    {
-            //        myCommand = new SqlCommand("Select * from  vulnerability where vulnerabilityID=@y", databaseLayer.myConnection);
-            //        SqlParameter thirdParamater = new SqlParameter("@y", vulnIDs.ElementAt(i));
-            //        myCommand.Parameters.Add(thirdParamater);
-            //        reader = myCommand.ExecuteReader();
-            //        Int32 vulnerabilityID = (Int32)reader[0];
-            //        String category = (String)reader[1];
-            //        String type = (String)reader[2];
-            //        float severity = (float)reader[3];
-            //        vulnerabilityTable vul = new vulnerabilityTable( vulnerabilityID,  severity,  category,  type);
-            //        vulnObjs.Add(vul);
-            //        i++;
-            //    }
-            //    reader.Dispose();
-            //    //databaseLayer.myConnection.Close();
-            //    return vulnObjs;
-
-            //}
-            //catch
-            //{
-            //    //databaseLayer.myConnection.Close();
-            //    return null;
-            //}
-            //}
         }
-        public List<string> getPermissionsofThisReport (int reportID)
+        public List<string> getPermissionsofThisReport()
         {
 
-                apkInfoTable apk = getApkOfThisReport(reportID);
+                apkInfoTable apk = getApkOfThisReport();
                 List<string> perms = apk.getAllPermissionThatExistInThisAPK(apk.apkInfoID);
                 return perms;
 
