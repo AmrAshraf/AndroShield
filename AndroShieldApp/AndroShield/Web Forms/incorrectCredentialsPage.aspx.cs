@@ -23,6 +23,10 @@ namespace AndroApp.Web_Forms
             Session["tempUsername"] = emailTxt.Text.ToString();
             Session["tempPassword"] = passwordTxt.Text.ToString();
             Session["userAccount"] = userAccountTable.userLogin(Session["tempUsername"].ToString(), Session["tempPassword"].ToString());
+
+            Session.Contents.Remove("tempUsername");
+            Session.Contents.Remove("tempPassword");
+
             if (Session["userAccount"] != null)
             {
                 Session["username"] = Session["tempUsername"];

@@ -49,7 +49,7 @@ namespace AndroApp.Web_Forms
             {
                 Session["newpass"] = newPassword.Text;
             }
-            if(firstNameTxt.Text!= ((userAccountTable)Session["currentUser"]).firstName && firstNameTxt.Text!="")
+            if (firstNameTxt.Text!= ((userAccountTable)Session["currentUser"]).firstName && firstNameTxt.Text!="")
             {
                 Session["fname"] = firstNameTxt.Text;
             }
@@ -58,6 +58,11 @@ namespace AndroApp.Web_Forms
                 Session["lname"] = lastNameTxt.Text;
             }
             ((userAccountTable)Session["currentUser"]).updateUser(DateTime.Now, Session["newpass"].ToString(), Session["username"].ToString(), Session["fname"].ToString(), Session["lname"].ToString());
+
+            Session.Contents.Remove("fname");
+            Session.Contents.Remove("lname");
+            Session.Contents.Remove("newpass");
+            Session.Contents.Remove("oldPassword");
         }
 
         protected void resetBtn_Click(object sender, EventArgs e)

@@ -30,13 +30,16 @@ namespace AndroApp
             Session["password"] = passwordTxt.Text.ToString();
 
             Session["userAccount"] = userAccountTable.userLogin(Session["tempUsername"].ToString(), Session["password"].ToString());
+
             if(Session["userAccount"] != null)
             {
                 Session["username"] = Session["tempUsername"];
+                Session.Contents.Remove("tempUsername");
                 Response.Redirect("userHomePage.aspx");
             }
             else
             {
+                Session.Contents.Remove("tempUsername");
                 Response.Redirect("incorrectCredentialsPage.aspx");
             }
         }
