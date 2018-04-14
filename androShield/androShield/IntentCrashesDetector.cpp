@@ -28,7 +28,9 @@ namespace DynamicAnalysis
 				while (SR->Peek() != -1)
 				{
 					line = SR->ReadLine();
-					if (line->Contains(" E AndroidRuntime:"))
+					if (line->Equals(""))
+						continue;
+					else if (line->Contains(" E AndroidRuntime:"))
 					{	
 						array<String^>^ errorLine= line->Split(gcnew array<String^>{ " E AndroidRuntime:" }, StringSplitOptions::RemoveEmptyEntries);
 						error += errorLine[1] + Environment::NewLine;
