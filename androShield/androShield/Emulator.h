@@ -3,7 +3,7 @@ using namespace System;
 namespace DynamicAnalysis
 {
 
-	ref class Emulator
+	public ref class Emulator
 	{
 	private:
 		String^ emulatorPath = "C:\\androidEmulator\\emulator\\emulator.exe";

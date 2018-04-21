@@ -7,8 +7,8 @@ namespace DynamicAnalysis
 	public ref class HttpRequestsDetector
 	{
 	public:
-		HttpRequestsDetector(String^);
-		void detectHttp(String^);
-		Vulnerability v;
+		HttpRequestsDetector(String^ logcatPath);
+		void detectHttp(String^ logcatPath);
+		Vulnerability inSecureVulnerability;
 	};
 }
