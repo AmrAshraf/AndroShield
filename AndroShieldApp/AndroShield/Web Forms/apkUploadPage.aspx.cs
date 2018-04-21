@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 using Types;
 using APKInfoExtraction;
 using TaintAnalysis;
-
+using DynamicAnalysis;
 
 namespace AndroApp.Web_Forms
 {
@@ -96,6 +96,21 @@ namespace AndroApp.Web_Forms
             Session["apkVulnerabilities"] = new List<Vulnerability>();
             ((List<Vulnerability>)Session["apkVulnerabilities"]).AddRange(((APKInfoExtractor)Session["apkInfoExtraction"]).vulnerabilities);
             ((List<Vulnerability>)Session["apkVulnerabilities"]).AddRange(((TaintAnalyser)Session["taintAnalysis"]).vulnerabilities);
+            
+            //Amr dynamic
+            //dynamic analysis
+           /* if (((APKInfoExtractor)Session["apkInfoExtraction"]).supportedArchitectures.x86 && !((APKInfoExtractor)Session["apkInfoExtraction"]).testFlag)//able to run dynamic analysis
+            {
+                UserSimulator userSimulator = new UserSimulator();
+                userSimulator.startSimulation(((APKInfoExtractor)Session["apkInfoExtraction"]).realApkPath, 200);
+                HttpRequestsDetector httpRequestsDetector = new HttpRequestsDetector(userSimulator.getLogcatPath());
+                ((List<Vulnerability>)Session["apkVulnerabilities"]).Add(httpRequestsDetector.inSecureVulnerability);
+                IntentCrashesDetector intentCrashesDetector = new IntentCrashesDetector(userSimulator.getLogcatPath());
+                ((List<Vulnerability>)Session["apkVulnerabilities"]).AddRange(intentCrashesDetector.vulnerabilities);
+
+                userSimulator.removeOutputFolder();
+            }*/
+            //end of dynamic analysis
 
             for (int i=0; i< ((List<Vulnerability>)Session["apkVulnerabilities"]).Count; i++)
             {

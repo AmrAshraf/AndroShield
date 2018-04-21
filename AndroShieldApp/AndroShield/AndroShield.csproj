@@ -72,6 +72,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Global.asax" />
     <Content Include="Images\AndroShieldlogo.png" />
     <Content Include="Images\AndroShieldword.jpg" />
     <Content Include="Images\ASU Logo.png" />
@@ -101,7 +102,9 @@
     <Content Include="Web Forms\user%27sReportsPage.aspx" />
     <Content Include="Web Forms\userHomePage.aspx" />
     <Content Include="Web Forms\userProfilePage.aspx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseClasses\apkInfoTable.cs" />
@@ -111,6 +114,9 @@
     <Compile Include="DatabaseClasses\reportTable.cs" />
     <Compile Include="DatabaseClasses\userAccountTable.cs" />
     <Compile Include="DatabaseClasses\vulnerabilityTable.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Web Forms\aboutPage.aspx.cs">
       <DependentUpon>aboutPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
