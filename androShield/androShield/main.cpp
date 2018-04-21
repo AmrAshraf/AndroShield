@@ -9,6 +9,7 @@
 #include"IntentCrashesDetector.h"
 #include"UserSimulator.h"
 #include"HttpRequestsDetector.h"
+#include"Emulator.h"
 using namespace System;
 using namespace DynamicAnalysis;
 using namespace std;
@@ -197,5 +198,8 @@ int main(int argc, const char * argv[])
 
 	//HttpRequestsDetector^ httpRequestsDetector = gcnew  DynamicAnalysis::HttpRequestsDetector("D:\\gp\\outputOfDroidBot\\HTTPLines.txt");
 
+	//Emulator^ emulator = gcnew DynamicAnalysis::Emulator();
+	//emulator->runEmulator(nullptr);
+	//emulator->killEmulator();
 	return 0;
 }

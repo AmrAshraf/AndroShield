@@ -122,6 +122,7 @@
     <ClCompile Include="ApkInfo.cpp" />
     <ClCompile Include="APKInfoExtractor.cpp" />
     <ClCompile Include="CurrentTimeString.cpp" />
+    <ClCompile Include="Emulator.cpp" />
     <ClCompile Include="HttpRequestsDetector.cpp" />
     <ClCompile Include="IntentCrashesDetector.cpp" />
     <ClCompile Include="main.cpp" />
@@ -133,6 +134,7 @@
   <ItemGroup>
     <ClInclude Include="APKInfoExtractor.h" />
     <ClInclude Include="CurrentTimeString.h" />
+    <ClInclude Include="Emulator.h" />
     <ClInclude Include="HttpRequestsDetector.h" />
     <ClInclude Include="IntentCrashesDetector.h" />
     <ClInclude Include="ShellExecutionProcess.h" />
