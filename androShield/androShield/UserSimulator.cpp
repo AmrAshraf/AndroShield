@@ -10,12 +10,7 @@ namespace DynamicAnalysis
 	{
 	}
 
-	void UserSimulator::runEmulator()
-	{
-		String^ command = "/C start /b " + emulatorPath+ " -avd "+ emulatorName;
-		msclr::interop::marshal_context context;
-		ShellExecutionProcess shellExecutionProcess(context.marshal_as<const char*>(command));
-	}
+
 
 	void UserSimulator::startSimulation(String^ apkPath,int numberOfEvents)
 	{

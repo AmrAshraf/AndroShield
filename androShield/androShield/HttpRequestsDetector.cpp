@@ -11,7 +11,6 @@ namespace DynamicAnalysis
 	}
 	void HttpRequestsDetector::detectHttp(String^ filePath)
 	{
-		filePath = "D:\\ReverseEngineering\\APKs\\myFinalOutput2";
 		List<String^>^ httpRequests = gcnew List<String^>();
 
 		FileStream^ FS = gcnew FileStream(filePath, FileMode::Open);
@@ -52,7 +51,7 @@ namespace DynamicAnalysis
 
 		v.extraInfo = "";
 		v.type = "dynamic";
-		v.category = "Http Request";
+		v.category = "Http Requests";
 		v.severity = 0.7;
 		for (int i = 0; i < httpRequests->Count; i++)
 		{
