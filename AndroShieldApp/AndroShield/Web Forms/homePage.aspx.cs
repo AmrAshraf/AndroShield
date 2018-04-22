@@ -34,6 +34,7 @@ namespace AndroApp
             if(Session["userAccount"] != null)
             {
                 Session["username"] = Session["tempUsername"];
+                Session["thirdPartyLogin"] = false;
                 Session.Contents.Remove("tempUsername");
                 Response.Redirect("userHomePage.aspx");
             }
@@ -52,6 +53,11 @@ namespace AndroApp
         protected void navSignUp_Click(object sender, EventArgs e)
         {
             Response.Redirect("signUpPage.aspx");
+        }
+        protected void fBBtn_Click (object sender, EventArgs e)
+        {
+            var url = "https://www.facebook.com/dialog/oauth?client_id=2277532892260615&response_type=code&scope=email&redirect_uri=https://localhost:44302/FB/facebookRedirect.aspx/";
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "dsadas", "window.open('" + url + "');",true);
         }
     }
 }

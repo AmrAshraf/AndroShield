@@ -9,7 +9,7 @@ namespace AndroApp
 
     public class databaseLayer
     {
-       static public SqlConnection myConnection = new SqlConnection("Data Source=.\\sqlexpress;Initial Catalog=AndroShield;Integrated Security=True; MultipleActiveResultSets=True");
+       static public SqlConnection myConnection = new SqlConnection("Data Source=EREN\\MENNA;Initial Catalog=GP;Integrated Security=True");
         public databaseLayer()
         {
             createAPKInfoTable();
@@ -64,7 +64,7 @@ namespace AndroApp
             {
                 string createTable = "CREATE TABLE userAccount " +
                   "(userID int CONSTRAINT PkeyuserAccount PRIMARY KEY IDENTITY(1,1), lastLoginDate date, password varchar(50), email varchar(50) NOT NULL," +
-                 "firstName varchar(50), lastName varchar(50) )";
+                 "firstName varchar(50), lastName varchar(50), facebookUserID BIGINT )";
                 SqlCommand create = new SqlCommand(createTable, myConnection);
                 create.ExecuteNonQuery();
             }

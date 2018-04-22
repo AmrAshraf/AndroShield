@@ -20,7 +20,7 @@ namespace AndroApp.Web_Forms
             Session["tempUsername"] = emailTxt.Text.ToString();
             Session["tempPassword"] = passwordTxt.Text.ToString();
             Session["lastLogin"] = DateTime.Now;
-            Session["userAccountCreated"] = userAccountTable.createUserAccount(Session["tempUsername"].ToString(), Session["tempPassword"].ToString(), Session["firstName"].ToString(), Session["lastName"].ToString(), (DateTime)Session["lastLogin"]);
+            Session["userAccountCreated"] = userAccountTable.createUserAccount(Session["tempUsername"].ToString(), Session["tempPassword"].ToString(), Session["firstName"].ToString(), Session["lastName"].ToString(), (DateTime)Session["lastLogin"], -1);
             if ((bool)Session["userAccountCreated"])
             {
                 Session.Abandon();

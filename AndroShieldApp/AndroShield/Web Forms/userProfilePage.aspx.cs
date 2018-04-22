@@ -19,6 +19,12 @@ namespace AndroApp.Web_Forms
                 firstNameTxt.Text = ((userAccountTable)Session["currentUser"]).firstName;
                 lastNameTxt.Text = ((userAccountTable)Session["currentUser"]).lastName;
             }
+            if((bool)Session["thirdPartyLogin"])
+            {
+                passwordTxt.Enabled = false;
+                newPassword.Enabled = false;
+                newRepeat.Enabled = false;
+            }
         }
         protected void logout_Click(object sender, EventArgs e)
         {
