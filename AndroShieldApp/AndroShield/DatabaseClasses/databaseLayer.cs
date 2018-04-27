@@ -30,8 +30,8 @@ namespace AndroApp
             {
                 string createApkInfoTable = "CREATE TABLE ApkInfo" +
                     "(apkID int CONSTRAINT PkeyIDApkInfo PRIMARY KEY IDENTITY(1,1)," +
-                    "apkName varchar(50) , minSDK varchar(50), targetSdk varchar(50), packageName varchar(50), versionCode varchar(50)," +
-                    "versionName varchar(50), apkRiskLevel float, testOnlyFlag bit, debuggableFlag bit, backupFlag bit," +
+                    "apkName varchar(MAX) , minSDK varchar(MAX), targetSdk varchar(MAX), packageName varchar(MAX), versionCode varchar(MAX)," +
+                    "versionName varchar(MAX), apkRiskLevel float, testOnlyFlag bit, debuggableFlag bit, backupFlag bit," +
                     " allFlag bit, armeabiFlag bit, armeabi_v7aFlag bit, arm64_V8aFlag bit, X86Flag bit, X86_64Flag bit, mipsFlag bit, mips64Flag bit)";
                 SqlCommand create = new SqlCommand(createApkInfoTable, myConnection);
                 create.ExecuteNonQuery();
@@ -47,7 +47,7 @@ namespace AndroApp
             {
                 string createTable = "CREATE TABLE launchableActivity " +
                   "(launchableActivityID int CONSTRAINT PkeyLaunchedActivity PRIMARY KEY IDENTITY(1,1)," +
-                 "name varchar(50), apkInfoID int)";
+                 "name varchar(MAX), apkInfoID int)";
                 SqlCommand create = new SqlCommand(createTable, myConnection);
                 create.ExecuteNonQuery();
                 SqlCommand addRelation = new SqlCommand("ALTER TABLE launchableActivity ADD CONSTRAINT FK_launchableActivity_APKINFO FOREIGN KEY (apkInfoID) REFERENCES ApkInfo(apkID) On delete cascade On update cascade", myConnection);
@@ -63,8 +63,8 @@ namespace AndroApp
             if (result == 0)
             {
                 string createTable = "CREATE TABLE userAccount " +
-                  "(userID int CONSTRAINT PkeyuserAccount PRIMARY KEY IDENTITY(1,1), lastLoginDate date, password varchar(50), email varchar(50) NOT NULL," +
-                 "firstName varchar(50), lastName varchar(50), facebookUserID BIGINT )";
+                  "(userID int CONSTRAINT PkeyuserAccount PRIMARY KEY IDENTITY(1,1), lastLoginDate date, password varchar(MAX), email varchar(MAX) NOT NULL," +
+                 "firstName varchar(MAX), lastName varchar(MAX), facebookUserID BIGINT )";
                 SqlCommand create = new SqlCommand(createTable, myConnection);
                 create.ExecuteNonQuery();
             }
@@ -78,7 +78,7 @@ namespace AndroApp
             if (result == 0)
             {
                 string createTable = "CREATE TABLE vulnerability " +
-                  "(vulnerabilityID int CONSTRAINT Pkeyvulnerability PRIMARY KEY IDENTITY(1,1), category varchar(50), type varchar(50)," +
+                  "(vulnerabilityID int CONSTRAINT Pkeyvulnerability PRIMARY KEY IDENTITY(1,1), category varchar(MAX), type varchar(MAX)," +
                  "severity float )";
                 SqlCommand create = new SqlCommand(createTable, myConnection);
                 create.ExecuteNonQuery();
@@ -113,7 +113,7 @@ namespace AndroApp
             {
                 string createTable = "CREATE TABLE permission" +
                   "(permissionID int CONSTRAINT Pkeypermission PRIMARY KEY IDENTITY(1,1) ," +
-                 "name varchar(50))";
+                 "name varchar(MAX))";
                 SqlCommand create = new SqlCommand(createTable, myConnection);
                 create.ExecuteNonQuery();
             }
