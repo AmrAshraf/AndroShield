@@ -85,13 +85,13 @@ namespace AndroApp {
         protected global::System.Web.UI.WebControls.Button loginBtn;
         
         /// <summary>
-        /// fbBtn_Click control.
+        /// fbButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton fbBtn_Click;
+        protected global::System.Web.UI.WebControls.LinkButton fbButton;
         
         /// <summary>
         /// signupButton control.
