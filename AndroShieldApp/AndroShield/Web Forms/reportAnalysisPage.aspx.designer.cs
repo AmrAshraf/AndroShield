@@ -175,6 +175,24 @@ namespace AndroApp.Web_Forms {
         protected global::System.Web.UI.WebControls.Table permissionsTable;
         
         /// <summary>
+        /// vulnTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl vulnTitle;
+        
+        /// <summary>
+        /// cleanApkDiv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl cleanApkDiv;
+        
+        /// <summary>
         /// vulnerabilityReportTable control.
         /// </summary>
         /// <remarks>

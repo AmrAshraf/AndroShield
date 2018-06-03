@@ -89,27 +89,41 @@ namespace AndroApp.Web_Forms
                     TableCell category = new TableCell();
                     TableCell type = new TableCell();
                     TableCell info = new TableCell();
-                    for (int i = 0; i < ((List<List<string>>)Session["AnalysisReportVulnerabilities"]).Count; i++)
+
+                    //Case 1: Apk with no vulnerabilities
+                    if(((List<List<string>>)Session["AnalysisReportVulnerabilities"]).Count==0)
                     {
-                        TableRow row = new TableRow();
-                        severity = new TableCell();
-                        category = new TableCell();
-                        type = new TableCell();
-                        info = new TableCell();
+                        cleanApkDiv.Visible = true;
+                        vulnerabilityReportTable.Visible = false;
+                    }
+                    //Other cases:
+                    else
+                    {
+                        cleanApkDiv.Visible = false;
+                        vulnerabilityReportTable.Visible = true;
 
-                        Session["severityValue"] = (float)Math.Round(double.Parse(((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][0]), 2);
-                        severity.Text = Session["severityValue"].ToString();
-                        Session.Contents.Remove("severityValue");
-                        category.Text = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][1];
-                        type.Text = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][2];
-                        info.Text = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][3];
+                        for (int i = 0; i < ((List<List<string>>)Session["AnalysisReportVulnerabilities"]).Count; i++)
+                        {
+                            TableRow row = new TableRow();
+                            severity = new TableCell();
+                            category = new TableCell();
+                            type = new TableCell();
+                            info = new TableCell();
 
-                        row.Cells.Add(severity);
-                        row.Cells.Add(category);
-                        row.Cells.Add(type);
-                        row.Cells.Add(info);
+                            Session["severityValue"] = (float)Math.Round(double.Parse(((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][0]), 2);
+                            severity.Text = Session["severityValue"].ToString();
+                            Session.Contents.Remove("severityValue");
+                            category.Text = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][1];
+                            type.Text = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][2];
+                            info.Text = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][3];
 
-                        vulnerabilityReportTable.Rows.Add(row);
+                            row.Cells.Add(severity);
+                            row.Cells.Add(category);
+                            row.Cells.Add(type);
+                            row.Cells.Add(info);
+
+                            vulnerabilityReportTable.Rows.Add(row);
+                        }
                     }
                 }
             }

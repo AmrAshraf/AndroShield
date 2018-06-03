@@ -17,7 +17,8 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>44302</IISExpressSSLPort>
+    <IISExpressSSLPort>
+    </IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -100,6 +101,7 @@
     <Content Include="Images\AndroShieldlogo.png" />
     <Content Include="Images\AndroShieldword.jpg" />
     <Content Include="Images\ASU Logo.png" />
+    <Content Include="Images\checkMark.png" />
     <Content Include="Images\exclamationMark.png" />
     <Content Include="Images\opened-folder.png" />
     <Content Include="Images\SWE Logo.png" />

@@ -75,7 +75,8 @@
 
             </asp:Table>
         </div>
-        <p class="centeredClass" id="vulnTitle">Vulnerabilities Report</p>
+        <p class="centeredClass" id="vulnTitle" runat="server">Vulnerabilities Report</p>
+        <div class="cleanApkMessage" ID="cleanApkDiv" runat="server">The Application is safe<asp:Image CssClass="checkMarkImage" runat="server" ImageUrl="~/Images/checkMark.png" /> </div>
         <div class="vulnerabilityReportContainer">
             <asp:Table ID="vulnerabilityReportTable" runat="server">
                 <asp:TableHeaderRow CssClass="vulnerabilityReportHeader">

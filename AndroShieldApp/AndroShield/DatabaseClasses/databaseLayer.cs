@@ -9,7 +9,7 @@ namespace AndroApp
 
     public class databaseLayer
     {
-       static public SqlConnection myConnection = new SqlConnection("Data Source=EREN\\MENNA;Initial Catalog=GP;Integrated Security=True");
+       static public SqlConnection myConnection = new SqlConnection("Data Source=.\\sqlexpress;Initial Catalog=AndroShield;Integrated Security=True;MultipleActiveResultSets=True");
         public databaseLayer()
         {
             createAPKInfoTable();
@@ -23,7 +23,8 @@ namespace AndroApp
         }
         private void createAPKInfoTable()
         {
-            myConnection.Open();
+            if(myConnection.State==System.Data.ConnectionState.Closed)
+                myConnection.Open();
             SqlCommand myCommand = new SqlCommand("SELECT count(*) as IsExists FROM dbo.sysobjects where id = object_id('[dbo].[apkInfo]')", myConnection);
             int result = (int)myCommand.ExecuteScalar();
             if (result == 0)
