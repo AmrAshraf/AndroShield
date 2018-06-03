@@ -101,8 +101,10 @@
     <Content Include="Images\AndroShieldlogo.png" />
     <Content Include="Images\AndroShieldword.jpg" />
     <Content Include="Images\ASU Logo.png" />
+    <Content Include="Images\button_facebook_login.png" />
     <Content Include="Images\checkMark.png" />
     <Content Include="Images\exclamationMark.png" />
+    <Content Include="Images\fb_logo.jpg" />
     <Content Include="Images\opened-folder.png" />
     <Content Include="Images\SWE Logo.png" />
     <Content Include="Images\x-symbol.png" />

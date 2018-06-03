@@ -24,7 +24,7 @@
                 </label><br />
 
                 <asp:Button UseSubmitBehavior="true" ID="loginBtn" runat="server" Text="Login" class="homeButtons lightText boldText" OnClick="Button1_Click" />
-                <asp:LinkButton ID="fbBtn_Click" class="homeButtons lightText boldText" runat="server" OnClientClick="location.href='https://www.facebook.com/dialog/oauth?client_id=2277532892260615&response_type=code&scope=email&redirect_uri=https://localhost:44302/FB/facebookRedirect.aspx/';"  >Login with facebook</asp:LinkButton>                <p class="lightText"><a href="signUpPage.aspx" class="lightText">Don't have an account?</a></p>
+                <asp:LinkButton ID="fbBtn_Click" class="homeButtons facebookLogin lightText boldText" runat="server" OnClientClick="location.href='https://www.facebook.com/dialog/oauth?client_id=2277532892260615&response_type=code&scope=email&redirect_uri=https://localhost:44302/FB/facebookRedirect.aspx/';"  ><img src="../Images/fb_logo.jpg"/>Login with Facebook</asp:LinkButton>                <p class="lightText"><a href="signUpPage.aspx" class="homepageLink lightText">Don't have an account?</a></p>
                 <asp:Button ID="signupButton" CausesValidation="false" runat="server" Text="Sign Up"  class="homeButtons lightText boldText" OnClick="signupButton_Click" />
             </div>
         </div>

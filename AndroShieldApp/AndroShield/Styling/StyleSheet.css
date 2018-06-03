@@ -47,19 +47,6 @@ footer {
     font-weight: bolder;
     cursor: pointer;
 }
-.checkMarkImage {
-    width: 20px;
-    margin-left: 6px;
-}
-.cleanApkMessage {
-    margin: 0 auto;
-    width: 50%;
-    padding: 15px;
-    font-size: x-large;
-    font-weight: bolder;
-    text-align: center;
-    margin-bottom: 25px;
-}
 #xSymbol, #exclamation {
     width: 15px;
     height: 15px;
@@ -461,16 +448,41 @@ input.loginInput:focus::-webkit-input-placeholder {
     position: absolute;
     z-index: -1;
 }*/
-/*.browseLbl {
-    display: block;
-    font-size: 1.25em;
-    font-weight: 700;
-    color: white;
-    background-color: black;
-    display: inline-block;
+.checkMarkImage {
+    width: 20px;
+    margin-left: 6px;
 }
-
-.browseLbl:hover {
-    background-color: red;
-    cursor: pointer;
-}*/
+.cleanApkMessage {
+    margin: 0 auto;
+    width: 50%;
+    padding: 15px;
+    font-size: x-large;
+    font-weight: bolder;
+    text-align: center;
+    margin-bottom: 25px;
+}
+.facebookLogin {
+    background-color: #3b5998;
+    display: block;
+    color: white;
+    padding: 0px;
+    margin-top: 7px;
+    margin-bottom: 30px;
+    box-shadow: 1px #11244d;
+    width: auto;
+}
+.facebookLogin img {
+    height: 20px;
+    margin-top: 5px;
+    margin-bottom: -5px;
+    margin-right: 3px;
+}
+.facebookLogin:hover {
+    background-color: #3b5994;
+}
+.facebookLogin:active {
+    background-color: #3B5998;
+}
+.homepageLink {
+    margin-top: 15px;
+}
