@@ -58,7 +58,8 @@ namespace AndroApp
         protected void fbButton_Click(object sender, EventArgs e)
         {
             var url = "https://www.facebook.com/dialog/oauth?client_id=2277532892260615&response_type=code&scope=email&redirect_uri=https://localhost:44302/FB/facebookRedirect.aspx/";
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "dsadas", "window.open('" + url + "');", true);
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "dsadas", "window.location.href('" + url + "');", true);
+            
         }
     }
 }
