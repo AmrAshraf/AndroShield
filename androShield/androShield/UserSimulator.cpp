@@ -26,7 +26,10 @@ namespace DynamicAnalysis
 	{
 		return outputPath + "\\logcat.txt";
 	}
-
+	String ^ UserSimulator::getHttplinesPath()
+	{
+		return outputPath + "\\HTTPLines.txt";
+	}
 	void UserSimulator::removeOutputFolder()
 	{
 		System::IO::Directory::Delete(outputPath, true);

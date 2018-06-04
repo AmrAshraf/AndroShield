@@ -12,6 +12,7 @@ namespace DynamicAnalysis
 		UserSimulator();
 		void startSimulation(String^ apkPath, int numberOfEvents);
 		String^ getLogcatPath();
+		String^ getHttplinesPath();
 		void removeOutputFolder();
 
 	};
