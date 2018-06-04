@@ -32,9 +32,11 @@ void XmlParser::grebBackupModeEnabledFlag()
 		string attrValue = allowBackupAttr->value();
 		if (allowBackupAttr == NULL || attrValue == "false")
 			backupFlag= false;
-		backupFlag = true;
+		else
+			backupFlag = true;
 	}
-	backupFlag = false;
+	else
+		backupFlag = false;
 }
 void XmlParser::grebDebugModeEnabledFlag()
 {
@@ -45,9 +47,11 @@ void XmlParser::grebDebugModeEnabledFlag()
 		string attrVal = debuggableAttr->value();
 		if (debuggableAttr == NULL || attrVal == "false")
 			debugFlag = false;
-		debugFlag = true;
+		else
+			debugFlag = true;
 	}
-	debugFlag = false;
+	else
+		debugFlag = false;
 }
 void XmlParser::grebAppPermissionsExplicitProtectionLevels()
 {

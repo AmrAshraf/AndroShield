@@ -48,16 +48,17 @@ namespace DynamicAnalysis
 			}
 		}
 		SR->Close();
-
 		inSecureVulnerability.extraInfo = "";
-		inSecureVulnerability.type = "dynamic";
-		inSecureVulnerability.category = "Http Requests";
-		inSecureVulnerability.severity = 0.7;
-		for (int i = 0; i < httpRequests->Count; i++)
-		{
-			inSecureVulnerability.extraInfo += httpRequests[i];
-			if (i != httpRequests->Count - 1)
-				inSecureVulnerability.extraInfo += ", ";
+		if (httpRequests->Count != 0) {
+			inSecureVulnerability.type = "dynamic";
+			inSecureVulnerability.category = "Http Requests";
+			inSecureVulnerability.severity = 0.7;
+			for (int i = 0; i < httpRequests->Count; i++)
+			{
+				inSecureVulnerability.extraInfo += httpRequests[i];
+				if (i != httpRequests->Count - 1)
+					inSecureVulnerability.extraInfo += ", ";
+			}
 		}
 	}
 }
