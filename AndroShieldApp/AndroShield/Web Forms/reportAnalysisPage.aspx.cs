@@ -142,18 +142,19 @@ namespace AndroApp.Web_Forms
                         for (int i = 0; i < ((List<List<string>>)Session["AnalysisReportVulnerabilities"]).Count; i++)
                         {
                             TableRow row = new TableRow();
+           
                             severity = new TableCell();
                             category = new TableCell();
                             type = new TableCell();
                             info = new TableCell();
-
+                            info.Wrap=false;
+                           
                             Session["severityValue"] = (float)Math.Round(double.Parse(((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][0]), 2);
                             severity.Text = Session["severityValue"].ToString();
                             Session.Contents.Remove("severityValue");
                             category.Text = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][1];
                             type.Text = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][2];
                             info.Text = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][3];
-
                             row.Cells.Add(severity);
                             row.Cells.Add(category);
                             row.Cells.Add(type);
