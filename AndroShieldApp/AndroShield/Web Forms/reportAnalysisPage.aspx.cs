@@ -62,7 +62,7 @@ namespace AndroApp.Web_Forms
                             supportedArchiValue.Text += "armeabi";
                             firstArchi = false;
                         }
-                        else
+                        else if (((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).armeabi)
                             supportedArchiValue.Text += ", armeabi";
 
                         if (firstArchi && ((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).armeabi_v7a)
@@ -70,42 +70,42 @@ namespace AndroApp.Web_Forms
                             supportedArchiValue.Text += "armeabi_v7a";
                             firstArchi = false;
                         }
-                        else
+                        else if (((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).armeabi_v7a)
                             supportedArchiValue.Text += ", armeabi_v7a";
                         if (firstArchi && ((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).arm64_v8a)
                         {
                             supportedArchiValue.Text += "arm64_v8a";
                             firstArchi = false;
                         }
-                        else
+                        else if (((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).arm64_v8a)
                             supportedArchiValue.Text += ", arm64_v8a";
                         if (firstArchi && ((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).x86)
                         {
                             supportedArchiValue.Text += "x86";
                             firstArchi = false;
                         }
-                        else
+                        else if (((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).x86)
                             supportedArchiValue.Text += ", x86";
                         if (firstArchi && ((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).x86_64)
                         {
                             supportedArchiValue.Text += "x86_64";
                             firstArchi = false;
                         }
-                        else
+                        else if (((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).x86_64)
                             supportedArchiValue.Text += ", x86_64";
                         if (firstArchi && ((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).mips)
                         {
                             supportedArchiValue.Text += "mips";
                             firstArchi = false;
                         }
-                        else
+                        else if (((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).mips)
                             supportedArchiValue.Text += ", mips";
                         if (firstArchi && ((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).mips64)
                         {
                             supportedArchiValue.Text += "mips64";
                             firstArchi = false;
                         }
-                        else
+                        else if (((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).mips64)
                             supportedArchiValue.Text += ", mips64";
 
 
