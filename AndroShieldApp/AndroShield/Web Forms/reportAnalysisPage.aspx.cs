@@ -9,88 +9,29 @@ using APKInfoExtraction;
 using TaintAnalysis;
 using System.Threading;
 using System.Web.UI.HtmlControls;
+using System.Drawing;
+
 namespace AndroApp.Web_Forms
 {
     public partial class reportAnalysisPage : System.Web.UI.Page
     {
-        Button viewAllBtn;
-        HtmlGenericControl descriptionWrapper;
+        //Button viewAllBtn;
+        //HtmlGenericControl descriptionWrapper;
 
-        TableCell severity = new TableCell();
-        TableCell category = new TableCell();
-        TableCell type = new TableCell();
-        TableCell info = new TableCell();
-        TableCell extra = new TableCell();
+        //TableCell severity = new TableCell();
+        //TableCell category = new TableCell();
+        //TableCell type = new TableCell();
+        //TableCell info = new TableCell();
+        //TableCell extra = new TableCell();
 
         protected void Page_Load(object sender, EventArgs e)
         {
             userEmail.Text = Session["username"].ToString();
             if(IsPostBack)
             {
-                //Case 1: Apk with no vulnerabilities
-                if (((List<List<string>>)Session["AnalysisReportVulnerabilities"]).Count == 0)
-                {
-                    cleanApkDiv.Visible = true;
-                    vulnerabilityReportTable.Visible = false;
-                }
-                //Other cases:
-                else
-                {
-                    cleanApkDiv.Visible = false;
-                    vulnerabilityReportTable.Visible = true;
-
-                    for (int i = 0; i < ((List<List<string>>)Session["AnalysisReportVulnerabilities"]).Count; i++)
-                    {
-                        TableRow row = new TableRow();
-
-                        severity = new TableCell();
-                        category = new TableCell();
-                        type = new TableCell();
-                        info = new TableCell();
-                        //extra = new TableCell();
-                        //info.Wrap=false;
-
-
-
-                        Session["severityValue"] = (float)Math.Round(double.Parse(((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][0]), 2);
-                        severity.Text = Session["severityValue"].ToString();
-                        Session.Contents.Remove("severityValue");
-                        category.Text = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][1];
-                        type.Text = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][2];
-                        //info.Text = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][3];
-
-                        descriptionWrapper = new System.Web.UI.HtmlControls.HtmlGenericControl("DIV");
-                        descriptionWrapper.Style.Add(HtmlTextWriterStyle.Width, "470px");
-                        descriptionWrapper.Style.Add(HtmlTextWriterStyle.Height, "18px");
-                        descriptionWrapper.InnerText = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][3];
-                        descriptionWrapper.Style.Add(HtmlTextWriterStyle.Overflow, "hidden");
-
-
-                        info.Controls.Add(descriptionWrapper);
-
-                        row.Cells.Add(severity);
-                        row.Cells.Add(category);
-                        row.Cells.Add(type);
-                        row.Cells.Add(info);
-                        row.CssClass = "vulnerabilityTableRow";
-
-                        viewAllBtn = new Button();
-                        //viewAllBtn.OnClientClick = "return false"; //to prevent postback
-                        viewAllBtn.Text = "View All";
-                        viewAllBtn.CssClass = "viewAllButtons";
-                        viewAllBtn.ID = i.ToString();
-                        viewAllBtn.Click += new EventHandler(viewAll);
-                        // viewAllBtn.UseSubmitBehavior = false;
-                        extra.Controls.Add(viewAllBtn);
-                        extra.CssClass = "extraInfo";
-                        row.Cells.Add(extra);
-                        extraHeader.Visible = true;
-
-                        vulnerabilityReportTable.Rows.Add(row);
-                    }
-                }
-                }
-                if (!IsPostBack)
+                buildVulnerabilitiesTable();
+            }
+            if (!IsPostBack)
             {
                 if((Session["reportID"]!=null || Session["reportID"].ToString()!=""))
                 {
@@ -196,77 +137,94 @@ namespace AndroApp.Web_Forms
                         permissionsTable.Rows.Add(row);
                     }
                     Session.Contents.Remove("AnalysisReportPermissions");
-
-                    //Case 1: Apk with no vulnerabilities
-                    if(((List<List<string>>)Session["AnalysisReportVulnerabilities"]).Count==0)
-                    {
-                        cleanApkDiv.Visible = true;
-                        vulnerabilityReportTable.Visible = false;
-                    }
-                    //Other cases:
-                    else
-                    {
-                        cleanApkDiv.Visible = false;
-                        vulnerabilityReportTable.Visible = true;
-
-                        for (int i = 0; i < ((List<List<string>>)Session["AnalysisReportVulnerabilities"]).Count; i++)
-                        {
-                            TableRow row = new TableRow();
-           
-                            severity = new TableCell();
-                            category = new TableCell();
-                            type = new TableCell();
-                            info = new TableCell();
-                            //extra = new TableCell();
-                            //info.Wrap=false;
-
-
-
-                            Session["severityValue"] = (float)Math.Round(double.Parse(((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][0]), 2);
-                            severity.Text = Session["severityValue"].ToString();
-                            Session.Contents.Remove("severityValue");
-                            category.Text = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][1];
-                            type.Text = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][2];
-                            //info.Text = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][3];
-
-                            descriptionWrapper = new System.Web.UI.HtmlControls.HtmlGenericControl("DIV");
-                            descriptionWrapper.Style.Add(HtmlTextWriterStyle.Width, "470px");
-                            descriptionWrapper.Style.Add(HtmlTextWriterStyle.Height, "18px");
-                            descriptionWrapper.InnerText = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][3];
-                            descriptionWrapper.Style.Add(HtmlTextWriterStyle.Overflow, "hidden");
-
-
-                            info.Controls.Add(descriptionWrapper);
-
-                            row.Cells.Add(severity);
-                            row.Cells.Add(category);
-                            row.Cells.Add(type);
-                            row.Cells.Add(info);
-                            row.CssClass = "vulnerabilityTableRow";
-
-                            viewAllBtn = new Button();
-                            //viewAllBtn.OnClientClick = "return false"; //to prevent postback
-                            viewAllBtn.Text = "View All";
-                            viewAllBtn.CssClass = "viewAllButtons";
-                            viewAllBtn.ID = i.ToString();
-                            viewAllBtn.Click += new EventHandler(viewAll);
-                           // viewAllBtn.UseSubmitBehavior = false;
-                            extra.Controls.Add(viewAllBtn);
-                            extra.CssClass = "extraInfo";
-                            row.Cells.Add(extra);
-                            extraHeader.Visible = true;
-
-                            vulnerabilityReportTable.Rows.Add(row);
-                        }
-                    }
+                    buildVulnerabilitiesTable();
                 }
             }
         }
-        protected void viewAll(object sender, EventArgs e)
+        private void buildVulnerabilitiesTable()
         {
-            descriptionWrapper.Style.Remove(HtmlTextWriterStyle.Overflow);
-            descriptionWrapper.Style.Remove(HtmlTextWriterStyle.Height);
-            viewAllBtn.Text = "pressed";
+            Button viewAllBtn;
+            HtmlGenericControl descriptionWrapper;
+
+            TableCell severity = new TableCell();
+            TableCell category = new TableCell();
+            TableCell type = new TableCell();
+            TableCell info = new TableCell();
+            TableCell viewAllBtnColumn = new TableCell();
+
+            //Case 1: Apk with no vulnerabilities
+            if (((List<List<string>>)Session["AnalysisReportVulnerabilities"]).Count == 0)
+            {
+                cleanApkDiv.Visible = true;
+                vulnerabilityReportTable.Visible = false;
+            }
+            //Other cases:
+            else
+            {
+                cleanApkDiv.Visible = false;
+                vulnerabilityReportTable.Visible = true;
+
+                for (int i = 0; i < ((List<List<string>>)Session["AnalysisReportVulnerabilities"]).Count; i++)
+                {
+                    TableRow row = new TableRow();
+
+                    severity = new TableCell();
+                    category = new TableCell();
+                    type = new TableCell();
+                    info = new TableCell();
+                    viewAllBtnColumn = new TableCell();
+
+                    viewAllBtn= new Button();
+                    descriptionWrapper= new HtmlGenericControl();
+
+                    Session["severityValue"] = (float)Math.Round(double.Parse(((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][0]), 2);
+                    severity.Text = Session["severityValue"].ToString();
+                    Session.Contents.Remove("severityValue");
+                    category.Text = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][1];
+                    type.Text = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][2];
+
+                    descriptionWrapper = new System.Web.UI.HtmlControls.HtmlGenericControl("DIV");
+                    descriptionWrapper.ID = "description" + i.ToString();
+                    descriptionWrapper.Style.Add(HtmlTextWriterStyle.Width, "470px");
+                    descriptionWrapper.Style.Add(HtmlTextWriterStyle.Height, "18px");
+                    descriptionWrapper.InnerText = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][3];
+                    descriptionWrapper.Style.Add(HtmlTextWriterStyle.Overflow, "hidden");
+
+
+                    info.Controls.Add(descriptionWrapper);
+
+                    row.Cells.Add(severity);
+                    row.Cells.Add(category);
+                    row.Cells.Add(type);
+                    row.Cells.Add(info);
+                    row.CssClass = "vulnerabilityTableRow";
+
+                    SizeF stringSize = new SizeF();
+                    Font stringFont = new Font("Arial", 16);
+                    
+                    //stringSize = Graphics.MeasureString(descriptionWrapper.InnerText, stringFont, 470);
+
+
+                    //viewAllBtn = new Button();
+                    viewAllBtn.ID = "viewBtn" + i.ToString();
+                    viewAllBtn.Text = "View All";
+                    viewAllBtn.CssClass = "viewAllButtons";
+                    viewAllBtn.Click += new EventHandler(viewAllDel);
+                    //viewAllBtn.Attributes.Add("OnClick", "viewAllDel");
+                    //viewAllBtn.Click+=  (sender2, e2) => viewAllDel(sender2, e2, viewAllBtn.ID, descriptionWrapper.ID);
+                    viewAllBtnColumn.Controls.Add(viewAllBtn);
+                    viewAllBtnColumn.CssClass = "extraInfo";
+                    row.Cells.Add(viewAllBtnColumn);
+                    extraHeader.Visible = true;
+
+                    vulnerabilityReportTable.Rows.Add(row);
+                }
+            }
+        }
+        protected void viewAllDel(object sender, EventArgs e)
+        {
+            Button pressed = (Button)sender;
+            pressed.Text = "pressed";
         }
         protected void signupNav_Click(object sender, EventArgs e)
         {
