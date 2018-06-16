@@ -8,7 +8,7 @@
     <asp:Button ID="logoutButton" runat="server" Text="Log Out"  class="topRight topMenu lightText" CausesValidation="false" OnClick="logoutButton_Click"/>
 
     <asp:HyperLink ID="userEmail" class="lightText top" runat="server" NavigateUrl="~/Web Forms/userProfilePage.aspx">HyperLink</asp:HyperLink><p class="lightText top">Welcome, </p>
-
+    <asp:ScriptManager runat="server"></asp:ScriptManager>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="pageContent" runat="server">
     <div id="reportContainer" class="wrapper lightBackground">
@@ -78,14 +78,19 @@
         <p class="centeredClass" id="vulnTitle" runat="server">Vulnerabilities Report</p>
         <div class="cleanApkMessage" ID="cleanApkDiv" runat="server">The Application is safe<asp:Image CssClass="checkMarkImage" runat="server" ImageUrl="~/Images/checkMark.png" /> </div>
         <div class="vulnerabilityReportContainer">
-            <asp:Table ID="vulnerabilityReportTable" runat="server">
-                <asp:TableHeaderRow CssClass="vulnerabilityReportHeader">
-                    <asp:TableHeaderCell CssClass="cell rightBorder" Width="200px">Risk Level</asp:TableHeaderCell>
-                    <asp:TableHeaderCell CssClass="cell rightBorder" Width="200px">Category</asp:TableHeaderCell>
-                    <asp:TableHeaderCell CssClass="cell rightBorder" Width="200px">Type</asp:TableHeaderCell>
-                    <asp:TableHeaderCell CssClass="cell" Width="470px">Description</asp:TableHeaderCell>
-                </asp:TableHeaderRow>
-            </asp:Table>
+            <asp:UpdatePanel runat="server">
+                <ContentTemplate>
+                    <asp:Table ID="vulnerabilityReportTable" runat="server">
+                        <asp:TableHeaderRow CssClass="vulnerabilityReportHeader vulnerabilityTableRow">
+                            <asp:TableHeaderCell CssClass="cell rightBorder" Width="200px">Risk Level</asp:TableHeaderCell>
+                            <asp:TableHeaderCell CssClass="cell rightBorder" Width="200px">Category</asp:TableHeaderCell>
+                            <asp:TableHeaderCell CssClass="cell rightBorder" Width="200px">Type</asp:TableHeaderCell>
+                            <asp:TableHeaderCell CssClass="cell" Width="470px">Description</asp:TableHeaderCell>
+                            <asp:TableHeaderCell ID="extraHeader" CssClass="cell" visible="false"></asp:TableHeaderCell>
+                        </asp:TableHeaderRow>
+                    </asp:Table>
+                </ContentTemplate>
+            </asp:UpdatePanel>
         </div>
     </div>
 </asp:Content>

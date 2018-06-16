@@ -26,6 +26,8 @@ namespace AndroApp.Web_Forms
             for (int i=0; i< ((List<KeyValuePair<int, string>>)Session["userReports"]).Count; i++)
             {
                 TableRow row = new TableRow();
+                row.CssClass = "vulnerabilityReportTableRows";
+                row.Height=30;
                 Session["reportInfo"] = ((List<KeyValuePair<int, string>>)Session["userReports"])[i].Value.Split('#');
                 TableCell apkName = new TableCell();
                 apkName.Controls.Add(link);
