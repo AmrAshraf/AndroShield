@@ -23,7 +23,7 @@ namespace AndroApp.Web_Forms
         //TableCell type = new TableCell();
         //TableCell info = new TableCell();
         //TableCell extra = new TableCell();
-
+        HashSet<int> expanded;
         protected void Page_Load(object sender, EventArgs e)
         {
             userEmail.Text = Session["username"].ToString();
@@ -33,7 +33,11 @@ namespace AndroApp.Web_Forms
             }
             if (!IsPostBack)
             {
-                if((Session["reportID"]!=null || Session["reportID"].ToString()!=""))
+                expanded = new HashSet<int>();
+                Session["expanded"] = expanded;
+
+
+                if ((Session["reportID"]!=null || Session["reportID"].ToString()!=""))
                 {
                     Session["analysisReport"] = reportTable.findReportByID(int.Parse(Session["reportID"].ToString()));
 
@@ -141,7 +145,7 @@ namespace AndroApp.Web_Forms
                 }
             }
         }
-        private void buildVulnerabilitiesTable()
+        private void buildVulnerabilitiesTable(HashSet<int> expanded=null)
         {
             Button viewAllBtn;
             HtmlGenericControl descriptionWrapper;
@@ -184,12 +188,20 @@ namespace AndroApp.Web_Forms
                     type.Text = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][2];
 
                     descriptionWrapper = new System.Web.UI.HtmlControls.HtmlGenericControl("DIV");
-                    descriptionWrapper.ID = "description" + i.ToString();
+                    descriptionWrapper.ID = "description" + "viewBtn" + i.ToString();
                     descriptionWrapper.Style.Add(HtmlTextWriterStyle.Width, "470px");
                     descriptionWrapper.Style.Add(HtmlTextWriterStyle.Height, "18px");
-                    descriptionWrapper.InnerText = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][3];
-                    descriptionWrapper.Style.Add(HtmlTextWriterStyle.Overflow, "hidden");
 
+                    descriptionWrapper.InnerText = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][3];
+                    if(expanded!=null && expanded.Contains(i))
+                    {
+                        descriptionWrapper.Style.Remove(HtmlTextWriterStyle.Overflow);
+                        descriptionWrapper.Style.Add(HtmlTextWriterStyle.Height, "auto");
+                    }
+                    else
+                    {
+                        descriptionWrapper.Style.Add(HtmlTextWriterStyle.Overflow, "hidden");
+                    }
 
                     info.Controls.Add(descriptionWrapper);
 
@@ -199,19 +211,10 @@ namespace AndroApp.Web_Forms
                     row.Cells.Add(info);
                     row.CssClass = "vulnerabilityTableRow";
 
-                    SizeF stringSize = new SizeF();
-                    Font stringFont = new Font("Arial", 16);
-                    
-                    //stringSize = Graphics.MeasureString(descriptionWrapper.InnerText, stringFont, 470);
-
-
-                    //viewAllBtn = new Button();
                     viewAllBtn.ID = "viewBtn" + i.ToString();
                     viewAllBtn.Text = "View All";
                     viewAllBtn.CssClass = "viewAllButtons";
                     viewAllBtn.Click += new EventHandler(viewAllDel);
-                    //viewAllBtn.Attributes.Add("OnClick", "viewAllDel");
-                    //viewAllBtn.Click+=  (sender2, e2) => viewAllDel(sender2, e2, viewAllBtn.ID, descriptionWrapper.ID);
                     viewAllBtnColumn.Controls.Add(viewAllBtn);
                     viewAllBtnColumn.CssClass = "extraInfo";
                     row.Cells.Add(viewAllBtnColumn);
@@ -224,7 +227,11 @@ namespace AndroApp.Web_Forms
         protected void viewAllDel(object sender, EventArgs e)
         {
             Button pressed = (Button)sender;
+            String idNumber = pressed.ID.Substring(7);
             pressed.Text = "pressed";
+            ((HashSet<int>)Session["expanded"]).Add(int.Parse(idNumber));
+            vulnerabilityReportTable.Rows.Clear();
+            buildVulnerabilitiesTable((HashSet<int>)Session["expanded"]);
         }
         protected void signupNav_Click(object sender, EventArgs e)
         {

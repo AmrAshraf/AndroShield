@@ -486,8 +486,8 @@ input.loginInput:focus::-webkit-input-placeholder {
 .homepageLink {
     margin-top: 15px;
 }
-/*.vulnerabilityReportTableRows, td, table td, vulnerabilityTableRow, .extraInfo {
-    height: 20px;
+.vulnerabilityReportTableRows, td, table td, vulnerabilityTableRow, .extraInfo {
+    /*height: 20px;
     overflow-wrap: break-word;
-    overflow: hidden;
-}*/
+    overflow: ;*/
+}
