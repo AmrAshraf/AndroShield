@@ -82,10 +82,10 @@
                 <ContentTemplate>
                     <asp:Table ID="vulnerabilityReportTable" runat="server">
                         <asp:TableHeaderRow CssClass="vulnerabilityReportHeader vulnerabilityTableRow">
-                            <asp:TableHeaderCell CssClass="cell rightBorder" Width="200px">Risk Level</asp:TableHeaderCell>
+                            <asp:TableHeaderCell CssClass="cell rightBorder" Width="120px">Risk Level</asp:TableHeaderCell>
                             <asp:TableHeaderCell CssClass="cell rightBorder" Width="200px">Category</asp:TableHeaderCell>
-                            <asp:TableHeaderCell CssClass="cell rightBorder" Width="200px">Type</asp:TableHeaderCell>
-                            <asp:TableHeaderCell CssClass="cell" Width="470px">Description</asp:TableHeaderCell>
+                            <asp:TableHeaderCell CssClass="cell rightBorder" Width="140px">Type</asp:TableHeaderCell>
+                            <asp:TableHeaderCell CssClass="cell" Width="530px">Description</asp:TableHeaderCell>
                             <asp:TableHeaderCell ID="extraHeader" CssClass="cell" visible="false"></asp:TableHeaderCell>
                         </asp:TableHeaderRow>
                     </asp:Table>

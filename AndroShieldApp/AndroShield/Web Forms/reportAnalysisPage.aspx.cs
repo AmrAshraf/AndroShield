@@ -189,14 +189,17 @@ namespace AndroApp.Web_Forms
 
                     descriptionWrapper = new System.Web.UI.HtmlControls.HtmlGenericControl("DIV");
                     descriptionWrapper.ID = "description" + "viewBtn" + i.ToString();
-                    descriptionWrapper.Style.Add(HtmlTextWriterStyle.Width, "470px");
-                    descriptionWrapper.Style.Add(HtmlTextWriterStyle.Height, "18px");
+                    descriptionWrapper.Style.Add(HtmlTextWriterStyle.Width, "531px");
+                    descriptionWrapper.Style.Add(HtmlTextWriterStyle.Height, "18px"); 
+                    descriptionWrapper.Attributes.Add("word-break", "clip");
+                    descriptionWrapper.Attributes.Add("CssClass", "descriptionWrapper");
 
                     descriptionWrapper.InnerText = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][3];
                     if(expanded!=null && expanded.Contains(i))
                     {
                         descriptionWrapper.Style.Remove(HtmlTextWriterStyle.Overflow);
                         descriptionWrapper.Style.Add(HtmlTextWriterStyle.Height, "auto");
+                        viewAllBtn.Visible = false;
                     }
                     else
                     {
@@ -230,7 +233,11 @@ namespace AndroApp.Web_Forms
             String idNumber = pressed.ID.Substring(7);
             pressed.Text = "pressed";
             ((HashSet<int>)Session["expanded"]).Add(int.Parse(idNumber));
-            vulnerabilityReportTable.Rows.Clear();
+            for(int i=1; i<vulnerabilityReportTable.Rows.Count; i++)
+            {
+                vulnerabilityReportTable.Rows.RemoveAt(i);
+                i--;
+            }
             buildVulnerabilitiesTable((HashSet<int>)Session["expanded"]);
         }
         protected void signupNav_Click(object sender, EventArgs e)
