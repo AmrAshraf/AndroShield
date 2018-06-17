@@ -15,14 +15,6 @@ namespace AndroApp.Web_Forms
 {
     public partial class reportAnalysisPage : System.Web.UI.Page
     {
-        //Button viewAllBtn;
-        //HtmlGenericControl descriptionWrapper;
-
-        //TableCell severity = new TableCell();
-        //TableCell category = new TableCell();
-        //TableCell type = new TableCell();
-        //TableCell info = new TableCell();
-        //TableCell extra = new TableCell();
         HashSet<int> expanded;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -199,7 +191,7 @@ namespace AndroApp.Web_Forms
                     {
                         descriptionWrapper.Style.Remove(HtmlTextWriterStyle.Overflow);
                         descriptionWrapper.Style.Add(HtmlTextWriterStyle.Height, "auto");
-                        viewAllBtn.Visible = false;
+                        viewAllBtn.Style.Add(HtmlTextWriterStyle.Visibility, "hidden");
                     }
                     else
                     {
@@ -214,14 +206,16 @@ namespace AndroApp.Web_Forms
                     row.Cells.Add(info);
                     row.CssClass = "vulnerabilityTableRow";
 
+                    if(descriptionWrapper.InnerText.Length<60)
+                        viewAllBtn.Visible = false;
+
                     viewAllBtn.ID = "viewBtn" + i.ToString();
                     viewAllBtn.Text = "View All";
-                    viewAllBtn.CssClass = "viewAllButtons";
+                    viewAllBtn.CssClass = "homeButtons";
                     viewAllBtn.Click += new EventHandler(viewAllDel);
                     viewAllBtnColumn.Controls.Add(viewAllBtn);
                     viewAllBtnColumn.CssClass = "extraInfo";
                     row.Cells.Add(viewAllBtnColumn);
-                    extraHeader.Visible = true;
 
                     vulnerabilityReportTable.Rows.Add(row);
                 }

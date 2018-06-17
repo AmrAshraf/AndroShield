@@ -86,7 +86,7 @@
                             <asp:TableHeaderCell CssClass="cell rightBorder" Width="200px">Category</asp:TableHeaderCell>
                             <asp:TableHeaderCell CssClass="cell rightBorder" Width="140px">Type</asp:TableHeaderCell>
                             <asp:TableHeaderCell CssClass="cell" Width="530px">Description</asp:TableHeaderCell>
-                            <asp:TableHeaderCell ID="extraHeader" CssClass="cell" visible="false"></asp:TableHeaderCell>
+                            <asp:TableHeaderCell ID="extraHeader" CssClass="cell" ></asp:TableHeaderCell>
                         </asp:TableHeaderRow>
                     </asp:Table>
                 </ContentTemplate>
