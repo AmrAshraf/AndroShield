@@ -76,7 +76,8 @@ namespace AndroApp.Web_Forms
 
                 TableCell date = new TableCell();
                 date.Controls.Add(link);
-                date.Text = ((string[])Session["reportInfo"])[3];
+                Session["splitDateArray"] = ((string[])Session["reportInfo"])[3].Split(' ');
+                date.Text = ((string[])Session["splitDateArray"])[0];
 
                 TableCell viewButton = new TableCell();
                 Button view = new Button();
