@@ -14,7 +14,7 @@
 
         <div class="wrapper lightBackground">
             <div class="loginContainer">
-                <asp:RequiredFieldValidator ID="emailRequiredValidator" runat="server" ErrorMessage="*" ControlToValidate="emailTxt" SetFocusOnError="true" ForeColor="Red" Display="Dynamic"></asp:RequiredFieldValidator><label for="uname" class="boldText lightText negativeMargin">Email</label><asp:RegularExpressionValidator ID="emailValidator" ControlToValidate="emailTxt" runat="server" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ErrorMessage="*Invalid" ForeColor="Red" SetFocusOnError="true" Display="Dynamic"></asp:RegularExpressionValidator><br />
+                <asp:RequiredFieldValidator ID="emailRequiredValidator" runat="server" ErrorMessage="*" ControlToValidate="emailTxt" SetFocusOnError="true" ForeColor="Red" Display="Dynamic"></asp:RequiredFieldValidator><label for="uname" class="boldText lightText negativeMargin">Email</label><asp:RegularExpressionValidator ID="emailValidator" CssClass="leftMargin" ControlToValidate="emailTxt" runat="server" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ErrorMessage="*Invalid" ForeColor="Red" SetFocusOnError="true" Display="Dynamic"></asp:RegularExpressionValidator><br />
                 <asp:TextBox ID="emailTxt" runat="server" TextMode="Email" placeholder="Enter Email" name="uname" class="loginInput"></asp:TextBox>
 
                 <asp:RequiredFieldValidator ID="passwordValidator" ControlToValidate="passwordTxt"  runat="server" ErrorMessage="*" ForeColor="Red" SetFocusOnError="true" Display="Dynamic"></asp:RequiredFieldValidator><label for="psw" class="boldText lightText negativeMargin">Password</label>
