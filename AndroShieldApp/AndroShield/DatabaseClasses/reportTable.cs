@@ -209,11 +209,12 @@ namespace AndroApp
                 return perms;
 
         }
-        public bool deleteRecord(int ID)
+        public static bool deleteRecord(int ID)
         {
             try
             {
-                databaseLayer.myConnection.Open();
+                if(databaseLayer.myConnection.State== ConnectionState.Closed)
+                    databaseLayer.myConnection.Open();
                 SqlCommand myCommand = new SqlCommand("Delete from report where reportID=@y", databaseLayer.myConnection);
                 SqlParameter secondParamater = new SqlParameter("@y", ID);
                 myCommand.Parameters.Add(secondParamater);
