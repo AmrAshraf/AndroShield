@@ -18,53 +18,63 @@
         </div>
         <p class="centeredClass " id="infoTitle">Apk Info</p>
         <div class="apkInfoContainer">
-            <asp:Table ID="apkInfoTable" runat="server">
-                <asp:TableRow CssClass="apkNameRow">
-                    <asp:TableHeaderCell CssClass="cellHeader">Apk Name</asp:TableHeaderCell>
-                    <asp:TableCell ID="apkNameValue"></asp:TableCell>
-                </asp:TableRow>
-                <asp:TableRow CssClass="apkVersionRow">
-                    <asp:TableHeaderCell CssClass="cellHeader">Apk Version</asp:TableHeaderCell>
-                    <asp:TableCell ID="apkVersionValue"></asp:TableCell>
-                </asp:TableRow>
-                <asp:TableRow CssClass="minSDKRow">
-                    <asp:TableHeaderCell CssClass="cellHeader">Minimum SDK</asp:TableHeaderCell>
-                    <asp:TableCell ID="minSdkValue"></asp:TableCell>
-                </asp:TableRow>
-                <asp:TableRow CssClass="targetSDKRow">
-                    <asp:TableHeaderCell CssClass="cellHeader">Target SDK</asp:TableHeaderCell>
-                    <asp:TableCell ID="targetSdkValue" Width="170px"></asp:TableCell>
-                </asp:TableRow>
-                <asp:TableRow CssClass="tetsOnlyRow">
-                    <asp:TableHeaderCell CssClass="cellHeader">Apk For Testing Only</asp:TableHeaderCell>
-                    <asp:TableCell ID="testOnlyValue" Width="170px"></asp:TableCell>
-                </asp:TableRow>
-                <asp:TableRow CssClass="packageNameRow">
-                    <asp:TableHeaderCell CssClass="cellHeader">Package Name</asp:TableHeaderCell>
-                    <asp:TableCell ID="packageNameValue" Width="170px"></asp:TableCell>
-                </asp:TableRow>
-                <asp:TableRow CssClass="versionNumberRow">
-                    <asp:TableHeaderCell CssClass="cellHeader">Version Number</asp:TableHeaderCell>
-                    <asp:TableCell ID="versionNoValue" Width="170px"></asp:TableCell>
-                </asp:TableRow>
-                <asp:TableRow CssClass="versionNameRow">
-                    <asp:TableHeaderCell CssClass="cellHeader">Version Name</asp:TableHeaderCell>
-                    <asp:TableCell ID="versionNameValue" Width="170px"></asp:TableCell>
-                    </asp:TableRow>
-                <asp:TableRow CssClass="debugModeRow">
-                    <asp:TableHeaderCell CssClass="cellHeader">Debug Mode Enabled</asp:TableHeaderCell>
-                    <asp:TableCell ID="debugValue" Width="170px"></asp:TableCell>
-                    </asp:TableRow>
-                <asp:TableRow CssClass="backupModeRow">
-                    <asp:TableHeaderCell CssClass="cellHeader">Backup Mode Enabled</asp:TableHeaderCell>
-                    <asp:TableCell ID="backupValue" Width="220px"></asp:TableCell>
-                </asp:TableRow>
-                <asp:TableRow CssClass="supportedArchiRow">
-                    <asp:TableHeaderCell CssClass="cellHeader">Supported Architectures</asp:TableHeaderCell>
-                    <asp:TableCell ID="supportedArchiValue" Width="220px"></asp:TableCell>
-                </asp:TableRow>
+            <asp:updatepanel runat="server">
+                <ContentTemplate>
 
-            </asp:Table>
+                    <asp:Table ID="apkInfoTable" runat="server">
+                        <asp:TableRow CssClass="apkNameRow">
+                            <asp:TableHeaderCell CssClass="cellHeader">Apk Risk</asp:TableHeaderCell>
+                            <asp:TableCell ID="apkRiskValue"></asp:TableCell>
+                        </asp:TableRow>
+
+                        <asp:TableRow CssClass="apkNameRow">
+                            <asp:TableHeaderCell CssClass="cellHeader">Apk Name</asp:TableHeaderCell>
+                            <asp:TableCell ID="apkNameValue"></asp:TableCell>
+                        </asp:TableRow>
+                        <asp:TableRow CssClass="apkVersionRow">
+                            <asp:TableHeaderCell CssClass="cellHeader">Apk Version</asp:TableHeaderCell>
+                            <asp:TableCell ID="apkVersionValue"></asp:TableCell>
+                        </asp:TableRow>
+                        <asp:TableRow CssClass="minSDKRow">
+                            <asp:TableHeaderCell CssClass="cellHeader">Minimum SDK</asp:TableHeaderCell>
+                            <asp:TableCell ID="minSdkValue"></asp:TableCell>
+                        </asp:TableRow>
+                        <asp:TableRow CssClass="targetSDKRow">
+                            <asp:TableHeaderCell CssClass="cellHeader">Target SDK</asp:TableHeaderCell>
+                            <asp:TableCell ID="targetSdkValue" Width="170px"></asp:TableCell>
+                        </asp:TableRow>
+                        <asp:TableRow CssClass="tetsOnlyRow">
+                            <asp:TableHeaderCell CssClass="cellHeader">Apk For Testing Only</asp:TableHeaderCell>
+                            <asp:TableCell ID="testOnlyValue" Width="170px"></asp:TableCell>
+                        </asp:TableRow>
+                        <asp:TableRow CssClass="packageNameRow">
+                            <asp:TableHeaderCell CssClass="cellHeader">Package Name</asp:TableHeaderCell>
+                            <asp:TableCell ID="packageNameValue" Width="170px"></asp:TableCell>
+                        </asp:TableRow>
+                        <asp:TableRow CssClass="versionNumberRow">
+                            <asp:TableHeaderCell CssClass="cellHeader">Version Number</asp:TableHeaderCell>
+                            <asp:TableCell ID="versionNoValue" Width="170px"></asp:TableCell>
+                        </asp:TableRow>
+                        <asp:TableRow CssClass="versionNameRow">
+                            <asp:TableHeaderCell CssClass="cellHeader">Version Name</asp:TableHeaderCell>
+                            <asp:TableCell ID="versionNameValue" Width="170px"></asp:TableCell>
+                            </asp:TableRow>
+                        <asp:TableRow CssClass="debugModeRow">
+                            <asp:TableHeaderCell CssClass="cellHeader">Debug Mode Enabled</asp:TableHeaderCell>
+                            <asp:TableCell ID="debugValue" Width="170px"></asp:TableCell>
+                            </asp:TableRow>
+                        <asp:TableRow CssClass="backupModeRow">
+                            <asp:TableHeaderCell CssClass="cellHeader">Backup Mode Enabled</asp:TableHeaderCell>
+                            <asp:TableCell ID="backupValue" Width="220px"></asp:TableCell>
+                        </asp:TableRow>
+                        <asp:TableRow CssClass="supportedArchiRow">
+                            <asp:TableHeaderCell CssClass="cellHeader">Supported Architectures</asp:TableHeaderCell>
+                            <asp:TableCell ID="supportedArchiValue" Width="220px"></asp:TableCell>
+                        </asp:TableRow>
+
+                    </asp:Table>
+                </ContentTemplate>
+            </asp:updatepanel>
         </div>
         <p class="centeredClass " id="permissionsTitle">Apk Permissions</p>
         <div class="permissionsContainer">

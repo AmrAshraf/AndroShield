@@ -90,26 +90,34 @@ namespace AndroApp.Web_Forms
             Session["apkInfoExtraction"] = new APKInfoExtractor(path);
             ((APKInfoExtractor)Session["apkInfoExtraction"]).startExtraction();
             Session["taintAnalysis"] = new TaintAnalyser(((APKInfoExtractor)Session["apkInfoExtraction"]).realApkPath);
-            //TODO: apkRiskLevel determination
-            Session["apk"] = apkInfoTable.insertAPKInfo(0, Session["apkName"].ToString(), ((APKInfoExtractor)Session["apkInfoExtraction"]).minSDKVersion, ((APKInfoExtractor)Session["apkInfoExtraction"]).targetSDKVersion, ((APKInfoExtractor)Session["apkInfoExtraction"]).packageName, ((APKInfoExtractor)Session["apkInfoExtraction"]).versionCode, ((APKInfoExtractor)Session["apkInfoExtraction"]).versionName, ((APKInfoExtractor)Session["apkInfoExtraction"]).testFlag, ((APKInfoExtractor)Session["apkInfoExtraction"]).debuggableFlag, ((APKInfoExtractor)Session["apkInfoExtraction"]).backupFlag, ((APKInfoExtractor)Session["apkInfoExtraction"]).supportedArchitectures.all, ((APKInfoExtractor)Session["apkInfoExtraction"]).supportedArchitectures.armeabi, ((APKInfoExtractor)Session["apkInfoExtraction"]).supportedArchitectures.armeabi_v7a, ((APKInfoExtractor)Session["apkInfoExtraction"]).supportedArchitectures.arm64_v8a, ((APKInfoExtractor)Session["apkInfoExtraction"]).supportedArchitectures.x86, ((APKInfoExtractor)Session["apkInfoExtraction"]).supportedArchitectures.x86_64, ((APKInfoExtractor)Session["apkInfoExtraction"]).supportedArchitectures.mips, ((APKInfoExtractor)Session["apkInfoExtraction"]).supportedArchitectures.mips64);
-            Session["apkReport"] = reportTable.addNewReport(DateTime.Now.Date, true, false, ((apkInfoTable)Session["apk"]).apkInfoID, ((userAccountTable)Session["user"]).ID);
             Session["apkVulnerabilities"] = new List<Vulnerability>();
             ((List<Vulnerability>)Session["apkVulnerabilities"]).AddRange(((APKInfoExtractor)Session["apkInfoExtraction"]).vulnerabilities);
             ((List<Vulnerability>)Session["apkVulnerabilities"]).AddRange(((TaintAnalyser)Session["taintAnalysis"]).vulnerabilities);
-            
+
+            //Total Apk Risk Level
+            Session["sumOfVulnerabilitiesRiskLevels"] = (0.0).ToString();
+            for (int i=0; i< ((List<Vulnerability>)Session["apkVulnerabilities"]).Count; i++)
+            {
+                Session["sumOfVulnerabilitiesRiskLevels"] = (float.Parse(Session["sumOfVulnerabilitiesRiskLevels"].ToString()) + float.Parse(((List<Vulnerability>)Session["apkVulnerabilities"])[i].severity.ToString())).ToString();
+            }
+            Session["apkRiskLevel"] = float.Parse(Session["sumOfVulnerabilitiesRiskLevels"].ToString()) / ((List<Vulnerability>)Session["apkVulnerabilities"]).Count;
+
+            Session["apk"] = apkInfoTable.insertAPKInfo(float.Parse(Session["apkRiskLevel"].ToString()), Session["apkName"].ToString(), ((APKInfoExtractor)Session["apkInfoExtraction"]).minSDKVersion, ((APKInfoExtractor)Session["apkInfoExtraction"]).targetSDKVersion, ((APKInfoExtractor)Session["apkInfoExtraction"]).packageName, ((APKInfoExtractor)Session["apkInfoExtraction"]).versionCode, ((APKInfoExtractor)Session["apkInfoExtraction"]).versionName, ((APKInfoExtractor)Session["apkInfoExtraction"]).testFlag, ((APKInfoExtractor)Session["apkInfoExtraction"]).debuggableFlag, ((APKInfoExtractor)Session["apkInfoExtraction"]).backupFlag, ((APKInfoExtractor)Session["apkInfoExtraction"]).supportedArchitectures.all, ((APKInfoExtractor)Session["apkInfoExtraction"]).supportedArchitectures.armeabi, ((APKInfoExtractor)Session["apkInfoExtraction"]).supportedArchitectures.armeabi_v7a, ((APKInfoExtractor)Session["apkInfoExtraction"]).supportedArchitectures.arm64_v8a, ((APKInfoExtractor)Session["apkInfoExtraction"]).supportedArchitectures.x86, ((APKInfoExtractor)Session["apkInfoExtraction"]).supportedArchitectures.x86_64, ((APKInfoExtractor)Session["apkInfoExtraction"]).supportedArchitectures.mips, ((APKInfoExtractor)Session["apkInfoExtraction"]).supportedArchitectures.mips64);
+            Session["apkReport"] = reportTable.addNewReport(DateTime.Now.Date, true, false, ((apkInfoTable)Session["apk"]).apkInfoID, ((userAccountTable)Session["user"]).ID);
+
             //Amr dynamic
             //dynamic analysis
-           /* if (((APKInfoExtractor)Session["apkInfoExtraction"]).supportedArchitectures.x86 && !((APKInfoExtractor)Session["apkInfoExtraction"]).testFlag)//able to run dynamic analysis
-            {
-                UserSimulator userSimulator = new UserSimulator();
-                userSimulator.startSimulation(((APKInfoExtractor)Session["apkInfoExtraction"]).realApkPath, 200);
-                HttpRequestsDetector httpRequestsDetector = new HttpRequestsDetector(userSimulator.getLogcatPath());
-                ((List<Vulnerability>)Session["apkVulnerabilities"]).Add(httpRequestsDetector.inSecureVulnerability);
-                IntentCrashesDetector intentCrashesDetector = new IntentCrashesDetector(userSimulator.getLogcatPath());
-                ((List<Vulnerability>)Session["apkVulnerabilities"]).AddRange(intentCrashesDetector.vulnerabilities);
+            /* if (((APKInfoExtractor)Session["apkInfoExtraction"]).supportedArchitectures.x86 && !((APKInfoExtractor)Session["apkInfoExtraction"]).testFlag)//able to run dynamic analysis
+             {
+                 UserSimulator userSimulator = new UserSimulator();
+                 userSimulator.startSimulation(((APKInfoExtractor)Session["apkInfoExtraction"]).realApkPath, 200);
+                 HttpRequestsDetector httpRequestsDetector = new HttpRequestsDetector(userSimulator.getLogcatPath());
+                 ((List<Vulnerability>)Session["apkVulnerabilities"]).Add(httpRequestsDetector.inSecureVulnerability);
+                 IntentCrashesDetector intentCrashesDetector = new IntentCrashesDetector(userSimulator.getLogcatPath());
+                 ((List<Vulnerability>)Session["apkVulnerabilities"]).AddRange(intentCrashesDetector.vulnerabilities);
 
-                userSimulator.removeOutputFolder();
-            }*/
+                 userSimulator.removeOutputFolder();
+             }*/
             //end of dynamic analysis
 
             for (int i=0; i< ((List<Vulnerability>)Session["apkVulnerabilities"]).Count; i++)
@@ -140,6 +148,9 @@ namespace AndroApp.Web_Forms
             Session.Contents.Remove("apk");
             Session.Contents.Remove("apkReport");
             Session.Contents.Remove("launchableActivities");
+            Session.Contents.Remove("sumOfVulnerabilitiesRiskLevels");
+            Session.Contents.Remove("apkRiskLevel");
+
         }
 
     }

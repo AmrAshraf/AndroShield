@@ -490,3 +490,12 @@ input.loginInput:focus::-webkit-input-placeholder {
     overflow-wrap: break-word;
     word-wrap: break-word;
 }
+.lowRiskColor {
+    background-color: #30F22A;
+}
+.mediumRiskColor {
+    background-color: #FFCA39;
+}
+.highRiskColor {
+    background-color: #F2302A;
+}

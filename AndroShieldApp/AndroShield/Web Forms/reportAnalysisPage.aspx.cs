@@ -44,6 +44,14 @@ namespace AndroApp.Web_Forms
                     apkNameValue.Text = Session["currentReportName"].ToString();
                     Session.Contents.Remove("currentReportName");
 
+                    apkRiskValue.Text = ((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).apkRiskLevel.ToString();
+                    if(((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).apkRiskLevel<=0.4)
+                        apkRiskValue.CssClass = "lowRiskColor";
+                    else if (((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).apkRiskLevel <= 0.6)
+                        apkRiskValue.CssClass = "mediumRiskColor";
+                    else
+                        apkRiskValue.CssClass = "highRiskColor";
+
                     apkVersionValue.Text = ((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).versionName;
                     minSdkValue.Text = ((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).minSDK;
                     targetSdkValue.Text = ((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).targetSDK;
