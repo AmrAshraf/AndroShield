@@ -28,6 +28,9 @@ namespace AndroApp.Web_Forms
         }
         protected void logout_Click(object sender, EventArgs e)
         {
+            Response.Cookies.Clear();
+            Request.Cookies.Clear();
+
             Session.Abandon();
             Response.Redirect("homePage.aspx");
         }

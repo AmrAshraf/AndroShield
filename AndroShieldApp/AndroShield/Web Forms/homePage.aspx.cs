@@ -18,6 +18,16 @@ namespace AndroApp
             {
                 Session.Timeout = 80;
                 androDatabase = new databaseLayer();
+
+                if (Request.UrlReferrer == null && Request.Cookies["androUsername"] != null && Request.Cookies["androPassword"]!=null)
+                {
+                    Session["tempUsername"] = Request.Cookies["androUsername"].Value;
+                    Session["password"] = Request.Cookies["androPassword"].Value;
+                    Session["userAccount"] = userAccountTable.userLogin(Request.Cookies["androUsername"].Value.ToString(), Request.Cookies["androPassword"].Value.ToString());
+                    userAccountTable test = (userAccountTable)Session["userAccount"];
+                    handleLogin();
+                }
+
             }
         }
         protected void btn_Click(object sender, EventArgs e)
@@ -28,23 +38,41 @@ namespace AndroApp
         {
             Session["tempUsername"] = emailTxt.Text.ToString();
             Session["password"] = passwordTxt.Text.ToString();
-
             Session["userAccount"] = userAccountTable.userLogin(Session["tempUsername"].ToString(), Session["password"].ToString());
+            handleLogin();
 
-            if(Session["userAccount"] != null)
+        }
+        protected void handleLogin()
+        {
+
+            if (Session["userAccount"] != null)
             {
-                Session["username"] = Session["tempUsername"];
+                Session["username"] = Session["tempUsername"].ToString();
                 Session["thirdPartyLogin"] = false;
-                Session.Contents.Remove("tempUsername");
+
+                if (rememberMeChck.Checked)
+                {
+                    Response.Cookies["androUsername"].Value = Session["username"].ToString();
+                    Response.Cookies["androPassword"].Value = Session["password"].ToString();
+
+                    Response.Cookies["androUsername"].Expires = DateTime.Now.AddDays(15);
+                    Response.Cookies["androPassword"].Expires = DateTime.Now.AddDays(15);
+                }
+
+                else
+                {
+                    Response.Cookies["androUsername"].Expires = DateTime.Now.AddDays(-1);
+                    Response.Cookies["androPassword"].Expires = DateTime.Now.AddDays(-1);
+                }
                 Response.Redirect("userHomePage.aspx");
             }
             else
             {
-                Session.Contents.Remove("tempUsername");
                 Response.Redirect("incorrectCredentialsPage.aspx");
             }
-        }
+            Session.Contents.Remove("tempUsername");
 
+        }
         protected void signupButton_Click(object sender, EventArgs e)
         {
             Response.Redirect("signUpPage.aspx");

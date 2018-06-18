@@ -20,7 +20,7 @@
                 <asp:RequiredFieldValidator ID="passwordValidator" ControlToValidate="passwordTxt"  runat="server" ErrorMessage="*" ForeColor="Red" SetFocusOnError="true" Display="Dynamic"></asp:RequiredFieldValidator><label for="psw" class="boldText lightText negativeMargin">Password</label>
                 <asp:TextBox ID="passwordTxt" runat="server" TextMode="Password" placeholder="Enter Password" name="psw" class="loginInput"></asp:TextBox>
                 <label class="lightText loginInput">
-                    <asp:CheckBox ID="CheckBox1" runat="server" checked="true"  name="remember"/>Remember me
+                    <asp:CheckBox ID="rememberMeChck" runat="server" checked="true"  name="remember"/>Remember me
                 </label><br />
 
                 <asp:Button UseSubmitBehavior="true" ID="loginBtn" runat="server" Text="Login" class="homeButtons lightText boldText" OnClick="Button1_Click" />
