@@ -9,72 +9,16 @@ namespace AndroApp.Web_Forms
 {
     public partial class user_sReportsPage : System.Web.UI.Page
     {
-        //List<KeyValuePair<int, string>> userReports;
         protected void Page_Load(object sender, EventArgs e)
         {
             if(!IsPostBack)
             {
                 userEmail.Text = Session["username"].ToString();
                 Session["userReports"]= userAccountTable.getReportsOfThisUser(Session["username"].ToString());
-                //userReports = new List<KeyValuePair<int, string>>();
-                //userReports = userAccountTable.getReportsOfThisUser(Session["username"].ToString());
                 Session["apkNames"] = new List<string>();
             }
 
-            //HyperLink link = new HyperLink();
-            //link.NavigateUrl = "~/Web Forms/reportAnalysisPage.aspx";
-            //for (int i=0; i< ((List<KeyValuePair<int, string>>)Session["userReports"]).Count; i++)
-            //{
-            //    TableRow row = new TableRow();
-            //    row.CssClass = "vulnerabilityReportTableRows";
-            //    row.Height=30;
-            //    Session["reportInfo"] = ((List<KeyValuePair<int, string>>)Session["userReports"])[i].Value.Split('#');
-            //    TableCell apkName = new TableCell();
-            //    apkName.Controls.Add(link);
-            //    apkName.Text = ((string[])Session["reportInfo"])[0];
-            //    ((List<string>)Session["apkNames"]).Add(((string[])Session["reportInfo"])[0]);
-
-            //    TableCell packageName = new TableCell();
-            //    packageName.Controls.Add(link);
-            //    packageName.Text = ((string[])Session["reportInfo"])[1];
-
-            //    TableCell versionCode = new TableCell();
-            //    versionCode.Controls.Add(link);
-            //    versionCode.Text = ((string[])Session["reportInfo"])[2];
-
-            //    TableCell date = new TableCell();
-            //    date.Controls.Add(link);
-            //    date.Text = ((string[])Session["reportInfo"])[3];
-
-            //    TableCell viewButton = new TableCell();
-            //    Button view = new Button();
-            //    view.Text = "View";
-            //    view.CssClass = "homeButtons";
-            //    view.ID = i.ToString();
-            //    view.Click += new EventHandler(viewReport);
-            //    viewButton.Controls.Add(view);
-
-            //    TableCell deleteButton = new TableCell();
-            //    Button delete = new Button();
-            //    delete.Text = "Delete";
-            //    delete.CssClass = "homeButtons";
-            //    delete.ID = "d" + i.ToString();
-            //    delete.Click += new EventHandler(deleteReport);
-            //    deleteButton.Controls.Add(delete);
-
-            //    row.Cells.Add(apkName);
-            //    row.Cells.Add(packageName);
-            //    row.Cells.Add(versionCode);
-            //    row.Cells.Add(date);
-            //    row.Cells.Add(viewButton);
-            //    row.Cells.Add(deleteButton);
-
-            //    allReportsTable.Rows.Add(row);
-
-
-                buildReportsTable();
-                //Session.Contents.Remove("reportInfo");
-            //}
+            buildReportsTable();
         }
         protected void signupNav_Click(object sender, EventArgs e)
         {
