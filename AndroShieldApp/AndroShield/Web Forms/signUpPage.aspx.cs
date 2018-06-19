@@ -23,11 +23,13 @@ namespace AndroApp.Web_Forms
             Session["userAccountCreated"] = userAccountTable.createUserAccount(Session["tempUsername"].ToString(), Session["tempPassword"].ToString(), Session["firstName"].ToString(), Session["lastName"].ToString(), (DateTime)Session["lastLogin"], -1);
             if ((bool)Session["userAccountCreated"])
             {
+                takenEmailLabel.Visible = false;
                 Session.Abandon();
                 Response.Redirect("homePage.aspx");
             }
             else
             {
+                takenEmailLabel.Visible = true;
                 //email already taken
             }
         }
