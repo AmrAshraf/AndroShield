@@ -17,12 +17,8 @@
                     <asp:Image class="folderImage" runat="server" ImageUrl="~/Images/opened-folder.png" width="160px" Height="160px"/>
                     <asp:FileUpload ID="apkUpload" name="apkUpload" runat="server" class="inputfile"/><br />
                 </div>
-                <%--<asp:Label ID="browseLbl" CssClass="homeButtons lightText boldText" AssociatedControlID="apkUpload" runat="server" Text="Browse"></asp:Label><br />--%>
-                <div class="twoColumns2">
-                    <asp:Button ID="uploadBtn" CssClass="homeButtons lightText boldText uploadBtn" runat="server" Text="Upload" OnClick="uploadBtn_Click"/><br />
-                </div>
-                <div class="twoColumns2">
-                    <asp:Button ID="analyzeBtn" CssClass="homeButtons lightText boldText uploadBtn" runat="server" Text="Analyze" Enabled="false" OnClick="analyzeBtn_Click"/>
+                <div class="container">
+                    <asp:Button ID="analyzeBtn" CssClass="homeButtons lightText boldText uploadBtn" runat="server" Text="Analyze" OnClick="analyzeBtn_Click"/>
                 </div>
             </div>
     </div>

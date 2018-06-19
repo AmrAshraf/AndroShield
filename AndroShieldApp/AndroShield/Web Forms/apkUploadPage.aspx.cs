@@ -72,11 +72,58 @@ namespace AndroApp.Web_Forms
                 }
                 Session.Contents.Remove("fileExtension");
                 Session.Contents.Remove("fileOK");
+
+                Session["apkName"] = Session["currentReportName"].ToString();
+                Session["apkPath"] = "C:\\GPTempDir\\" + Session["apkName"].ToString();
+
+                analyzeApk(Session["apkPath"].ToString());
+                Session.Contents.Remove("apkPath");
+                Response.Redirect("reportAnalysisPage.aspx");
+
             }
         }
 
         protected void analyzeBtn_Click(object sender, EventArgs e)
         {
+            if (IsPostBack)
+            {
+                Session["fileOK"] = false;
+                if (apkUpload.HasFile)
+                {
+                    Session["fileExtension"] =
+                        System.IO.Path.GetExtension(apkUpload.FileName).ToLower();
+                    String[] allowedExtensions =
+                        {".apk"};
+                    for (int i = 0; i < allowedExtensions.Length; i++)
+                    {
+                        if (Session["fileExtension"].ToString() == allowedExtensions[i])
+                        {
+                            Session["fileOK"] = true;
+                        }
+                    }
+                }
+
+                if ((bool)Session["fileOK"])
+                {
+                    try
+                    {
+                        apkUpload.PostedFile.SaveAs("C:\\GPTempDir\\"
+                            + apkUpload.FileName);
+                        analyzeBtn.Enabled = true;
+                        Session["currentReportName"] = apkUpload.FileName;
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                }
+                else
+                {
+                    //uploadBtn.Text = "Cannot accept files of this type.";
+                }
+                Session.Contents.Remove("fileExtension");
+                Session.Contents.Remove("fileOK");
+            }
+
             Session["apkName"] = Session["currentReportName"].ToString();
             Session["apkPath"] = "C:\\GPTempDir\\" + Session["apkName"].ToString();
 

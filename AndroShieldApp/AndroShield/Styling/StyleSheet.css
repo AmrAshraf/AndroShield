@@ -416,11 +416,15 @@ input.loginInput:focus::-webkit-input-placeholder {
     min-height: 70px;
     position: relative
 }
-.uploadBtn, .analyzeBtn {
-    position: absolute;
-    left: 63px;
+.analyzeBtn {
+    margin: 0 auto;
     display: block;
-    margin: 0px auto;
+}
+.container {
+    position: relative;
+    height: 50px;
+    width: 150px;
+    left: 170px;
 }
 .folderImage {
     position: absolute;
@@ -438,7 +442,7 @@ input.loginInput:focus::-webkit-input-placeholder {
     align-self: center;
     align-content: center;
     clear: both;
-    height: 200px;
+    height: 230px;
 }
 /*.inputfile {
     width: 0.1px;
