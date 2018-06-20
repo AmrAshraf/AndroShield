@@ -17,10 +17,13 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>44365</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
-    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <IISExpressSSLPort>44309</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>
+    </IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>
+    </IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>
+    </IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -100,15 +103,17 @@
     <Content Include="Images\AndroShieldlogo.png" />
     <Content Include="Images\AndroShieldword.jpg" />
     <Content Include="Images\ASU Logo.png" />
+    <Content Include="Images\bulbMarkCropped.jpg" />
     <Content Include="Images\button_facebook_login.png" />
     <Content Include="Images\checkMark.png" />
     <Content Include="Images\exclamationMark.png" />
     <Content Include="Images\fb_logo.jpg" />
     <Content Include="Images\opened-folder.png" />
+    <Content Include="Images\processing.png" />
+    <Content Include="Images\questionMark.png" />
     <Content Include="Images\SWE Logo.png" />
+    <Content Include="Images\Vector-hand-in-hand-assistant-concept2014611_burned.png" />
     <Content Include="Images\x-symbol.png" />
-    <Content Include="JavaScript\JavaScript.js" />
-    <Content Include="JavaScript\jquery.js" />
     <Content Include="masterPage.Master" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">

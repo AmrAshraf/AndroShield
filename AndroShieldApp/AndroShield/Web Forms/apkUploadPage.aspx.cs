@@ -18,6 +18,9 @@ namespace AndroApp.Web_Forms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            processingIndicator.Visible = true;
+            processingIcon.Visible = true;
+
             if (!IsPostBack)
             {
                 userEmail.Text = Session["username"].ToString();
@@ -35,6 +38,8 @@ namespace AndroApp.Web_Forms
 
         protected void analyzeBtn_Click(object sender, EventArgs e)
         {
+            extensionInvalidLabel.Visible = false;
+
             if (IsPostBack)
             {
                 Session["fileOK"] = false;
@@ -80,6 +85,9 @@ namespace AndroApp.Web_Forms
 
             Session["apkName"] = Session["currentReportName"].ToString();
             Session["apkPath"] = "C:\\GPTempDir\\" + Session["apkName"].ToString();
+
+            processingIndicator.Visible = true;
+            processingIcon.Visible = true;
 
             analyzeApk(Session["apkPath"].ToString());
             Session.Contents.Remove("apkPath");

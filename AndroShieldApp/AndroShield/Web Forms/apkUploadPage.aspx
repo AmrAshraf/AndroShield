@@ -13,16 +13,18 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="pageContent" runat="server">
     <asp:ScriptManager runat="server"></asp:ScriptManager>
             <div class="wrapper lightBackground"> 
-                    <div class="apkUploadContainer  darkBackground lightText">
-                        <div class="inputContainer">
-                            <asp:Image class="folderImage" runat="server" ImageUrl="~/Images/opened-folder.png" width="160px" Height="160px"/>
-                            <asp:FileUpload ID="apkUpload" name="apkUpload" runat="server" class="inputfile"/><br />
+                        <div class="apkUploadContainer  darkBackground lightText">
+                            <div class="inputContainer">
+                                <asp:Image class="folderImage" runat="server" ImageUrl="~/Images/opened-folder.png" width="160px" Height="160px"/>
+                                <asp:FileUpload ID="apkUpload" name="apkUpload" runat="server" class="inputfile"/><br />
+                            </div>
+                            <asp:Label runat="server" class="extensionInvalidLabelClass" ID="extensionInvalidLabel" Visible="false" ForeColor="WhiteSmoke">This file extension is invalid</asp:Label>
+                            <div class="container">
+                                <asp:Button ID="analyzeBtn" CssClass="homeButtons lightText boldText uploadBtn" runat="server" Text="Analyze" OnClick="analyzeBtn_Click"/>
+                            </div>
+                            <asp:Label runat="server" ID="processingIndicator" CssClass="analysisNotification" Visible="false">We're Analyzing the Apk...</asp:Label>
+                            <asp:Image runat="server" ID="processingIcon" CssClass="processingIcon" DescriptionUrl="~/Images/processing.png" Visible="false" />
                         </div>
-                        <asp:Label runat="server" class="extensionInvalidLabelClass" ID="extensionInvalidLabel" Visible="false" ForeColor="WhiteSmoke">This file extension is invalid</asp:Label>
-                        <div class="container">
-                            <asp:Button ID="analyzeBtn" CssClass="homeButtons lightText boldText uploadBtn" runat="server" Text="Analyze" OnClick="analyzeBtn_Click"/>
-                        </div>
-                    </div>
            </div>
 
 </asp:Content>

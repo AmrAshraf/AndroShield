@@ -521,3 +521,44 @@ input.loginInput:focus::-webkit-input-placeholder {
 .leftMargin {
     margin-left: 25px;
 }
+.analysisNotification {
+    align-self: center;
+    font-size: x-large;
+    font-weight: bolder;
+    color: #1b2021;
+    display: block;
+}
+.processingIcon {
+    display: block;
+    width: 30px;
+
+}
+.smallIconAboutUs {
+    width: 125px;
+    display: inline;
+    float: left;
+}
+/*.aboutUsP {
+    display: inline;
+    float: left;
+}*/
+/*.miniContainer div {
+    display:inline;
+    height: 125px;
+    float: left;
+
+}*/
+.miniContainer {
+    width: 800px;
+    overflow: hidden; /* will contain if #first is longer than #second */
+}
+
+.colum1 {
+    width: 150px;
+    float: left; /* add this */
+}
+
+.column2 {
+    width: 600px;
+    overflow: hidden; /* if you don't want #second to wrap below #first */
+}
