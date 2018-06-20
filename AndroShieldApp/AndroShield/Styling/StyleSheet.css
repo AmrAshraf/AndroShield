@@ -551,6 +551,7 @@ input.loginInput:focus::-webkit-input-placeholder {
 .miniContainer {
     width: 800px;
     overflow: hidden; /* will contain if #first is longer than #second */
+    margin-bottom: 10px;
 }
 
 .colum1 {
@@ -561,4 +562,7 @@ input.loginInput:focus::-webkit-input-placeholder {
 .column2 {
     width: 600px;
     overflow: hidden; /* if you don't want #second to wrap below #first */
+}
+h2 {
+    margin-top: 5px;
 }

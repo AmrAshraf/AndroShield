@@ -12,7 +12,7 @@
             <div class="miniContainer ">
                 <hr>
                 <div class="colum1">
-                    <img class="smallIconAboutUs" src="../Images/questionMark.png" />
+                    <img class="smallIconAboutUs" src="../Images/GreenPeopleIcon.png" />
                 </div>
                 <div class="column2">
                     <p class="aboutUsP lightText boldText">We are four ambitious students who attended Software Engineering at Faculty of Computer And Information Science Ain Shams University 2014-2018.</p>
@@ -22,7 +22,7 @@
             <div class="miniContainer">
                 <hr>
                 <div class="colum1">
-                    <img class="smallIconAboutUs" src="../Images/bulbMarkCropped.jpg" />
+                    <img class="smallIconAboutUs" src="../Images/questionMark.png" />
                 </div>
                 <div class="column2">
                     <p class="aboutUsP lightText boldText"> Our main goal with this project is to ensure the security of the users using Android applications and to facilitate the testing process for the Apps before release.</p>

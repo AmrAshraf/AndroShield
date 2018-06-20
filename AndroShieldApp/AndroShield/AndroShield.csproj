@@ -108,6 +108,7 @@
     <Content Include="Images\checkMark.png" />
     <Content Include="Images\exclamationMark.png" />
     <Content Include="Images\fb_logo.jpg" />
+    <Content Include="Images\GreenPeopleIcon.png" />
     <Content Include="Images\opened-folder.png" />
     <Content Include="Images\processing.png" />
     <Content Include="Images\questionMark.png" />
