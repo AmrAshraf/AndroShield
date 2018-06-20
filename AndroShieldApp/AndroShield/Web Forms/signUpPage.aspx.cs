@@ -30,7 +30,6 @@ namespace AndroApp.Web_Forms
             else
             {
                 takenEmailLabel.Visible = true;
-                //email already taken
             }
         }
 

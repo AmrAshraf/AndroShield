@@ -442,7 +442,22 @@ input.loginInput:focus::-webkit-input-placeholder {
     align-self: center;
     align-content: center;
     clear: both;
-    height: 230px;
+    height: 190px;
+}
+.vulnerabilityTable {
+    margin-bottom: 70px;
+}
+.allReportsTableClass {
+    margin-top: 55px;
+    margin-bottom: 55px;
+}
+.allReportsTableButtons {
+    margin-bottom:1px;
+}
+.extensionInvalidLabelClass {
+    display: block;
+    text-align: center;
+    margin-bottom: 11px;
 }
 /*.inputfile {
     width: 0.1px;

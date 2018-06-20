@@ -90,7 +90,7 @@
         <div class="vulnerabilityReportContainer">
             <asp:UpdatePanel runat="server">
                 <ContentTemplate>
-                    <asp:Table ID="vulnerabilityReportTable" runat="server">
+                    <asp:Table CssClass="vulnerabilityTable" ID="vulnerabilityReportTable" runat="server">
                         <asp:TableHeaderRow CssClass="vulnerabilityReportHeader vulnerabilityTableRow">
                             <asp:TableHeaderCell CssClass="cell rightBorder" Width="120px">Risk Level</asp:TableHeaderCell>
                             <asp:TableHeaderCell CssClass="cell rightBorder" Width="200px">Category</asp:TableHeaderCell>

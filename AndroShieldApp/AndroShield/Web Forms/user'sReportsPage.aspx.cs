@@ -82,7 +82,7 @@ namespace AndroApp.Web_Forms
                 TableCell viewButton = new TableCell();
                 Button view = new Button();
                 view.Text = "View";
-                view.CssClass = "homeButtons";
+                view.CssClass = "homeButtons allReportsTableButtons";
                 view.ID = i.ToString();
                 view.Click += new EventHandler(viewReport);
                 viewButton.Controls.Add(view);
@@ -90,7 +90,7 @@ namespace AndroApp.Web_Forms
                 TableCell deleteButton = new TableCell();
                 Button delete = new Button();
                 delete.Text = "Delete";
-                delete.CssClass = "homeButtons";
+                delete.CssClass = "homeButtons allReportsTableButtons";
                 delete.ID = "d" + i.ToString();
                 delete.Click += new EventHandler(deleteReport);
                 deleteButton.Controls.Add(delete);
