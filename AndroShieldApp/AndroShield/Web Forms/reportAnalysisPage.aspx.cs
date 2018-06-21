@@ -194,8 +194,7 @@ namespace AndroApp.Web_Forms
                     descriptionWrapper.Attributes.Add("word-break", "clip");
                     descriptionWrapper.Attributes.Add("CssClass", "descriptionWrapper");
 
-                    //descriptionWrapper.InnerHtml = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][3];
-                    descriptionWrapper.InnerHtml = "test<br/>test<br/>";
+                    descriptionWrapper.InnerHtml = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][3];
 
                     if (expanded!=null && expanded.Contains(i))
                     {
