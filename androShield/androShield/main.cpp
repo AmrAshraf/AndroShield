@@ -10,6 +10,7 @@
 #include"UserSimulator.h"
 #include"HttpRequestsDetector.h"
 #include"Emulator.h"
+#include "RIFLConverter.h"
 using namespace System;
 using namespace DynamicAnalysis;
 using namespace std;
@@ -201,5 +202,8 @@ int main(int argc, const char * argv[])
 	//Emulator^ emulator = gcnew DynamicAnalysis::Emulator();
 	//emulator->runEmulator(nullptr);
 	//emulator->killEmulator();
+
+	//RIFLConverter^ r = gcnew RIFLConverter("D:\\gp\\flowDroid 31-5-2018\\FlowDroid-develop\\FlowDroid-develop\\SourcesAndSinksModifiedFinal.txt", true);
+	//TaintAnalysis::TaintAnalyser ^ t = gcnew TaintAnalysis::TaintAnalyser("D:\\gp\\apks\\final\\com.gombosdev.ampere.apk");
 	return 0;
 }

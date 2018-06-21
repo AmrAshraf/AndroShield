@@ -27,16 +27,17 @@ namespace TaintAnalysis {
 			String^ extraInfo = gcnew String("");
 			
 				XmlNode^ sink = sink_sources[0];//sink
-				extraInfo += "Sink : " + sink->Attributes["Statement"]->Value + Environment::NewLine
-					+ "Category : " + sink->Attributes["Category"]->Value + Environment::NewLine;
+				extraInfo +=  "Sink API Category : " + sink->Attributes["Category"]->Value + Environment::NewLine;
 			
 				XmlNodeList^ sources = sink_sources[1]->ChildNodes;
-			
+				extraInfo += "Number of Source APIs : " + sources->Count.ToString() + Environment::NewLine;
+				extraInfo += "Sink API : " + sink->Attributes["Statement"]->Value + Environment::NewLine + Environment::NewLine;
+					
 			for (int j = 0;j < sources->Count; ++j)//sources
 			{
 					XmlNode^ source = sources[j];
-					extraInfo += "Source : " + source->Attributes["Statement"]->Value + Environment::NewLine
-						+ "Category : " + source->Attributes["Category"]->Value + Environment::NewLine;
+					extraInfo += "Source API : " + source->Attributes["Statement"]->Value + Environment::NewLine
+						+ "Source API Category : " + source->Attributes["Category"]->Value + Environment::NewLine;
 				
 			}
 			//create new vulnerability
