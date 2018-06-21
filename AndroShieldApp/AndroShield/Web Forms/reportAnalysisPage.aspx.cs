@@ -194,8 +194,10 @@ namespace AndroApp.Web_Forms
                     descriptionWrapper.Attributes.Add("word-break", "clip");
                     descriptionWrapper.Attributes.Add("CssClass", "descriptionWrapper");
 
-                    descriptionWrapper.InnerText = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][3];
-                    if(expanded!=null && expanded.Contains(i))
+                    //descriptionWrapper.InnerHtml = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][3];
+                    descriptionWrapper.InnerHtml = "test<br/>test<br/>";
+
+                    if (expanded!=null && expanded.Contains(i))
                     {
                         descriptionWrapper.Style.Remove(HtmlTextWriterStyle.Overflow);
                         descriptionWrapper.Style.Add(HtmlTextWriterStyle.Height, "auto");
@@ -214,7 +216,7 @@ namespace AndroApp.Web_Forms
                     row.Cells.Add(info);
                     row.CssClass = "vulnerabilityTableRow";
 
-                    if(descriptionWrapper.InnerText.Length<60)
+                    if(descriptionWrapper.InnerHtml.Length<60 && !descriptionWrapper.InnerHtml.Contains("<br/>"))
                         viewAllBtn.Visible = false;
 
                     viewAllBtn.ID = "viewBtn" + i.ToString();
