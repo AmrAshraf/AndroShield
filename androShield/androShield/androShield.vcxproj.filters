@@ -32,6 +32,9 @@
     <ClCompile Include="Emulator.cpp">
       <Filter>sources</Filter>
     </ClCompile>
+    <ClCompile Include="RIFLConverter.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ApkInfo.h">
@@ -65,6 +68,9 @@
       <Filter>headers</Filter>
     </ClInclude>
     <ClInclude Include="Emulator.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="RIFLConverter.h">
       <Filter>headers</Filter>
     </ClInclude>
   </ItemGroup>

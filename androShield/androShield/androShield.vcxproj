@@ -126,6 +126,7 @@
     <ClCompile Include="HttpRequestsDetector.cpp" />
     <ClCompile Include="IntentCrashesDetector.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="RIFLConverter.cpp" />
     <ClCompile Include="ShellExecutionProcess.cpp" />
     <ClCompile Include="TaintAnalyser.cpp" />
     <ClCompile Include="UserSimulator.cpp" />
@@ -137,6 +138,7 @@
     <ClInclude Include="Emulator.h" />
     <ClInclude Include="HttpRequestsDetector.h" />
     <ClInclude Include="IntentCrashesDetector.h" />
+    <ClInclude Include="RIFLConverter.h" />
     <ClInclude Include="ShellExecutionProcess.h" />
     <ClInclude Include="TaintAnalyser.h" />
     <ClInclude Include="UserSimulator.h" />
