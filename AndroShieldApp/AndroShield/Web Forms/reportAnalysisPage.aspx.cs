@@ -44,7 +44,7 @@ namespace AndroApp.Web_Forms
                     apkNameValue.Text = Session["currentReportName"].ToString();
                     Session.Contents.Remove("currentReportName");
 
-                    apkRiskValue.Text = ((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).apkRiskLevel.ToString();
+                    apkRiskValue.Text = (((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).apkRiskLevel*100).ToString()+"%";
                     if(((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).apkRiskLevel<=0.4)
                         apkRiskValue.CssClass = "lowRiskColor";
                     else if (((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).apkRiskLevel <= 0.6)
@@ -182,7 +182,7 @@ namespace AndroApp.Web_Forms
                     descriptionWrapper= new HtmlGenericControl();
 
                     Session["severityValue"] = (float)Math.Round(double.Parse(((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][0]), 2);
-                    severity.Text = Session["severityValue"].ToString();
+                    severity.Text = (float.Parse(Session["severityValue"].ToString())*100).ToString()+"%";
                     Session.Contents.Remove("severityValue");
                     category.Text = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][1];
                     type.Text = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][2];
