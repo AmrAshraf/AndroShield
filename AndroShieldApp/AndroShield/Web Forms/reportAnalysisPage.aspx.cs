@@ -47,7 +47,7 @@ namespace AndroApp.Web_Forms
                     apkRiskValue.Text = (((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).apkRiskLevel*100).ToString()+"%";
                     if(((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).apkRiskLevel<=0.4)
                         apkRiskValue.CssClass = "lowRiskColor";
-                    else if (((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).apkRiskLevel <= 0.6)
+                    else if (((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).apkRiskLevel <= 0.7)
                         apkRiskValue.CssClass = "mediumRiskColor";
                     else
                         apkRiskValue.CssClass = "highRiskColor";
@@ -195,7 +195,6 @@ namespace AndroApp.Web_Forms
 
                     Session["tempString"] = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][3].Replace("\r\n", "<br/>");
                     descriptionWrapper.InnerHtml = Session["tempString"].ToString();
-                    descriptionWrapper.InnerHtml = "nnnnnnnnnnnn<br/>nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn";
 
                     Session.Remove("tempString");
 
