@@ -24,13 +24,11 @@ namespace AndroApp.Web_Forms
             Session["tempPassword"] = passwordTxt.Text.ToString();
             Session["userAccount"] = userAccountTable.userLogin(Session["tempUsername"].ToString(), Session["tempPassword"].ToString());
 
-            Session.Contents.Remove("tempUsername");
-            Session.Contents.Remove("tempPassword");
 
             if (Session["userAccount"] != null)
             {
-                Session["username"] = Session["tempUsername"];
-                Session["password"] = Session["tempPassword"];
+                Session["username"] = Session["tempUsername"].ToString();
+                Session["password"] = Session["tempPassword"].ToString();
 
                 Response.Redirect("userHomePage.aspx");
             }
@@ -38,6 +36,8 @@ namespace AndroApp.Web_Forms
             {
                 Response.Redirect("incorrectCredentialsPage.aspx");
             }
+            Session.Contents.Remove("tempUsername");
+            Session.Contents.Remove("tempPassword");
         }
 
         protected void signupNav_Click(object sender, EventArgs e)
