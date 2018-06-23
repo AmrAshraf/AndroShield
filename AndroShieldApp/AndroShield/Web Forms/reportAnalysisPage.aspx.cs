@@ -32,17 +32,18 @@ namespace AndroApp.Web_Forms
                 if ((Session["reportID"]!=null || Session["reportID"].ToString()!=""))
                 {
                     Session["analysisReport"] = reportTable.findReportByID(int.Parse(Session["reportID"].ToString()));
-
+                    reportTable test = ((reportTable)Session["analysisReport"]);
+                    int x = int.Parse(Session["reportID"].ToString());
                     Session["AnalysisReportApk"] = ((reportTable)Session["analysisReport"]).getApkOfThisReport();
                     Session["AnalysisReportPermissions"] = ((reportTable)Session["analysisReport"]).getPermissionsofThisReport();
                     Session["AnalysisReportVulnerabilities"] = ((reportTable)Session["analysisReport"]).getVulnerabilitiesOfThisReport();
 
-                    Session.Contents.Remove("analysisReport");
-                }
-                if (Session["currentReportName"] != null && Session["currentReportName"].ToString() != "")
-                {
+                    //Session.Contents.Remove("analysisReport");
+                //}
+                //if (Session["currentReportName"] != null && Session["currentReportName"].ToString() != "")
+                //{
                     apkNameValue.Text = Session["currentReportName"].ToString();
-                    Session.Contents.Remove("currentReportName");
+                    //Session.Contents.Remove("currentReportName");
 
                     apkRiskValue.Text = (((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).apkRiskLevel*100).ToString()+"%";
                     if(((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).apkRiskLevel<=0.4)

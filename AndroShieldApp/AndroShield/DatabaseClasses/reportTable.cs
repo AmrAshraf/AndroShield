@@ -59,7 +59,8 @@ namespace AndroApp
         {
             try
             {
-                databaseLayer.myConnection.Open();
+                if(databaseLayer.myConnection.State==ConnectionState.Closed)
+                    databaseLayer.myConnection.Open();
                 SqlCommand myCommand = new SqlCommand("Select * from  report where reportID=@y", databaseLayer.myConnection);
                 SqlParameter secondParamater = new SqlParameter("@y", reportID);
                 myCommand.Parameters.Add(secondParamater);
