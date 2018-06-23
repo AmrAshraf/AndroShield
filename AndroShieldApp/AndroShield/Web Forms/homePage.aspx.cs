@@ -63,6 +63,10 @@ namespace AndroApp
                 {
                     Response.Cookies["androUsername"].Expires = DateTime.Now.AddDays(-1);
                     Response.Cookies["androPassword"].Expires = DateTime.Now.AddDays(-1);
+
+                    Response.Cookies.Clear();
+                    Request.Cookies.Clear();
+
                 }
                 Response.Redirect("userHomePage.aspx");
             }
@@ -93,6 +97,12 @@ namespace AndroApp
         {
             emailRequiredValidator.Enabled = false;
             passwordValidator.Enabled = false;
+
+            Response.Cookies["androUsername"].Expires = DateTime.Now.AddDays(-1);
+            Response.Cookies["androPassword"].Expires = DateTime.Now.AddDays(-1);
+            Response.Cookies.Clear();
+            Request.Cookies.Clear();
+
         }
-}
+    }
 }

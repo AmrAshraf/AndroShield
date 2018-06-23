@@ -30,7 +30,6 @@
                     <asp:Button ID="signupButton" CausesValidation="false" runat="server" Text="Sign Up"  class="homeButtons lightText boldText" OnClick="signupButton_Click" />
                 </div>
             </div>
-
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>
