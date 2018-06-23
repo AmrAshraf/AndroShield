@@ -23,6 +23,9 @@ namespace AndroApp.Web_Forms
 
             if (!IsPostBack)
             {
+                if (Request.UrlReferrer == null)
+                    Response.Redirect("homePage.aspx");
+
                 userEmail.Text = Session["username"].ToString();
             }
         }

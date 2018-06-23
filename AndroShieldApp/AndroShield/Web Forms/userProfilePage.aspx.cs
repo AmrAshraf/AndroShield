@@ -11,6 +11,9 @@ namespace AndroApp.Web_Forms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Request.UrlReferrer == null)
+                Response.Redirect("homePage.aspx");
+
             Session["currentUser"] = userAccountTable.findUserByEmail(Session["username"].ToString());
             userEmail.Text = Session["username"].ToString();
             Session["oldPassword"] = ((userAccountTable)Session["currentUser"]).password;

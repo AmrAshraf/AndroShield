@@ -11,6 +11,11 @@ namespace AndroApp.Web_Forms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if(!IsPostBack)
+            {
+                if (Request.UrlReferrer == null)
+                    Response.Redirect("homePage.aspx");
+            }
         }
 
         protected void signUpButton_Click(object sender, EventArgs e)

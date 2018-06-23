@@ -14,7 +14,11 @@ namespace AndroApp.Web_Forms
         {
             if (!IsPostBack)
             {
+                if(Request.UrlReferrer == null)
+                    Response.Redirect("homePage.aspx");
+
                 androDatabase = new databaseLayer();
+
             }
         }
 
