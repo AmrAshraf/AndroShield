@@ -53,6 +53,16 @@ namespace AndroApp.Web_Forms
             }
             Session["userReports"] = userAccountTable.getReportsOfThisUser(Session["username"].ToString());
 
+            if(((List<KeyValuePair<int, string>>)Session["userReports"]).Count==0)
+            {
+                emptyReportsHeading.Visible = true;
+                allReportsTable.Visible = false;
+            }
+            else
+            {
+                emptyReportsHeading.Visible = false;
+                allReportsTable.Visible = true;
+            }
             HyperLink link = new HyperLink();
             link.NavigateUrl = "~/Web Forms/reportAnalysisPage.aspx";
             for (int i = 0; i < ((List<KeyValuePair<int, string>>)Session["userReports"]).Count; i++)

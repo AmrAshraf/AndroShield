@@ -566,3 +566,10 @@ input.loginInput:focus::-webkit-input-placeholder {
 h2 {
     margin-top: 5px;
 }
+.noReportsLabel {
+    display: block;
+    text-align: center;
+    font-size: xx-large;
+    font-weight: bolder;
+    margin: 68px;
+}

@@ -40,6 +40,15 @@ namespace AndroApp.Web_Forms {
         protected global::System.Web.UI.WebControls.HyperLink userEmail;
         
         /// <summary>
+        /// emptyReportsHeading control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label emptyReportsHeading;
+        
+        /// <summary>
         /// allReportsTable control.
         /// </summary>
         /// <remarks>

@@ -12,6 +12,7 @@
         <div id="allReportContainer" class="wrapper lightBackground">
             <asp:UpdatePanel runat="server">
                 <ContentTemplate>
+                    <asp:Label runat="server" cssClass="noReportsLabel" ID="emptyReportsHeading">No reports yet.</asp:Label>
                     <asp:Table ID="allReportsTable" CssClass="allReportsTableClass" runat="server">
                         <asp:TableHeaderRow CssClass="vulnerabilityReportHeader">
                             <asp:TableHeaderCell CssClass="cell rightBorder" Width="200px">Apk Name</asp:TableHeaderCell>
