@@ -119,12 +119,15 @@ namespace AndroApp.Web_Forms
 
             //Amr dynamic
             //dynamic analysis
-            /* if (((APKInfoExtractor)Session["apkInfoExtraction"]).supportedArchitectures.x86 && !((APKInfoExtractor)Session["apkInfoExtraction"]).testFlag)//able to run dynamic analysis
+           /*  if (((APKInfoExtractor)Session["apkInfoExtraction"]).supportedArchitectures.x86 && !((APKInfoExtractor)Session["apkInfoExtraction"]).testFlag)//able to run dynamic analysis
              {
                  UserSimulator userSimulator = new UserSimulator();
                  userSimulator.startSimulation(((APKInfoExtractor)Session["apkInfoExtraction"]).realApkPath, 200);
-                 HttpRequestsDetector httpRequestsDetector = new HttpRequestsDetector(userSimulator.getLogcatPath());
-                 ((List<Vulnerability>)Session["apkVulnerabilities"]).Add(httpRequestsDetector.inSecureVulnerability);
+
+                 HttpRequestsDetector httpRequestsDetector = new HttpRequestsDetector(userSimulator.getHttplinesPath());
+                if (httpRequestsDetector.inSecureVulnerability.category != null)
+                    ((List<Vulnerability>)Session["apkVulnerabilities"]).Add(httpRequestsDetector.inSecureVulnerability);
+                
                  IntentCrashesDetector intentCrashesDetector = new IntentCrashesDetector(userSimulator.getLogcatPath());
                  ((List<Vulnerability>)Session["apkVulnerabilities"]).AddRange(intentCrashesDetector.vulnerabilities);
 
