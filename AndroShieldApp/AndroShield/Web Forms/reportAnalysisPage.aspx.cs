@@ -184,8 +184,24 @@ namespace AndroApp.Web_Forms
                     viewAllBtn= new Button();
                     descriptionWrapper= new HtmlGenericControl();
 
-                    Session["severityValue"] = (float)Math.Round(double.Parse(((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][0]), 2);
-                    severity.Text = (float.Parse(Session["severityValue"].ToString())*100).ToString()+"%";
+                    if((float)Math.Round(double.Parse(((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][0]),2)<=0.4)
+                    {
+                        severity.Text = "Low";
+                        severity.CssClass = "lowRiskColor";
+                    }
+                    else if((float)Math.Round(double.Parse(((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][0]), 2) <= 0.7)
+                    {
+                        severity.Text = "Medium";
+                        severity.CssClass = "mediumRiskColor";
+                    }
+                    else
+                    {
+                        severity.Text = "High";
+                        severity.CssClass = "highRiskColor";
+
+                    }
+                    //Session["severityValue"] = (float)Math.Round(double.Parse(((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][0]), 2);
+                    //severity.Text = (float.Parse(Session["severityValue"].ToString())*100).ToString()+"%";
                     Session.Contents.Remove("severityValue");
                     category.Text = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][1];
                     type.Text = ((List<List<string>>)Session["AnalysisReportVulnerabilities"])[i][2];
