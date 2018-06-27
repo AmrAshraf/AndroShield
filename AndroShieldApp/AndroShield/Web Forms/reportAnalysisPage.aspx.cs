@@ -40,11 +40,20 @@ namespace AndroApp.Web_Forms
 
                     apkRiskValue.Text = (((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).apkRiskLevel*100).ToString()+"%";
                     if(((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).apkRiskLevel<=0.4)
+                    {
+                        apkRiskValue.Text = "Low Risk";
                         apkRiskValue.CssClass = "lowRiskColor";
+                    }
                     else if (((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).apkRiskLevel <= 0.7)
+                    {
+                        apkRiskValue.Text = "Medium Risk";
                         apkRiskValue.CssClass = "mediumRiskColor";
+                    }
                     else
+                    {
+                        apkRiskValue.Text = "High Risk";
                         apkRiskValue.CssClass = "highRiskColor";
+                    }
 
                     apkVersionValue.Text = ((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).versionName;
                     minSdkValue.Text = ((AndroApp.apkInfoTable)Session["AnalysisReportApk"]).minSDK;
