@@ -1,4 +1,0 @@
-1-clone the project and put the folders in C:\
-2-C:\Python27\Scripts\pip.exe install -e <path of the inner directory>
-3-pip uninstall androguard
-4-pip install androguard==3.0.1

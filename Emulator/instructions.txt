@@ -1,9 +1,0 @@
-The complete version of this directory will be copyed to c:\
-
-1-add user/system variable ANDROID_AVD_HOME -> C:\androidEmulator\.android\avd;
-2-add/append user/system variable Path-> C:\androidEmulator\platform-tools;
-3-make sure you restart the CMD windows to reflect the changes
-4-to run the emulator :   C:\androidEmulator\emulator\emulator.exe -avd Nexus_4_API_26_NoSkin
-
-
-*to kill the emulator : adb emu kill
