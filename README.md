@@ -28,7 +28,7 @@ This reposatory hosts the AndroShield ASP.NET web application. AndroShield gener
 - Android Studio Emulator X86 Oreo version
 
 ## Installation Steps
-[Installation steps](./Installation Instructions/instructions.txt) make it easier to deal with this project. We are trying to make these steps compatible with different versions of development environment.
+[Installation steps](./Installation%20Instructions/instructions.txt) make it easier to deal with this project. We are trying to make these steps compatible with different versions of development environment.
 
 ## Contributors
 - Amr Amin
