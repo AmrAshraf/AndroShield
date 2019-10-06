@@ -31,6 +31,8 @@ AndroShield generates reports of detected vulnerabilities in Android application
 ## Installation Steps
 Check [Installation steps](installation_instructions.md) for how to use the project. We are trying to make these steps compatible with different versions of development environment.
 
+Check [Sample Apps](SampleApps/APKs.md) for APKs to use for testing.
+
 ## Contributors
 - Amr Amin
 - Nouran Abdeen
