@@ -1,8 +1,9 @@
 # AndroShield - Automated Vulnerability Detection of Android Applications Web Application
-This reposatory hosts the AndroShield ASP.NET web application. AndroShield generates reports of detected vulnerabilities in Android applications using static and dynamic analysis methodologies.
+This reposatory hosts the AndroShield ASP.NET web application. 
+AndroShield generates reports of detected vulnerabilities in Android applications using static and dynamic analysis methodologies.
 
 ## Features
-1. Extract general information about the submitted APK
+1. Extract general information about the APK
    - Package Name
    - Version Name
    - Version Code
@@ -28,7 +29,7 @@ This reposatory hosts the AndroShield ASP.NET web application. AndroShield gener
 - Android Studio Emulator X86 Oreo version
 
 ## Installation Steps
-[Installation steps](https://github.com/AmrAshraf/AndroShield/tree/AndroShieldWebApp/Installation%20Instructions) make it easier to deal with this project. We are trying to make these steps compatible with different versions of development environment.
+Check [Installation steps](installation_instructions.md) for how to use the project. We are trying to make these steps compatible with different versions of development environment.
 
 ## Contributors
 - Amr Amin
