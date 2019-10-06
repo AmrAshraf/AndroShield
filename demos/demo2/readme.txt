@@ -1,1 +1,0 @@
-You could download the APKs from: https://drive.google.com/drive/folders/16jbAAlPQ8rkfViR3kl036Q-HjarIB572?usp=sharing
