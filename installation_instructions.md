@@ -14,7 +14,7 @@ Download or Clone the project and extract the folders under your desired folder 
 3. AndroidEmulator installation instructions:
     - Download Android x86 API 26 Emulator from Android Studio
     - Copy your Android Emulator files into the following folders (create those folders):
-      - C:\AndroidEmulator\.android\avd	    # Found in C:\Users\<USER>\.android\avd
+      - C:\AndroidEmulator\\.android\avd	    # Found in C:\Users\<USER>\\.android\avd
       - C:\AndroidEmulator\emulator		       # Found in C:\Users\<USER>\AppData\Local\Android\Sdk\emulator
       - C:\AndroidEmulator\platforms	       # Found in C:\Users\<USER>\AppData\Local\Android\Sdk\platforms
       - C:\AndroidEmulator\platform-tools	    # Found in C:\Users\<USER>\AppData\Local\Android\Sdk\platform-tools
