@@ -2,6 +2,7 @@
 This reposatory hosts the AndroShield ASP.NET web application. 
 AndroShield generates reports of detected vulnerabilities in Android applications using static and dynamic analysis methodologies.
 
+Full paper could be found [here](https://www.mdpi.com/2078-2489/10/10/326).
 ## Features
 1. Extract general information about the APK
    - Package Name
