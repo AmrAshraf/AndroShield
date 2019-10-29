@@ -47,7 +47,16 @@ Contributions are always welcome. AndroShield is an open source project that we 
 
 ## Citation
 ````
-TBU
+@article{amin2019androshield,
+  title={AndroShield: Automated Android Applications Vulnerability Detection, a Hybrid Static and Dynamic Analysis Approach},
+  author={Amin, Amr and Eldessouki, Amgad and Magdy, Menna Tullah and Abdeen, Nouran and Hindy, Hanan and Hegazy, Islam},
+  journal={Information},
+  volume={10},
+  number={10},
+  pages={326},
+  year={2019},
+  publisher={Multidisciplinary Digital Publishing Institute}
+}
 ````
 ## License
 AndroShield is licensed under the LGPL license, see LICENSE file. This basically means that you are free to use the tool (even in commercial, closed-source projects). However, if you extend or modify the tool, you must make your changes available under the LGPL as well. This ensures that we can continue to improve the tool as a community effort.
