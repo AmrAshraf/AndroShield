@@ -23,7 +23,7 @@ Full paper could be found [here](https://www.mdpi.com/2078-2489/10/10/326).
 5. Store the reports in users' account.
 
 ## Developing Environment
-- Visual Studio 2015/2017
+- Visual Studio (Tested on 2015/2017)
 - SQL Server/Visual Studio SQL Server
 - JDK 8
 - python 2.7
