@@ -28,6 +28,7 @@ Full paper could be found [here](https://www.mdpi.com/2078-2489/10/10/326).
 - SQL Server/Visual Studio SQL Server
 - JDK 8
 - python 2.7 and pip
+- git (For sh commands)
 - Android Studio Emulator X86 Oreo version
 
 ## Installation Steps
