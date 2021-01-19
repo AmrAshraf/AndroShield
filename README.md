@@ -24,6 +24,7 @@ Full paper could be found [here](https://www.mdpi.com/2078-2489/10/10/326).
 
 ## Developing Environment
 - Visual Studio (Tested on 2015/2017)
+- IIS x64
 - SQL Server/Visual Studio SQL Server
 - JDK 8
 - python 2.7
