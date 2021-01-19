@@ -27,7 +27,7 @@ Full paper could be found [here](https://www.mdpi.com/2078-2489/10/10/326).
 - IIS x64
 - SQL Server/Visual Studio SQL Server
 - JDK 8
-- python 2.7
+- python 2.7 and pip
 - Android Studio Emulator X86 Oreo version
 
 ## Installation Steps
