@@ -2,6 +2,9 @@
 
 Download or Clone the project and extract the folders under C:\
 
+Note:
+Make sure you can access "pip" and "sh" from command line.
+
 1. Droidbot installation instructions:
    - Perform the following CMD instructions:
       -	pip install -e C:\droidbot-master      
