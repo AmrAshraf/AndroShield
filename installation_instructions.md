@@ -1,6 +1,6 @@
 # Installation Process
 
-Download or Clone the project and extract the folders under your desired folder (i.e. C:\)
+Download or Clone the project and extract the folders under C:\
 
 1. Droidbot installation instructions:
    - Perform the following CMD instructions:
@@ -23,7 +23,7 @@ Download or Clone the project and extract the folders under your desired folder 
     - Add user/system variable ANDROID_AVD_HOME -> C:\AndroidEmulator\.android\avd;
     - Add/Append user/system variable Path-> C:\AndroidEmulator\platform-tools;
     - Make sure you restart the working CMD window to reflect the changes
-    - To run the emulator:  
+    - To run the emulator (replace "Nexus_4_API_26_NoSkin" with yours):  
          - C:\AndroidEmulator\emulator\emulator.exe -avd Nexus_4_API_26_NoSkin
     - To kill the emulator (After Finishing):
          - adb emu kill
