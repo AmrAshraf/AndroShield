@@ -5,6 +5,7 @@ Download or Clone the project and extract the folders under C:\
 Note:
  - Make sure you can access "pip" and "sh" from command line.
  - If you are using sql server (not the local of visual studio), you have to change the "connectionString" of "SqlConnection" in "databaseLayer.cs" file.
+ - Give project files read, write and execute permissions or run visual studio as administrator.
 
 1. Droidbot installation instructions:
    - Perform the following CMD instructions:
